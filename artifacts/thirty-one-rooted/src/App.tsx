@@ -78,6 +78,7 @@ function Home() {
           <button className="md:hidden absolute top-8 right-6 text-fg/50 hover:text-rust transition-colors" onClick={closeMenu} aria-label="Close menu"><X size={24} strokeWidth={1.5} /></button>
           
           <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('retreats')} data-testid="button-nav-retreats">Retreats</button>
+          <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('about')} data-testid="button-nav-about">About</button>
           <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('tools')} data-testid="button-nav-tools">Tools</button>
           <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('daily')} data-testid="button-nav-daily">The Daily</button>
           <button className="mt-8 md:mt-0 text-[11px] md:text-[10px] tracking-[0.2em] uppercase bg-moss text-bg px-8 md:px-6 py-4 md:py-3 hover:bg-fg transition-colors" onClick={() => openBooking()} data-testid="button-nav-book">Book a space</button>
@@ -118,8 +119,8 @@ function Home() {
           </div>
         </section>
 
-        {/* Story Section */}
-        <section className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto">
+        {/* About Section */}
+        <section id="about" className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto border-b border-line">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
             <div className="md:col-span-5 relative order-2 md:order-1">
               <div className="founder-photo-composition">
@@ -131,6 +132,39 @@ function Home() {
                   </figcaption>
                 </figure>
                 <img src={mealArt} alt="" aria-hidden="true" className="founder-sketch" />
+              </div>
+            </div>
+            <div className="md:col-span-7 order-1 md:order-2">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">About 31 and Rooted</span>
+              <h2 className="text-4xl md:text-[3.25rem] leading-[1.05] text-fg mb-8">
+                A digital home for <em className="italic text-rust">becoming.</em>
+              </h2>
+              <p className="text-[16px] leading-relaxed text-fg/70 mb-8 max-w-xl">
+                31 and Rooted exists for the woman carrying a lot, asking honest questions, and learning to live from what is true. It is a place to come back to yourself, come closer to Christ, and take the next faithful step in ordinary life.
+              </p>
+              <div className="about-details grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-xl">
+                <div>
+                  <span>Our vision</span>
+                  <p>To help women grow steady in truth, rooted in Christ, and present to the life they are actually living.</p>
+                </div>
+                <div>
+                  <span>What you will find here</span>
+                  <p>Retreats, guided reflections, honest conversations, and practical resources for the in-between seasons.</p>
+                </div>
+              </div>
+              <p className="mt-10 font-serif italic text-2xl md:text-3xl text-moss max-w-xl">
+                “You do not have to rush this. Formation is a way of walking.”
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Formation Section */}
+        <section className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
+            <div className="md:col-span-5 relative order-2 md:order-1">
+              <div className="aspect-[3/4] w-full max-w-sm mx-auto story-line-art">
+                <img src={mealArt} alt="" aria-hidden="true" className="w-full h-full object-contain brand-line-art" />
               </div>
             </div>
             <div className="md:col-span-7 order-1 md:order-2">
