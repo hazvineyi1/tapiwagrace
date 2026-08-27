@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "31&Rooted"
+description = "A digital home for 31&Rooted Retreats and 31 Sisters Daily, bringing Christ-centered retreats, practical formation tools, interactive self-reflection guides, meal packaging, teaching, and booking into one welcoming experience for women seeking to grow and flourish."
+version = "1.0.0"
+id = "artifacts/thirty-one-rooted"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23413
+
+[services.development]
+run = "pnpm --filter @workspace/thirty-one-rooted run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/thirty-one-rooted", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/thirty-one-rooted/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23413"
+BASE_PATH = "/"
