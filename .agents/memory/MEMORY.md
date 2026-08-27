@@ -1,3 +1,4 @@
 - [Meal program positioning](meal-program-positioning.md) — describe the offering as paid meal support/delivery and never invent an unspecified price.
 - [Recurring line-art direction](line-art-direction.md) — use monochrome portraits as restrained editorial accents throughout 31&Rooted.
 - [Founder portrait treatment](founder-portrait-treatment.md) — present founder photography as a calm, aligned editorial pairing, never a busy collage.
+- [Sisters Daily color direction](sisters-daily-color-direction.md) — keep 31 Sisters Daily copy in the original warm brown and terracotta palette.

@@ -220,6 +220,33 @@
     line-height: 1.6;
   }
 
+  .daily-writing {
+    --daily-ink: #3C2D27;
+    --daily-muted: rgba(60, 45, 39, 0.7);
+    --daily-accent: #B7472E;
+    --daily-border: #D5C5AF;
+    color: var(--daily-ink);
+  }
+
+  .daily-writing .text-fg,
+  .daily-writing [class~="text-fg/70"],
+  .daily-writing [class~="text-fg/50"] {
+    color: var(--daily-muted);
+  }
+
+  .daily-writing .text-fg {
+    color: var(--daily-ink);
+  }
+
+  .daily-writing .text-rust,
+  .daily-writing [class~="hover:text-rust"]:hover {
+    color: var(--daily-accent);
+  }
+
+  .daily-writing .border-line {
+    border-color: var(--daily-border);
+  }
+
   .meal-photo-composition {
     position: relative;
     width: min(100%, 390px);

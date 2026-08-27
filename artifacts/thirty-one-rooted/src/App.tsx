@@ -20,7 +20,7 @@ const queryClient = new QueryClient();
 const experiences = [
   { title: 'The Retreat', text: 'A held, unhurried space for women to rest, listen, and let God tend to what has been carrying them.', action: 'Explore the next retreat' },
   { title: 'The Conversations', text: 'Warm, honest sessions for the seasons that need a little more room: marriage, motherhood, identity, calling.', action: 'Book a conversation' },
-  { title: 'The Daily', text: 'Small practices and biblical truth for ordinary Tuesdays. A way to keep becoming in the middle of real life.', action: 'Visit 31 Sisters Daily' },
+  { title: '31 Sisters Daily', text: 'Small practices and biblical truth for ordinary Tuesdays. A way to keep becoming in the middle of real life.', action: 'Visit 31 Sisters Daily' },
 ];
 
 function Home() {
@@ -81,7 +81,7 @@ function Home() {
           <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('retreats')} data-testid="button-nav-retreats">Retreats</button>
           <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('about')} data-testid="button-nav-about">About</button>
           <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('tools')} data-testid="button-nav-tools">Tools</button>
-          <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('daily')} data-testid="button-nav-daily">The Daily</button>
+          <button className="text-[13px] md:text-[10px] tracking-[0.2em] uppercase text-fg hover:text-rust transition-colors" onClick={() => scrollTo('daily')} data-testid="button-nav-daily">31 Sisters Daily</button>
           <button className="mt-8 md:mt-0 text-[11px] md:text-[10px] tracking-[0.2em] uppercase bg-moss text-bg px-8 md:px-6 py-4 md:py-3 hover:bg-fg transition-colors" onClick={() => openBooking()} data-testid="button-nav-book">Book a space</button>
         </nav>
         
@@ -255,8 +255,8 @@ function Home() {
             </div>
           </div>
           
-          <div className="md:col-span-7 order-1 md:order-2">
-             <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">The Daily · a paid meal support program</span>
+          <div className="md:col-span-7 order-1 md:order-2 daily-writing">
+             <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">31 Sisters Daily · a paid meal support program</span>
             <h2 className="text-4xl md:text-[3.25rem] leading-[1.05] text-fg mb-8">
               A little nourishment for the <em className="italic text-rust">middle</em> of the day.
             </h2>
@@ -284,7 +284,7 @@ function Home() {
             
             <div className="flex flex-wrap items-center gap-8">
                <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => openBooking('Meal Packaging')} data-testid="button-meal-enquire">Enquire about the meal program</button>
-              <a className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-fg/70 border-b border-line pb-1 hover:border-rust hover:text-rust transition-colors" href="https://www.tiktok.com/@31sistersdaily" target="_blank" rel="noreferrer" data-testid="link-tiktok-daily">Follow 31 Sisters <ArrowUpRight size={14} /></a>
+              <a className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-fg/70 border-b border-line pb-1 hover:border-rust hover:text-rust transition-colors" href="https://www.tiktok.com/@31sistersdaily" target="_blank" rel="noreferrer" data-testid="link-tiktok-daily">Follow 31 Sisters Daily <ArrowUpRight size={14} /></a>
             </div>
           </div>
         </section>
