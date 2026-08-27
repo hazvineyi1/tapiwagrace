@@ -37,6 +37,7 @@ const reflectionQuestions = [
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [bookingService, setBookingService] = useState('Retreat');
   const [toast, setToast] = useState('');
   const [reflectionStep, setReflectionStep] = useState(0);
   const [reflectionChoice, setReflectionChoice] = useState('');
@@ -48,7 +49,10 @@ function Home() {
     window.setTimeout(() => setToast(''), 3200);
   };
 
-  const openBooking = () => setBookingOpen(true);
+  const openBooking = (service = 'Retreat') => {
+    setBookingOpen(true);
+    setBookingService(service);
+  };
   const closeMenu = () => setMenuOpen(false);
 
   const scrollTo = (id: string) => {
@@ -99,7 +103,7 @@ function Home() {
           <button className="nav-link" onClick={() => scrollTo('tools')} data-testid="button-nav-tools">Tools</button>
           <button className="nav-link" onClick={() => scrollTo('reflection')} data-testid="button-nav-reflection">Reflection</button>
           <button className="nav-link" onClick={() => scrollTo('daily')} data-testid="button-nav-daily">The Daily</button>
-          <button className="button-primary" onClick={openBooking} data-testid="button-nav-book">Book a space <ArrowUpRight size={14} /></button>
+          <button className="button-primary" onClick={() => openBooking()} data-testid="button-nav-book">Book a space <ArrowUpRight size={14} /></button>
         </nav>
         <button className="menu-button" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation" data-testid="button-menu">
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -157,7 +161,7 @@ function Home() {
               <span className="eyebrow">Choose your doorway</span>
               <h2>Start where<br />you <em>are.</em></h2>
               <p>Some seasons call for a room. Some call for a page. Some call for a conversation. There is no right order.</p>
-              <button className="button-quiet" onClick={openBooking} data-testid="button-experience-book">See retreat dates & pricing <CalendarDays size={15} /></button>
+              <button className="button-quiet" onClick={() => openBooking()} data-testid="button-experience-book">See retreat dates & pricing <CalendarDays size={15} /></button>
             </div>
             <div className="experience-list">
               {experiences.map((experience, index) => (
@@ -234,18 +238,23 @@ function Home() {
           <div className="meal-layout">
             <div className="meal-mark">31<br /><span style={{ fontSize: 17 }}>sisters<br />daily</span></div>
             <div className="meal-content">
-              <span className="eyebrow">The Daily · delivered with care</span>
+              <span className="eyebrow">The Daily · a paid creative service</span>
               <h2>A little nourishment for the <em>middle</em> of the day.</h2>
-              <p>31 Sisters Daily is a practice of returning: to Scripture, to honest language, to the woman God is forming you to be. Teaching, reflections, conversations, and social content for the table you are already sitting at.</p>
+              <p>Meal Packaging is how 31 Sisters Daily helps a message take its next shape. We turn teachings, retreat insights, conversations, and practical frameworks into clear, nourishing content packages that can meet people across social, print, email, or community spaces.</p>
+              <div className="meal-service-meta" data-testid="text-meal-packaging-value">
+                <span>Bespoke service</span>
+                <strong>Quote on request</strong>
+              </div>
               <div className="meal-reveal">
                 <div className="meal-question">
-                  <span>What does “meal packaging” mean here?</span>
+                  <span>What can a meal packaging project include?</span>
                   <button onClick={() => setMealOpen((open) => !open)} aria-label="Toggle meal packaging details" data-testid="button-meal-details">{mealOpen ? <ChevronDown size={20} /> : <ArrowDownIcon />}</button>
                 </div>
-                {mealOpen && <p className="meal-answer">We package nourishing ideas so they can travel: a teaching turned into a short social post, a retreat insight turned into a printable prompt, a hard conversation shaped into language you can actually use around your table.</p>}
+                {mealOpen && <p className="meal-answer">Together, we scope the message, audience, channels, and pace. A package might include a teaching distilled into a set of social posts, a retreat insight shaped into a printable prompt, conversation notes turned into an email sequence, or a framework prepared for a community gathering. Each enquiry is shaped around the work you already have and the people you want to serve.</p>}
               </div>
               <div className="hero-actions">
-                <a className="button-primary" href="https://www.tiktok.com/@31sistersdaily" target="_blank" rel="noreferrer" data-testid="link-tiktok-daily">Follow 31 Sisters Daily <ArrowUpRight size={15} /></a>
+                <button className="button-primary" onClick={() => openBooking('Meal Packaging')} data-testid="button-meal-enquire">Enquire about meal packaging <ArrowUpRight size={15} /></button>
+                <a className="button-quiet" href="https://www.tiktok.com/@31sistersdaily" target="_blank" rel="noreferrer" data-testid="link-tiktok-daily">Follow 31 Sisters Daily <ArrowUpRight size={15} /></a>
                 <a className="button-quiet" href="https://www.tiktok.com/@31androoted" target="_blank" rel="noreferrer" data-testid="link-tiktok-rooted">Follow the retreat story</a>
               </div>
             </div>
@@ -280,11 +289,11 @@ function Home() {
         <div className="footer-bottom">
           <span>31 & Rooted · 31 Sisters Daily</span>
           <span>Rooted. Becoming. Flourishing.</span>
-          <button onClick={openBooking} style={{ color: 'var(--sand)', background: 'transparent', border: 0, padding: 0, font: 'inherit' }} data-testid="button-footer-book">Book a retreat or conversation</button>
+          <button onClick={() => openBooking()} style={{ color: 'var(--sand)', background: 'transparent', border: 0, padding: 0, font: 'inherit' }} data-testid="button-footer-book">Book a retreat or conversation</button>
         </div>
       </footer>
 
-      {bookingOpen && <BookingModal onClose={() => setBookingOpen(false)} onNotify={notify} />}
+      {bookingOpen && <BookingModal initialKind={bookingService} onClose={() => setBookingOpen(false)} onNotify={notify} />}
       {toast && <div className="toast-note" role="status" data-testid="status-toast">{toast}</div>}
     </div>
   );
@@ -294,9 +303,9 @@ function ArrowDownIcon() {
   return <ChevronDown size={20} />;
 }
 
-function BookingModal({ onClose, onNotify }: { onClose: () => void; onNotify: (message: string) => void }) {
+function BookingModal({ initialKind, onClose, onNotify }: { initialKind: string; onClose: () => void; onNotify: (message: string) => void }) {
   const [step, setStep] = useState(1);
-  const [kind, setKind] = useState('Retreat');
+  const [kind, setKind] = useState(initialKind);
   const [date, setDate] = useState('Saturday, 14 March 2026');
   const [time, setTime] = useState('10:30 AM');
   const [name, setName] = useState('');
@@ -325,7 +334,7 @@ function BookingModal({ onClose, onNotify }: { onClose: () => void; onNotify: (m
         <div className="modal-top">
           <div>
             <span className="eyebrow">Make room for this</span>
-            <h2 id="booking-title">{complete ? 'Your place is held.' : 'Book a space'}</h2>
+            <h2 id="booking-title">{complete ? (kind === 'Meal Packaging' ? 'Your enquiry is on its way.' : 'Your place is held.') : (kind === 'Meal Packaging' ? 'Enquire about the service' : 'Book a space')}</h2>
           </div>
           <button className="modal-close" onClick={onClose} aria-label="Close booking" data-testid="button-booking-close"><X size={21} /></button>
         </div>
@@ -339,13 +348,14 @@ function BookingModal({ onClose, onNotify }: { onClose: () => void; onNotify: (m
                 <select value={kind} onChange={(event) => setKind(event.target.value)} data-testid="select-booking-kind">
                   <option value="Retreat">Retreat · $295</option>
                   <option value="Conversation">Conversation · $95</option>
+                  <option value="Meal Packaging">Meal Packaging · bespoke quote</option>
                 </select>
               </label>
               <div className="booking-price-row">
-                <span>Includes a confirmation, preparation guide, and a space held with care.</span>
-                <strong>{kind === 'Retreat' ? '$295' : '$95'}</strong>
+                <span>{kind === 'Meal Packaging' ? 'A considered scope shaped around your message, audience, channels, and pace.' : 'Includes a confirmation, preparation guide, and a space held with care.'}</span>
+                <strong>{kind === 'Retreat' ? '$295' : kind === 'Conversation' ? '$95' : 'Bespoke quote'}</strong>
               </div>
-              <p className="booking-note">The retreat is a held space for deeper formation. A conversation is a focused one-to-one starting point for the season you are in.</p>
+              <p className="booking-note">{kind === 'Meal Packaging' ? 'Share a little about what you are carrying and what you hope to make clearer. We will reply with thoughtful next steps and a quote shaped to the project.' : 'The retreat is a held space for deeper formation. A conversation is a focused one-to-one starting point for the season you are in.'}</p>
             </div>}
             {step === 2 && <div className="booking-form">
               <label>Choose a date
@@ -370,18 +380,18 @@ function BookingModal({ onClose, onNotify }: { onClose: () => void; onNotify: (m
                   <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" data-testid="input-booking-email" />
                 </label>
               </div>
-              <p className="booking-note"><strong>{kind}</strong> · {date} · {time}<br />We&apos;ll send a warm confirmation and the details you need next.</p>
+              <p className="booking-note"><strong>{kind}</strong> · {date} · {time}<br />{kind === 'Meal Packaging' ? 'We will use this as a starting point for your service enquiry.' : 'We&apos;ll send a warm confirmation and the details you need next.'}</p>
             </div>}
             <div className="booking-footer">
               {step > 1 ? <button className="button-quiet" onClick={() => setStep((current) => current - 1)} data-testid="button-booking-back"><ChevronLeft size={15} /> Back</button> : <span />}
-              <button className="button-primary" onClick={proceed} data-testid="button-booking-next">{step === 3 ? 'Hold my place' : 'Continue'} <ArrowRight size={15} /></button>
+              <button className="button-primary" onClick={proceed} data-testid="button-booking-next">{step === 3 ? (kind === 'Meal Packaging' ? 'Send enquiry' : 'Hold my place') : 'Continue'} <ArrowRight size={15} /></button>
             </div>
           </>
         ) : (
           <div className="success-state">
             <div className="success-icon"><Check size={26} /></div>
-            <h3>{name.split(' ')[0] || 'Your'} next step is held.</h3>
-            <p className="booking-note" style={{ margin: '18px auto 26px', maxWidth: 360 }}>Look for a confirmation at {email}. Until then, let the question stay with you: what are you making room for?</p>
+            <h3>{kind === 'Meal Packaging' ? 'We will be in touch.' : `${name.split(' ')[0] || 'Your'} next step is held.`}</h3>
+            <p className="booking-note" style={{ margin: '18px auto 26px', maxWidth: 360 }}>{kind === 'Meal Packaging' ? `Look for a reply at ${email}. We will follow up with the next thoughtful question for your project.` : `Look for a confirmation at ${email}. Until then, let the question stay with you: what are you making room for?`}</p>
             <button className="button-primary" onClick={onClose} data-testid="button-booking-done">Return home <ArrowRight size={15} /></button>
           </div>
         )}
