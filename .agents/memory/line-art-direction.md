@@ -7,4 +7,4 @@ Use monochrome, hand-drawn portraits of women as subtle tonal line work througho
 
 **Why:** Framed, rotated, or white-backed treatments read as pasted-on stickers and undermine the professional minimal direction.
 
-**How to apply:** Remove source-image backgrounds and social-media chrome. Avoid cards, borders, rotation, and high contrast. The hero begins with a separate edge-only fragment in the outer margin, never behind copy. Reveal more mid-page and the full image later without competing with content.
+**How to apply:** Remove source-image backgrounds and social-media chrome. Avoid cards, borders, rotation, and high contrast. Keep the hero and Sisters Daily banner clear of line-art so their writing and imagery remain legible. Reveal more mid-page and the full image later without competing with content.

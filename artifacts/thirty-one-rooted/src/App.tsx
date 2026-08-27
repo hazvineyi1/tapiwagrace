@@ -6,9 +6,8 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ArrowRight, ArrowUpRight, Check, ChevronLeft, Menu, X, MoveRight } from 'lucide-react';
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import NotFound from '@/pages/not-found';
-import sistersDailyBanner from '@assets/sisters-daily-banner.webp';
+import sistersDailyBanner from '@assets/sisters-daily-terracotta.webp';
 import mealArt from '@assets/meal-line-art-tonal.png';
-import mealArtOutline from '@assets/meal-line-art-outline.png';
 import founderPhotoFormal from '@assets/founder-portrait-formal.webp';
 import founderPhotoConversational from '@assets/founder-portrait-conversational.webp';
 import mealPhotoOne from '@assets/meal-packaging-food-01.webp';
@@ -97,9 +96,6 @@ function Home() {
         
         {/* Hero Section */}
         <section className="pt-48 pb-20 px-6 md:px-12 max-w-5xl mx-auto text-center min-h-[70vh] flex flex-col items-center justify-center relative">
-          <div className="hero-line-art" aria-hidden="true">
-            <img src={mealArtOutline} alt="" />
-          </div>
           <div className="relative z-10 flex flex-col items-center">
             <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-8 block font-medium">A digital home for becoming</span>
             <h1 className="text-5xl md:text-[6.5rem] leading-[0.95] text-moss mb-10 tracking-tight">
@@ -117,7 +113,7 @@ function Home() {
 
         {/* Big Artwork */}
         <section className="px-6 md:px-12 pb-32 max-w-7xl mx-auto">
-          <div className="artwork-collage w-full bg-[#EAE6DE]">
+          <div className="artwork-collage w-full">
             <img src={sistersDailyBanner} alt="31 Sisters Daily" className="sisters-daily-banner" />
           </div>
         </section>

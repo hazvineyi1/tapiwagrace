@@ -99,13 +99,14 @@
 
   .artwork-collage {
     position: relative;
+    background: #EFE3D9;
   }
 
   .sisters-daily-banner {
     display: block;
-    width: 100%;
+    width: min(100%, 720px);
+    margin: 0 auto;
     height: auto;
-    filter: sepia(0.24) saturate(0.82) contrast(0.98);
   }
 
   .founder-photo-composition {
