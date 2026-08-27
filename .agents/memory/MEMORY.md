@@ -1,0 +1,1 @@
+- [Meal program positioning](meal-program-positioning.md) — describe the offering as paid meal support/delivery and never invent an unspecified price.

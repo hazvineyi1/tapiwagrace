@@ -192,34 +192,34 @@ function Home() {
           </div>
           
           <div className="md:col-span-7 order-1 md:order-2">
-            <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">The Daily · a paid creative service</span>
+             <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">The Daily · a paid meal support program</span>
             <h2 className="text-4xl md:text-[3.25rem] leading-[1.05] text-fg mb-8">
               A little nourishment for the <em className="italic text-rust">middle</em> of the day.
             </h2>
             <p className="text-[16px] text-fg/70 mb-12 leading-relaxed max-w-lg">
-              Meal Packaging is how 31 Sisters Daily helps a message take its next shape. We turn teachings, retreat insights, conversations, and practical frameworks into clear, nourishing content packages.
+               Meal Packaging is a practical meal delivery program from 31 Sisters Daily, created for people who need a little help getting a nourishing meal to the table. Like Meals on Wheels, each package is prepared with care and offered as a paid service.
             </p>
             
             <div className="mb-12">
               <div className="flex justify-between items-center py-4 border-b border-line text-[10px] tracking-[0.2em] uppercase font-medium">
-                <span>Bespoke service</span>
-                <span className="text-rust">Quote on request</span>
+                 <span>Paid meal program</span>
+                 <span className="text-rust">Cost per meal</span>
               </div>
               
               <button className="w-full flex justify-between items-center py-6 text-left hover:text-rust transition-colors group" onClick={() => setMealOpen((open) => !open)}>
-                <span className="font-serif text-2xl md:text-3xl pr-4">What can a meal packaging project include?</span>
+                 <span className="font-serif text-2xl md:text-3xl pr-4">How does the meal program work?</span>
                 <span className="text-[9px] uppercase tracking-[0.2em] text-fg/50 group-hover:text-rust transition-colors flex-shrink-0">{mealOpen ? 'Close' : 'Read'}</span>
               </button>
               
               <div className={`overflow-hidden transition-all duration-500 ease-in-out ${mealOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                 <p className="pb-8 text-[16px] text-fg/70 leading-relaxed max-w-xl">
-                  Together, we scope the message, audience, channels, and pace. A package might include a teaching distilled into a set of social posts, a retreat insight shaped into a printable prompt, conversation notes turned into an email sequence, or a framework prepared for a community gathering. Each enquiry is shaped around the work you already have and the people you want to serve.
+                   We prepare nourishing meals, package them for safe delivery, and coordinate a delivery day that works for the recipient. The cost is based on the number of meals and delivery needs, so we confirm the per-meal price when you enquire. This is a paid program, not a free meal service.
                 </p>
               </div>
             </div>
             
             <div className="flex flex-wrap items-center gap-8">
-              <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => openBooking('Meal Packaging')} data-testid="button-meal-enquire">Enquire about meal packaging</button>
+               <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => openBooking('Meal Packaging')} data-testid="button-meal-enquire">Enquire about the meal program</button>
               <a className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-fg/70 border-b border-line pb-1 hover:border-rust hover:text-rust transition-colors" href="https://www.tiktok.com/@31sistersdaily" target="_blank" rel="noreferrer" data-testid="link-tiktok-daily">Follow 31 Sisters <ArrowUpRight size={14} /></a>
             </div>
           </div>
@@ -311,7 +311,7 @@ function BookingModal({ initialKind, onClose, onNotify }: { initialKind: string;
         <div className="mb-10">
           <span className="text-[10px] tracking-[0.2em] uppercase text-rust block mb-4 font-medium">Make room for this</span>
           <h2 id="booking-title" className="font-serif text-3xl md:text-4xl text-fg">
-            {complete ? (kind === 'Meal Packaging' ? 'Your enquiry is on its way.' : 'Your place is held.') : (kind === 'Meal Packaging' ? 'Enquire about the service' : 'Book a space')}
+            {complete ? (kind === 'Meal Packaging' ? 'Your meal enquiry is on its way.' : 'Your place is held.') : (kind === 'Meal Packaging' ? 'Enquire about the meal program' : 'Book a space')}
           </h2>
         </div>
         
@@ -330,21 +330,21 @@ function BookingModal({ initialKind, onClose, onNotify }: { initialKind: string;
                   <select value={kind} onChange={(event) => setKind(event.target.value)} className="w-full bg-transparent border-0 border-b border-line py-4 text-xl font-serif text-fg focus:ring-0 focus:border-moss transition-colors" data-testid="select-booking-kind">
                     <option value="Retreat">Retreat · Pricing varies</option>
                     <option value="Conversation">Conversation · $95</option>
-                    <option value="Meal Packaging">Meal Packaging · bespoke quote</option>
+                    <option value="Meal Packaging">Meal Packaging · paid program</option>
                   </select>
                 </label>
                 
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 py-8 border-y border-line">
                   <span className="text-[14px] text-fg/70 max-w-[280px] leading-relaxed">
-                    {kind === 'Meal Packaging' ? 'A considered scope shaped around your message, audience, channels, and pace.' : kind === 'Retreat' ? 'Details shared after enquiry. Includes a confirmation and preparation guide.' : 'Includes a confirmation, preparation guide, and a space held with care.'}
+                    {kind === 'Meal Packaging' ? 'Nourishing meals prepared and coordinated for delivery. Cost depends on meal count and delivery needs.' : kind === 'Retreat' ? 'Details shared after enquiry. Includes a confirmation and preparation guide.' : 'Includes a confirmation, preparation guide, and a space held with care.'}
                   </span>
                   <strong className="font-serif text-3xl font-normal text-moss">
-                    {kind === 'Retreat' ? 'Pricing varies' : kind === 'Conversation' ? '$95' : 'Bespoke quote'}
+                    {kind === 'Retreat' ? 'Pricing varies' : kind === 'Conversation' ? '$95' : 'Cost per meal'}
                   </strong>
                 </div>
                 
                 <p className="text-[14px] text-fg/50 leading-relaxed font-light">
-                  {kind === 'Meal Packaging' ? 'Share a little about what you are carrying and what you hope to make clearer. We will reply with thoughtful next steps and a quote shaped to the project.' : 'The retreat is a held space for deeper formation. A conversation is a focused one-to-one starting point for the season you are in.'}
+                  {kind === 'Meal Packaging' ? 'Tell us how many meals are needed, who they are for, and where delivery may be needed. We will follow up with availability and the paid per-meal cost.' : 'The retreat is a held space for deeper formation. A conversation is a focused one-to-one starting point for the season you are in.'}
                 </p>
               </div>
             )}
@@ -352,7 +352,7 @@ function BookingModal({ initialKind, onClose, onNotify }: { initialKind: string;
             {step === 2 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                 <label className="block">
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-fg/60 block mb-4">Choose a date</span>
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-fg/60 block mb-4">{kind === 'Meal Packaging' ? 'Preferred delivery date' : 'Choose a date'}</span>
                   <select value={date} onChange={(event) => setDate(event.target.value)} className="w-full bg-transparent border-0 border-b border-line py-4 text-xl font-serif text-fg focus:ring-0 focus:border-moss transition-colors" data-testid="select-booking-date">
                     <option>Saturday, 14 March 2026</option>
                     <option>Saturday, 11 April 2026</option>
@@ -361,7 +361,7 @@ function BookingModal({ initialKind, onClose, onNotify }: { initialKind: string;
                 </label>
                 
                 <div className="block mt-8">
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-fg/60 block mb-4">Choose a time</span>
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-fg/60 block mb-4">{kind === 'Meal Packaging' ? 'Preferred delivery window' : 'Choose a time'}</span>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {['9:00 AM', '10:30 AM', '1:00 PM', '2:30 PM', '4:00 PM', '6:00 PM'].map((slot) => (
                       <button 
@@ -394,7 +394,7 @@ function BookingModal({ initialKind, onClose, onNotify }: { initialKind: string;
                 <div className="bg-[#EAE6DE]/50 p-6 text-[14px] text-fg/80 leading-relaxed border border-line">
                   <strong className="text-moss uppercase text-[10px] tracking-[0.2em] block mb-3 font-medium">{kind}</strong>
                   {date} · {time}<br/><br/>
-                  {kind === 'Meal Packaging' ? 'We will use this as a starting point for your service enquiry.' : 'We\'ll send a warm confirmation and the details you need next.'}
+                  {kind === 'Meal Packaging' ? 'We will use this as a starting point for your meal program enquiry. We will confirm availability, delivery details, and the per-meal cost before anything is scheduled.' : 'We\'ll send a warm confirmation and the details you need next.'}
                 </div>
               </div>
             )}
@@ -416,10 +416,10 @@ function BookingModal({ initialKind, onClose, onNotify }: { initialKind: string;
               <Check size={24} strokeWidth={1.5} />
             </div>
             <h3 className="font-serif text-3xl mb-6 text-fg">
-              {kind === 'Meal Packaging' ? 'We will be in touch.' : `${name.split(' ')[0] || 'Your'} next step is held.`}
+              {kind === 'Meal Packaging' ? 'We will be in touch about your meals.' : `${name.split(' ')[0] || 'Your'} next step is held.`}
             </h3>
             <p className="text-[15px] text-fg/70 leading-relaxed max-w-sm mx-auto mb-10">
-              {kind === 'Meal Packaging' ? `Look for a reply at ${email}. We will follow up with the next thoughtful question for your project.` : `Look for a confirmation at ${email}. Until then, let the question stay with you: what are you making room for?`}
+              {kind === 'Meal Packaging' ? `Look for a reply at ${email}. We will follow up with availability, delivery details, and the paid per-meal cost.` : `Look for a confirmation at ${email}. Until then, let the question stay with you: what are you making room for?`}
             </p>
             <button className="text-[10px] tracking-[0.2em] uppercase border-b border-line pb-1 hover:border-moss hover:text-moss transition-colors text-fg/70" onClick={onClose} data-testid="button-booking-done">Return home</button>
           </div>
