@@ -9,6 +9,9 @@ import NotFound from '@/pages/not-found';
 import sistersLogo from '@assets/WhatsApp_Image_2026-08-27_at_12.12.09_PM_1787849508863.jpeg';
 import mealArt from '@assets/meal-line-art-tonal.png';
 import mealArtOutline from '@assets/meal-line-art-outline.png';
+import founderPhoto from '@assets/founder-tapiwanashe-grace-pereira.webp';
+import mealPhotoOne from '@assets/meal-packaging-food-01.webp';
+import mealPhotoTwo from '@assets/meal-packaging-food-02.webp';
 import { SocraticCompanion } from '@/components/SocraticCompanion';
 
 const queryClient = new QueryClient();
@@ -119,8 +122,15 @@ function Home() {
         <section className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
             <div className="md:col-span-5 relative order-2 md:order-1">
-              <div className="aspect-[3/4] w-full max-w-sm mx-auto story-line-art">
-                <img src={mealArt} alt="Hand-drawn portrait of a woman" className="w-full h-full object-contain brand-line-art" />
+              <div className="founder-photo-composition">
+                <figure className="founder-photo">
+                  <img src={founderPhoto} alt="Tapiwanashe Grace Pereira, founder of 31 and Rooted" loading="lazy" decoding="async" />
+                  <figcaption>
+                    <span>Tapiwanashe Grace Pereira</span>
+                    <span>Founder, 31 and Rooted</span>
+                  </figcaption>
+                </figure>
+                <img src={mealArt} alt="" aria-hidden="true" className="founder-sketch" />
               </div>
             </div>
             <div className="md:col-span-7 order-1 md:order-2">
@@ -193,13 +203,17 @@ function Home() {
         {/* The Daily Section */}
         <section id="daily" className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
           <div className="md:col-span-5 order-2 md:order-1 flex justify-center">
-            <div className="daily-art-composition">
-              <div className="daily-art-wash" aria-hidden="true">
-                <img src={mealArt} alt="" />
-              </div>
-              <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 ml-auto mt-12 rounded-full border border-moss/15 flex flex-col items-center justify-center p-8 bg-[#EAE6DE]/55">
-                <span className="font-serif text-5xl md:text-6xl text-moss mb-2">31</span>
-                <span className="font-serif italic text-2xl md:text-3xl text-fg leading-tight text-center">sisters<br/>daily</span>
+            <div className="meal-photo-composition" aria-label="Meal Packaging photography">
+              <figure className="meal-photo meal-photo-primary">
+                <img src={mealPhotoOne} alt="A nourishing prepared meal served with vegetables and potatoes" loading="lazy" decoding="async" />
+                <figcaption>Prepared with care</figcaption>
+              </figure>
+              <figure className="meal-photo meal-photo-secondary">
+                <img src={mealPhotoTwo} alt="A nourishing fish meal served at a shared table" loading="lazy" decoding="async" />
+              </figure>
+              <div className="meal-photo-mark" aria-hidden="true">
+                <span>31</span>
+                <i>Sisters Daily</i>
               </div>
             </div>
           </div>
