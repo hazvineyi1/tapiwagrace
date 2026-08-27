@@ -10,6 +10,7 @@ import sistersDailyBanner from '@assets/sisters-daily-terracotta.webp';
 import mealArt from '@assets/meal-line-art-tonal.png';
 import founderPhotoSeated from '@assets/founder-portrait-seated.webp';
 import founderPhotoConversational from '@assets/founder-portrait-conversational.webp';
+import founderPhotoSmiling from '@assets/founder-portrait-smiling.webp';
 import mealPhotoOne from '@assets/meal-packaging-food-01.webp';
 import mealPhotoTwo from '@assets/meal-packaging-food-02.webp';
 import retreatTea from '@assets/retreat-tea.webp';
@@ -33,6 +34,7 @@ function Home() {
   const [mealOpen, setMealOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [aboutVisible, setAboutVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +42,24 @@ function Home() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const aboutSection = document.getElementById('about');
+    if (!aboutSection || !('IntersectionObserver' in window)) {
+      setAboutVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setAboutVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.22 });
+
+    observer.observe(aboutSection);
+    return () => observer.disconnect();
   }, []);
 
   const notify = (message: string) => {
@@ -122,7 +142,7 @@ function Home() {
         <section id="about" className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto border-b border-line">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
             <div className="md:col-span-5 relative order-2 md:order-1">
-              <div className="founder-photo-composition">
+              <div className={`founder-photo-composition ${aboutVisible ? 'is-visible' : ''}`}>
                 <figure className="founder-photo founder-photo-primary">
                   <img src={founderPhotoSeated} alt="Tapiwanashe Grace Pereira, founder of 31 and Rooted" loading="lazy" decoding="async" />
                   <figcaption>
@@ -130,9 +150,14 @@ function Home() {
                     <span>Founder, 31 and Rooted</span>
                   </figcaption>
                 </figure>
-                <figure className="founder-photo founder-photo-secondary">
-                  <img src={founderPhotoConversational} alt="Tapiwanashe Grace Pereira smiling" loading="lazy" decoding="async" />
-                </figure>
+                <div className="founder-photo-support-row">
+                  <figure className="founder-photo founder-photo-secondary">
+                    <img src={founderPhotoConversational} alt="Tapiwanashe Grace Pereira smiling" loading="lazy" decoding="async" />
+                  </figure>
+                  <figure className="founder-photo founder-photo-tertiary">
+                    <img src={founderPhotoSmiling} alt="Tapiwanashe Grace in a white top" loading="lazy" decoding="async" />
+                  </figure>
+                </div>
               </div>
             </div>
             <div className="md:col-span-7 order-1 md:order-2">

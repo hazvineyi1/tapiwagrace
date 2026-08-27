@@ -112,9 +112,18 @@
   .founder-photo-composition {
     position: relative;
     width: min(100%, 430px);
-    min-height: 520px;
+    min-height: 0;
     margin: 0 auto;
-    padding: 0 44px 54px 0;
+    padding: 0 44px 28px 0;
+  }
+
+  .founder-photo-composition.is-visible .founder-photo-primary {
+    animation: founder-primary-arrive 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .founder-photo-composition.is-visible .founder-photo-secondary,
+  .founder-photo-composition.is-visible .founder-photo-tertiary {
+    animation: founder-secondary-arrive 1.25s 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .founder-photo-composition::before {
@@ -133,17 +142,26 @@
 
   .founder-photo-primary {
     z-index: 1;
-    width: 84%;
+    width: 100%;
     aspect-ratio: 1085 / 1294;
+    opacity: 0;
   }
 
-  .founder-photo-secondary {
-    position: absolute;
+  .founder-photo-support-row {
+    position: relative;
     z-index: 2;
-    right: 0;
-    bottom: 0;
-    width: 46%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .founder-photo-secondary,
+  .founder-photo-tertiary {
+    position: relative;
+    width: 100%;
     aspect-ratio: 4 / 5;
+    opacity: 0;
   }
 
   .founder-photo img {
@@ -153,6 +171,18 @@
     object-fit: cover;
     object-position: center;
     filter: saturate(0.86) contrast(0.96) sepia(0.08);
+  }
+
+  .founder-photo-composition.is-visible .founder-photo-primary img {
+    animation: founder-breathe 14s 1.15s ease-in-out infinite alternate;
+  }
+
+  .founder-photo-composition.is-visible .founder-photo-secondary img {
+    animation: founder-breathe 17s 1.45s ease-in-out infinite alternate-reverse;
+  }
+
+  .founder-photo-composition.is-visible .founder-photo-tertiary img {
+    animation: founder-breathe 19s 1.65s ease-in-out infinite alternate;
   }
 
   .founder-photo-primary::after {
@@ -219,6 +249,37 @@
 
   .about-copy p + p {
     margin-top: 20px;
+  }
+
+  @keyframes founder-primary-arrive {
+    from {
+      opacity: 0;
+      transform: translate3d(-18px, 28px, 0) scale(0.975);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes founder-secondary-arrive {
+    from {
+      opacity: 0;
+      transform: translate3d(20px, 34px, 0) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes founder-breathe {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.018);
+    }
   }
 
   .daily-writing {
@@ -408,6 +469,19 @@
     .meal-photo-composition {
       width: min(100%, 360px);
       height: 395px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .founder-photo-primary,
+    .founder-photo-secondary,
+    .founder-photo-tertiary {
+      opacity: 1;
+      animation: none !important;
+    }
+
+    .founder-photo img {
+      animation: none !important;
     }
   }
 }
