@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight, RotateCcw, Send } from 'lucide-react';
 
 const FRAMEWORKS = {
@@ -89,62 +89,68 @@ export function SocraticCompanion({ openBooking }: { openBooking: (service: stri
   const isFinished = activeFramework && stepIndex >= activeFramework.steps.length - 1;
 
   return (
-    <div className="socratic-container">
+    <div className="border border-line bg-bg p-8 md:p-14">
       {!activeFramework ? (
-        <div className="socratic-choosers">
-          <div className="socratic-intro">
-            <h3>Guided Reflection</h3>
-            <p>A quiet space to notice, name, and reframe what you are carrying. Please note this is a gentle companion for reflection, not clinical care or crisis support.</p>
+        <div className="flex flex-col gap-12">
+          <div className="max-w-2xl">
+            <h3 className="font-serif text-3xl mb-4 text-fg">Guided Reflection</h3>
+            <p className="text-[16px] text-fg/70 leading-relaxed">A quiet space to notice, name, and reframe what you are carrying. Please note this is a gentle companion for reflection, not clinical care or crisis support.</p>
           </div>
-          <div className="socratic-grid">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {Object.values(FRAMEWORKS).map(fw => (
               <button 
                 key={fw.id} 
                 onClick={() => startFramework(fw.id)} 
-                className="socratic-card"
+                className="text-left p-8 border border-line bg-transparent hover:border-moss hover:bg-moss/5 transition-all group flex flex-col justify-between h-48"
                 data-testid={`btn-framework-${fw.id}`}
               >
-                <h4>{fw.title}</h4>
-                <ArrowUpRight size={16} />
+                <h4 className="font-serif text-[1.35rem] leading-tight text-fg group-hover:text-moss transition-colors">{fw.title}</h4>
+                <div className="self-end text-line group-hover:text-moss transition-colors">
+                  <ArrowUpRight size={18} strokeWidth={1.5} />
+                </div>
               </button>
             ))}
           </div>
-          <div className="socratic-purchase-note">
-            <p>Looking for the full printable workbooks? <a href="https://wa.me/?text=I'd%20love%20to%20purchase%20the%20full%20guided%20workbooks." target="_blank" rel="noreferrer">Purchase the complete process via WhatsApp</a>.</p>
+          <div className="pt-8 border-t border-line text-[10px] tracking-[0.2em] uppercase text-fg/50">
+            Looking for full printable workbooks? <a href="https://wa.me/?text=I'd%20love%20to%20purchase%20the%20full%20guided%20workbooks." target="_blank" rel="noreferrer" className="text-rust hover:text-fg transition-colors border-b border-rust pb-0.5">Purchase via WhatsApp</a>.
           </div>
         </div>
       ) : (
-        <div className="socratic-chat">
-          <div className="socratic-chat-header">
-            <h4>{activeFramework.title}</h4>
-            <button onClick={reset} className="button-icon" aria-label="Reset reflection" data-testid="btn-reset-chat"><RotateCcw size={14} /> Start over</button>
+        <div className="flex flex-col h-[500px]">
+          <div className="flex justify-between items-center pb-6 mb-6 border-b border-line">
+            <h4 className="font-serif text-3xl text-fg">{activeFramework.title}</h4>
+            <button onClick={reset} className="text-[10px] tracking-[0.2em] uppercase text-fg/50 hover:text-rust flex items-center gap-2 transition-colors" data-testid="btn-reset-chat">
+              <RotateCcw size={14} strokeWidth={1.5} /> Start over
+            </button>
           </div>
           
-          <div className="socratic-messages">
+          <div className="flex-1 overflow-y-auto flex flex-col gap-8 pr-4 mb-6" style={{ scrollbarWidth: 'thin' }}>
             {messages.map((m) => (
-              <div key={m.id} className={`socratic-msg ${m.role}`}>
-                <div className="msg-bubble">{m.text}</div>
+              <div key={m.id} className={`flex ${m.role === 'guide' ? 'justify-start' : 'justify-end'}`}>
+                <div className={`max-w-[85%] p-6 text-[16px] leading-relaxed ${m.role === 'guide' ? 'bg-[#EAE6DE] text-fg' : 'bg-fg text-bg'}`}>
+                  {m.text}
+                </div>
               </div>
             ))}
             <div ref={chatEndRef} />
           </div>
 
           {!isFinished ? (
-            <form className="socratic-input-area" onSubmit={handleSend}>
+            <form className="flex gap-4 pt-6 border-t border-line" onSubmit={handleSend}>
               <input 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type your reflection here..."
-                className="socratic-input"
+                className="flex-1 bg-transparent border-0 border-b border-line py-3 text-[16px] focus:outline-none focus:border-moss transition-colors placeholder:text-fg/30"
                 data-testid="input-chat"
               />
-              <button type="submit" className="button-icon" disabled={!input.trim()} aria-label="Send message" data-testid="btn-send-chat">
-                <Send size={16} />
+              <button type="submit" disabled={!input.trim()} className="w-12 h-12 flex items-center justify-center bg-fg text-bg hover:bg-moss disabled:opacity-30 transition-colors" data-testid="btn-send-chat">
+                <Send size={16} strokeWidth={1.5} />
               </button>
             </form>
           ) : (
-            <div className="socratic-finished">
-              <button className="button-primary" onClick={() => openBooking('Conversation')} data-testid="btn-book-from-chat">
+            <div className="pt-6 border-t border-line text-center">
+              <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => openBooking('Conversation')} data-testid="btn-book-from-chat">
                 Book a deeper conversation
               </button>
             </div>
