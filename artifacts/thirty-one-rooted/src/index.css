@@ -77,56 +77,45 @@
 @layer components {
   .hero-line-art {
     position: absolute;
-    right: clamp(-2rem, 2vw, 2rem);
-    bottom: 13%;
-    width: clamp(120px, 16vw, 190px);
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    opacity: 0.82;
-    pointer-events: none;
-    transform: rotate(6deg);
-  }
-
-  .hero-line-art::after,
-  .artwork-cameo::after,
-  .daily-art-card::after {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 72%, rgba(247, 245, 240, 0.5));
-    content: '';
+    right: clamp(-6rem, -2vw, -2rem);
+    bottom: 4%;
+    width: clamp(210px, 24vw, 330px);
+    opacity: 0.1;
     pointer-events: none;
   }
 
   .hero-line-art img,
-  .artwork-cameo img,
-  .daily-art-card img {
+  .daily-art-wash img {
     width: 100%;
-    height: 116%;
-    object-fit: cover;
-    object-position: center top;
-    filter: grayscale(1) contrast(1.08);
-    mix-blend-mode: multiply;
+    height: auto;
+    display: block;
+    filter: sepia(0.2);
   }
 
   .artwork-collage {
     position: relative;
   }
 
-  .artwork-cameo {
+  .artwork-line-overlay {
     position: absolute;
-    right: 8%;
-    bottom: 0;
-    width: clamp(130px, 17vw, 210px);
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    border: 1px solid rgba(28, 26, 24, 0.16);
-    background: rgba(247, 245, 240, 0.75);
-    transform: rotate(4deg);
+    right: 6%;
+    bottom: -3%;
+    width: clamp(220px, 28vw, 380px);
+    opacity: 0.14;
+    filter: sepia(0.35);
+    mix-blend-mode: multiply;
+  }
+
+  .story-line-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .brand-line-art {
-    object-position: center top;
-    transform: scale(1.06);
+    opacity: 0.58;
+    filter: sepia(0.25);
+    mix-blend-mode: multiply;
   }
 
   .daily-art-composition {
@@ -135,15 +124,13 @@
     height: 360px;
   }
 
-  .daily-art-card {
+  .daily-art-wash {
     position: absolute;
-    top: 0;
-    left: 4%;
-    width: 54%;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    background: #eae6de;
-    transform: rotate(-6deg);
+    top: 2%;
+    left: -10%;
+    width: 76%;
+    opacity: 0.12;
+    pointer-events: none;
   }
 
   @media (max-width: 767px) {
@@ -151,9 +138,10 @@
       display: none;
     }
 
-    .artwork-cameo {
-      right: 6%;
-      width: 38%;
+    .artwork-line-overlay {
+      right: -8%;
+      width: 72%;
+      opacity: 0.1;
     }
 
     .daily-art-composition {

@@ -7,7 +7,7 @@ import { ArrowRight, ArrowUpRight, Check, ChevronLeft, Menu, X, MoveRight } from
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import NotFound from '@/pages/not-found';
 import sistersLogo from '@assets/WhatsApp_Image_2026-08-27_at_12.12.09_PM_1787849508863.jpeg';
-import mealArt from '@assets/image_1787856798786.png';
+import mealArt from '@assets/meal-line-art-tonal.png';
 import { SocraticCompanion } from '@/components/SocraticCompanion';
 
 const queryClient = new QueryClient();
@@ -110,9 +110,7 @@ function Home() {
         <section className="px-6 md:px-12 pb-32 max-w-7xl mx-auto">
           <div className="artwork-collage aspect-square md:aspect-[21/9] w-full overflow-hidden bg-[#EAE6DE]">
             <img src={sistersLogo} alt="31 Sisters abstract texture" className="w-full h-full object-cover grayscale mix-blend-multiply opacity-80" />
-            <div className="artwork-cameo" aria-hidden="true">
-              <img src={mealArt} alt="" />
-            </div>
+            <img className="artwork-line-overlay" src={mealArt} alt="" aria-hidden="true" />
           </div>
         </section>
 
@@ -120,8 +118,8 @@ function Home() {
         <section className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
             <div className="md:col-span-5 relative order-2 md:order-1">
-              <div className="aspect-[3/4] w-full max-w-sm mx-auto overflow-hidden bg-[#EAE6DE]">
-                <img src={mealArt} alt="Hand-drawn portrait of a woman" className="w-full h-full object-cover grayscale opacity-90 mix-blend-multiply brand-line-art" />
+              <div className="aspect-[3/4] w-full max-w-sm mx-auto story-line-art">
+                <img src={mealArt} alt="Hand-drawn portrait of a woman" className="w-full h-full object-contain brand-line-art" />
               </div>
             </div>
             <div className="md:col-span-7 order-1 md:order-2">
@@ -195,10 +193,10 @@ function Home() {
         <section id="daily" className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
           <div className="md:col-span-5 order-2 md:order-1 flex justify-center">
             <div className="daily-art-composition">
-              <div className="daily-art-card" aria-hidden="true">
+              <div className="daily-art-wash" aria-hidden="true">
                 <img src={mealArt} alt="" />
               </div>
-              <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 ml-auto mt-12 rounded-full border border-moss/20 flex flex-col items-center justify-center p-8 rotate-[-4deg] bg-[#EAE6DE]/90">
+              <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 ml-auto mt-12 rounded-full border border-moss/15 flex flex-col items-center justify-center p-8 bg-[#EAE6DE]/55">
                 <span className="font-serif text-5xl md:text-6xl text-moss mb-2">31</span>
                 <span className="font-serif italic text-2xl md:text-3xl text-fg leading-tight text-center">sisters<br/>daily</span>
               </div>

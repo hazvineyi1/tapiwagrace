@@ -3,8 +3,8 @@ name: Recurring line-art direction
 description: Visual guidance for using portrait illustrations across 31&Rooted.
 ---
 
-Use monochrome, hand-drawn portraits of women as a recurring secondary motif throughout the site, integrated into editorial compositions rather than presented as large standalone photography.
+Use monochrome, hand-drawn portraits of women as subtle tonal line work throughout the site. Illustrations must be background-free and visually absorbed into the cream, espresso, and muted-rust palette.
 
-**Why:** The owner explicitly chose this illustration style to make the brand feel more personal and visually consistent while preserving the minimal layout.
+**Why:** Framed, rotated, or white-backed treatments read as pasted-on stickers and undermine the professional minimal direction.
 
-**How to apply:** Keep drawings black and cream, use restrained crops, layering, and slight rotation, and ensure they never compete with headings, calls to action, or program information.
+**How to apply:** Remove source-image backgrounds and social-media chrome. Avoid cards, borders, rotation, and high contrast. Use low-opacity overlays or open compositions that never compete with content.
