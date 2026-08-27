@@ -7,4 +7,4 @@ Use monochrome, hand-drawn portraits of women as subtle tonal line work througho
 
 **Why:** Framed, rotated, or white-backed treatments read as pasted-on stickers and undermine the professional minimal direction.
 
-**How to apply:** Remove source-image backgrounds and social-media chrome. Avoid cards, borders, rotation, and high contrast. Use low-opacity overlays or open compositions; reveal only part of the drawing early, more of it mid-page, and the full image later without competing with content.
+**How to apply:** Remove source-image backgrounds and social-media chrome. Avoid cards, borders, rotation, and high contrast. The hero begins with a separate edge-only fragment in the outer margin, never behind copy. Reveal more mid-page and the full image later without competing with content.

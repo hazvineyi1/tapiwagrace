@@ -77,10 +77,10 @@
 @layer components {
   .hero-line-art {
     position: absolute;
-    right: clamp(-6rem, -2vw, -2rem);
-    bottom: 4%;
-    width: clamp(210px, 24vw, 330px);
-    opacity: 0.1;
+    right: clamp(-11rem, -9vw, -5rem);
+    bottom: 1%;
+    width: clamp(170px, 18vw, 250px);
+    opacity: 0.06;
     pointer-events: none;
   }
 
@@ -93,7 +93,8 @@
   }
 
   .hero-line-art img {
-    clip-path: inset(0 46% 0 0);
+    clip-path: inset(0 58% 20% 0);
+    filter: sepia(0.35) contrast(0.7);
   }
 
   .artwork-collage {

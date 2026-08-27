@@ -8,6 +8,7 @@ import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import NotFound from '@/pages/not-found';
 import sistersLogo from '@assets/WhatsApp_Image_2026-08-27_at_12.12.09_PM_1787849508863.jpeg';
 import mealArt from '@assets/meal-line-art-tonal.png';
+import mealArtOutline from '@assets/meal-line-art-outline.png';
 import { SocraticCompanion } from '@/components/SocraticCompanion';
 
 const queryClient = new QueryClient();
@@ -89,7 +90,7 @@ function Home() {
         {/* Hero Section */}
         <section className="pt-48 pb-20 px-6 md:px-12 max-w-5xl mx-auto text-center min-h-[70vh] flex flex-col items-center justify-center relative">
           <div className="hero-line-art" aria-hidden="true">
-            <img src={mealArt} alt="" />
+            <img src={mealArtOutline} alt="" />
           </div>
           <div className="relative z-10 flex flex-col items-center">
             <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-8 block font-medium">A digital home for becoming</span>
