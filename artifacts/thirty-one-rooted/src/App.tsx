@@ -135,7 +135,7 @@ function Home() {
                 <p className="font-serif italic text-2xl md:text-3xl text-moss mb-4">
                   &ldquo;A place to seek God&apos;s heart. Let&apos;s walk through formation into Christlikeness together.&rdquo;
                 </p>
-                <footer className="text-[9px] tracking-[0.2em] uppercase text-fg/50">— the heart of 31 Sisters Daily</footer>
+                <footer className="text-[9px] tracking-[0.2em] uppercase text-fg/50">- the heart of 31 Sisters Daily</footer>
               </blockquote>
             </div>
           </div>
