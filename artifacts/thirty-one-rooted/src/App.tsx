@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, Check, ChevronLeft, Menu, X, MoveRight } from
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import NotFound from '@/pages/not-found';
 import sistersLogo from '@assets/WhatsApp_Image_2026-08-27_at_12.12.09_PM_1787849508863.jpeg';
+import mealArt from '@assets/image_1787856798786.png';
 import { SocraticCompanion } from '@/components/SocraticCompanion';
 
 const queryClient = new QueryClient();
@@ -86,24 +87,32 @@ function Home() {
       <main id="top" className="flex-1">
         
         {/* Hero Section */}
-        <section className="pt-48 pb-20 px-6 md:px-12 max-w-5xl mx-auto text-center min-h-[70vh] flex flex-col items-center justify-center">
-          <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-8 block font-medium">A digital home for becoming</span>
-          <h1 className="text-5xl md:text-[6.5rem] leading-[0.95] text-moss mb-10 tracking-tight">
-            Come back to <em className="italic text-rust pr-2">yourself.</em><br className="hidden md:block" />Come closer to Christ.
-          </h1>
-          <p className="text-lg md:text-xl text-fg/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
-            A place for the woman carrying a lot, asking honest questions, and learning to live from what is true. Practical tools, biblical truth, room to breathe.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => scrollTo('retreats')} data-testid="button-hero-retreats">Find your retreat</button>
-            <button className="text-[10px] tracking-[0.2em] uppercase border-b border-line pb-1 hover:border-rust hover:text-rust transition-colors" onClick={() => scrollTo('tools')} data-testid="button-hero-reflection">Begin a reflection</button>
+        <section className="pt-48 pb-20 px-6 md:px-12 max-w-5xl mx-auto text-center min-h-[70vh] flex flex-col items-center justify-center relative">
+          <div className="hero-line-art" aria-hidden="true">
+            <img src={mealArt} alt="" />
+          </div>
+          <div className="relative z-10 flex flex-col items-center">
+            <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-8 block font-medium">A digital home for becoming</span>
+            <h1 className="text-5xl md:text-[6.5rem] leading-[0.95] text-moss mb-10 tracking-tight">
+              Come back to <em className="italic text-rust pr-2">yourself.</em><br className="hidden md:block" />Come closer to Christ.
+            </h1>
+            <p className="text-lg md:text-xl text-fg/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
+              A place for the woman carrying a lot, asking honest questions, and learning to live from what is true. Practical tools, biblical truth, room to breathe.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-8">
+              <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => scrollTo('retreats')} data-testid="button-hero-retreats">Find your retreat</button>
+              <button className="text-[10px] tracking-[0.2em] uppercase border-b border-line pb-1 hover:border-rust hover:text-rust transition-colors" onClick={() => scrollTo('tools')} data-testid="button-hero-reflection">Begin a reflection</button>
+            </div>
           </div>
         </section>
 
         {/* Big Artwork */}
         <section className="px-6 md:px-12 pb-32 max-w-7xl mx-auto">
-          <div className="aspect-square md:aspect-[21/9] w-full overflow-hidden bg-[#EAE6DE]">
+          <div className="artwork-collage aspect-square md:aspect-[21/9] w-full overflow-hidden bg-[#EAE6DE]">
             <img src={sistersLogo} alt="31 Sisters abstract texture" className="w-full h-full object-cover grayscale mix-blend-multiply opacity-80" />
+            <div className="artwork-cameo" aria-hidden="true">
+              <img src={mealArt} alt="" />
+            </div>
           </div>
         </section>
 
@@ -112,7 +121,7 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
             <div className="md:col-span-5 relative order-2 md:order-1">
               <div className="aspect-[3/4] w-full max-w-sm mx-auto overflow-hidden bg-[#EAE6DE]">
-                <img src={sistersLogo} alt="Tactile texture" className="w-full h-full object-cover grayscale opacity-90 mix-blend-multiply" />
+                <img src={mealArt} alt="Hand-drawn portrait of a woman" className="w-full h-full object-cover grayscale opacity-90 mix-blend-multiply brand-line-art" />
               </div>
             </div>
             <div className="md:col-span-7 order-1 md:order-2">
@@ -185,9 +194,14 @@ function Home() {
         {/* The Daily Section */}
         <section id="daily" className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
           <div className="md:col-span-5 order-2 md:order-1 flex justify-center">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full border border-moss/20 flex flex-col items-center justify-center p-8 rotate-[-4deg] bg-[#EAE6DE]/50">
-              <span className="font-serif text-5xl md:text-6xl text-moss mb-2">31</span>
-              <span className="font-serif italic text-2xl md:text-3xl text-fg leading-tight text-center">sisters<br/>daily</span>
+            <div className="daily-art-composition">
+              <div className="daily-art-card" aria-hidden="true">
+                <img src={mealArt} alt="" />
+              </div>
+              <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 ml-auto mt-12 rounded-full border border-moss/20 flex flex-col items-center justify-center p-8 rotate-[-4deg] bg-[#EAE6DE]/90">
+                <span className="font-serif text-5xl md:text-6xl text-moss mb-2">31</span>
+                <span className="font-serif italic text-2xl md:text-3xl text-fg leading-tight text-center">sisters<br/>daily</span>
+              </div>
             </div>
           </div>
           
