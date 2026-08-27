@@ -6,13 +6,16 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ArrowRight, ArrowUpRight, Check, ChevronLeft, Menu, X, MoveRight } from 'lucide-react';
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import NotFound from '@/pages/not-found';
-import sistersLogo from '@assets/WhatsApp_Image_2026-08-27_at_12.12.09_PM_1787849508863.jpeg';
+import sistersDailyBanner from '@assets/sisters-daily-banner.webp';
 import mealArt from '@assets/meal-line-art-tonal.png';
 import mealArtOutline from '@assets/meal-line-art-outline.png';
 import founderPhotoFormal from '@assets/founder-portrait-formal.webp';
 import founderPhotoConversational from '@assets/founder-portrait-conversational.webp';
 import mealPhotoOne from '@assets/meal-packaging-food-01.webp';
 import mealPhotoTwo from '@assets/meal-packaging-food-02.webp';
+import retreatTea from '@assets/retreat-tea.webp';
+import retreatPool from '@assets/retreat-pool.webp';
+import retreatLounge from '@assets/retreat-lounge.webp';
 import { SocraticCompanion } from '@/components/SocraticCompanion';
 
 const queryClient = new QueryClient();
@@ -72,7 +75,7 @@ function Home() {
       {/* Navigation */}
       <header className={`fixed top-0 left-0 right-0 h-24 px-6 md:px-12 flex items-center justify-between z-50 transition-all duration-300 ${scrolled ? 'bg-bg/95 backdrop-blur-md border-b border-line' : 'bg-transparent'}`}>
         <a href="#top" className="flex items-center gap-4 group" data-testid="link-home" onClick={(e) => { e.preventDefault(); window.scrollTo(0,0); }}>
-          <span className="font-sans text-[11px] tracking-[0.2em] uppercase font-medium text-moss">31 & Rooted</span>
+          <span className="font-sans text-[11px] tracking-[0.2em] uppercase font-medium text-rust">31 & Rooted</span>
         </a>
         
         <nav className={`fixed inset-0 bg-bg flex flex-col justify-center items-center gap-10 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:static md:bg-transparent md:flex-row md:justify-end md:gap-8 md:transform-none ${menuOpen ? 'translate-y-0' : '-translate-y-full md:translate-y-0'}`} aria-label="Main navigation">
@@ -114,9 +117,8 @@ function Home() {
 
         {/* Big Artwork */}
         <section className="px-6 md:px-12 pb-32 max-w-7xl mx-auto">
-          <div className="artwork-collage aspect-square md:aspect-[21/9] w-full overflow-hidden bg-[#EAE6DE]">
-            <img src={sistersLogo} alt="31 Sisters abstract texture" className="w-full h-full object-cover grayscale mix-blend-multiply opacity-80" />
-            <img className="artwork-line-overlay" src={mealArt} alt="" aria-hidden="true" />
+          <div className="artwork-collage w-full bg-[#EAE6DE]">
+            <img src={sistersDailyBanner} alt="31 Sisters Daily" className="sisters-daily-banner" />
           </div>
         </section>
 
@@ -200,6 +202,17 @@ function Home() {
               <button className="text-[10px] tracking-[0.2em] uppercase border-b border-bg/30 pb-1 hover:border-sand hover:text-sand transition-colors text-bg" onClick={() => openBooking()} data-testid="button-experience-book">
                 See retreat dates
               </button>
+              <div className="retreat-photo-grid" aria-label="Retreat setting photography">
+                <figure className="retreat-photo retreat-photo-pool">
+                  <img src={retreatPool} alt="The retreat house beside the pool" loading="lazy" decoding="async" />
+                </figure>
+                <figure className="retreat-photo retreat-photo-tea">
+                  <img src={retreatTea} alt="An outdoor table set for tea at the retreat" loading="lazy" decoding="async" />
+                </figure>
+                <figure className="retreat-photo retreat-photo-lounge">
+                  <img src={retreatLounge} alt="A welcoming sitting area at the retreat" loading="lazy" decoding="async" />
+                </figure>
+              </div>
             </div>
             
             <div className="md:col-span-7 flex flex-col">
