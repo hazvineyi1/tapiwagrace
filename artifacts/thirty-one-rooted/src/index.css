@@ -134,7 +134,7 @@
   .founder-photo-primary {
     z-index: 1;
     width: 84%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1085 / 1294;
   }
 
   .founder-photo-secondary {
@@ -215,6 +215,10 @@
     color: rgba(28, 26, 24, 0.65);
     font-size: 14px;
     line-height: 1.6;
+  }
+
+  .about-copy p + p {
+    margin-top: 20px;
   }
 
   .daily-writing {

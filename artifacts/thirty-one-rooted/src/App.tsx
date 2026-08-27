@@ -8,7 +8,7 @@ import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import NotFound from '@/pages/not-found';
 import sistersDailyBanner from '@assets/sisters-daily-terracotta.webp';
 import mealArt from '@assets/meal-line-art-tonal.png';
-import founderPhotoFormal from '@assets/founder-portrait-formal.webp';
+import founderPhotoSeated from '@assets/founder-portrait-seated.webp';
 import founderPhotoConversational from '@assets/founder-portrait-conversational.webp';
 import mealPhotoOne from '@assets/meal-packaging-food-01.webp';
 import mealPhotoTwo from '@assets/meal-packaging-food-02.webp';
@@ -124,7 +124,7 @@ function Home() {
             <div className="md:col-span-5 relative order-2 md:order-1">
               <div className="founder-photo-composition">
                 <figure className="founder-photo founder-photo-primary">
-                  <img src={founderPhotoFormal} alt="Tapiwanashe Grace Pereira, founder of 31 and Rooted" loading="lazy" decoding="async" />
+                  <img src={founderPhotoSeated} alt="Tapiwanashe Grace Pereira, founder of 31 and Rooted" loading="lazy" decoding="async" />
                   <figcaption>
                     <span>Tapiwanashe Grace Pereira</span>
                     <span>Founder, 31 and Rooted</span>
@@ -140,22 +140,24 @@ function Home() {
               <h2 className="text-4xl md:text-[3.25rem] leading-[1.05] text-fg mb-8">
                 A digital home for <em className="italic text-rust">becoming.</em>
               </h2>
-              <p className="text-[16px] leading-relaxed text-fg/70 mb-8 max-w-xl">
-                <span className="font-medium text-fg">Founder note coming soon.</span> This space will share Tapiwanashe Grace Pereira&apos;s story, the heart behind 31 and Rooted, and the experiences that shaped its vision.
-              </p>
-              <div className="about-details grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-xl">
-                <div>
-                  <span>Our vision</span>
-                  <p>To help women grow steady in truth, rooted in Christ, and present to the life they are actually living.</p>
-                </div>
-                <div>
-                  <span>What you will find here</span>
-                  <p>Retreats, guided reflections, honest conversations, and practical resources for the in-between seasons.</p>
-                </div>
+              <div className="about-copy max-w-xl text-[16px] leading-relaxed text-fg/70">
+                <p>
+                  31 Sisters Daily is a community of women seeking the heart of God and walking together through formation into Christlikeness.
+                </p>
+                <p>
+                  Founded by Tapiwanashe Grace, it is a place for women to lay down their burdens, encounter God, and learn to live freely in Yeshua.
+                </p>
+                <p>
+                  Through teaching, fellowship, discipleship, and 31 &amp; Rooted Retreats, we create intentional spaces for women to step away from the noise, become still, and allow God to tend to the deeper places within us.
+                </p>
+                <p>
+                  We believe we are not women who have arrived, but women who are continually being formed, becoming more rooted in Christ and flourishing from that place.
+                </p>
               </div>
-              <p className="mt-10 font-serif italic text-2xl md:text-3xl text-moss max-w-xl">
-                “You do not have to rush this. Formation is a way of walking.”
-              </p>
+              <div className="mt-10">
+                <p className="font-serif italic text-2xl md:text-3xl text-moss max-w-xl">Rooted. Becoming. Flourishing.</p>
+                <p className="mt-4 text-[10px] tracking-[0.2em] uppercase text-fg/50">A ministry founded by Tapiwanashe Grace.</p>
+              </div>
             </div>
           </div>
         </section>
