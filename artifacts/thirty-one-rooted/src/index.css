@@ -114,36 +114,51 @@
 
   .founder-photo-composition {
     position: relative;
-    width: min(100%, 360px);
+    width: min(100%, 430px);
+    min-height: 520px;
     margin: 0 auto;
-    padding: 14px 0 0 14px;
+    padding: 0 44px 54px 0;
   }
 
   .founder-photo-composition::before {
     content: '';
     position: absolute;
-    inset: 0 14px 14px 0;
+    inset: 42px 0 0 46px;
     background: #CDBEAB;
   }
 
   .founder-photo {
     position: relative;
-    z-index: 1;
     margin: 0;
     overflow: hidden;
     background: #EAE6DE;
   }
 
+  .founder-photo-primary {
+    z-index: 1;
+    width: 84%;
+    aspect-ratio: 3 / 4;
+  }
+
+  .founder-photo-secondary {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    width: 46%;
+    aspect-ratio: 4 / 5;
+  }
+
   .founder-photo img {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 5;
+    height: 100%;
     object-fit: cover;
-    object-position: 60% center;
+    object-position: center;
     filter: saturate(0.86) contrast(0.96) sepia(0.08);
   }
 
-  .founder-photo::after {
+  .founder-photo-primary::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -170,18 +185,6 @@
   .founder-photo figcaption span:last-child {
     color: #CDBEAB;
     font-size: 8px;
-  }
-
-  .founder-sketch {
-    position: absolute;
-    z-index: 2;
-    top: -7%;
-    right: -17%;
-    width: 44%;
-    opacity: 0.16;
-    filter: sepia(0.3);
-    mix-blend-mode: multiply;
-    pointer-events: none;
   }
 
   .story-line-art {
@@ -325,10 +328,8 @@
 
     .founder-photo-composition {
       width: min(100%, 330px);
-    }
-
-    .founder-sketch {
-      right: -10%;
+      min-height: 430px;
+      padding-right: 34px;
     }
 
     .meal-photo-composition {

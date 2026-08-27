@@ -9,7 +9,8 @@ import NotFound from '@/pages/not-found';
 import sistersLogo from '@assets/WhatsApp_Image_2026-08-27_at_12.12.09_PM_1787849508863.jpeg';
 import mealArt from '@assets/meal-line-art-tonal.png';
 import mealArtOutline from '@assets/meal-line-art-outline.png';
-import founderPhoto from '@assets/founder-tapiwanashe-grace-pereira.webp';
+import founderPhotoFormal from '@assets/founder-portrait-formal.webp';
+import founderPhotoConversational from '@assets/founder-portrait-conversational.webp';
 import mealPhotoOne from '@assets/meal-packaging-food-01.webp';
 import mealPhotoTwo from '@assets/meal-packaging-food-02.webp';
 import { SocraticCompanion } from '@/components/SocraticCompanion';
@@ -124,14 +125,16 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
             <div className="md:col-span-5 relative order-2 md:order-1">
               <div className="founder-photo-composition">
-                <figure className="founder-photo">
-                  <img src={founderPhoto} alt="Tapiwanashe Grace Pereira, founder of 31 and Rooted" loading="lazy" decoding="async" />
+                <figure className="founder-photo founder-photo-primary">
+                  <img src={founderPhotoFormal} alt="Tapiwanashe Grace Pereira, founder of 31 and Rooted" loading="lazy" decoding="async" />
                   <figcaption>
                     <span>Tapiwanashe Grace Pereira</span>
                     <span>Founder, 31 and Rooted</span>
                   </figcaption>
                 </figure>
-                <img src={mealArt} alt="" aria-hidden="true" className="founder-sketch" />
+                <figure className="founder-photo founder-photo-secondary">
+                  <img src={founderPhotoConversational} alt="Tapiwanashe Grace Pereira smiling" loading="lazy" decoding="async" />
+                </figure>
               </div>
             </div>
             <div className="md:col-span-7 order-1 md:order-2">
@@ -140,7 +143,7 @@ function Home() {
                 A digital home for <em className="italic text-rust">becoming.</em>
               </h2>
               <p className="text-[16px] leading-relaxed text-fg/70 mb-8 max-w-xl">
-                31 and Rooted exists for the woman carrying a lot, asking honest questions, and learning to live from what is true. It is a place to come back to yourself, come closer to Christ, and take the next faithful step in ordinary life.
+                <span className="font-medium text-fg">Founder note coming soon.</span> This space will share Tapiwanashe Grace Pereira&apos;s story, the heart behind 31 and Rooted, and the experiences that shaped its vision.
               </p>
               <div className="about-details grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-xl">
                 <div>
