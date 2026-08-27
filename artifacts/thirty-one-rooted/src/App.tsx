@@ -7,9 +7,7 @@ import { ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, ChevronLeft
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import NotFound from '@/pages/not-found';
 import sistersLogo from '@assets/WhatsApp_Image_2026-08-27_at_12.12.09_PM_1787849508863.jpeg';
-import reframingWorkbook from '@assets/Cognitive_Reframing._A_short_workbook_1787849743134.pdf';
-import breakthroughWorkbook from '@assets/Breakthrough-_Workbook_1787849743135.pdf';
-import callingGuide from '@assets/Calling_1787849743135.pdf';
+import { SocraticCompanion } from '@/components/SocraticCompanion';
 
 const queryClient = new QueryClient();
 
@@ -19,28 +17,12 @@ const experiences = [
   { title: 'The Daily', text: 'Small practices and biblical truth for ordinary Tuesdays. A way to keep becoming in the middle of real life.', action: 'Visit 31 Sisters Daily' },
 ];
 
-const tools = [
-  { tag: 'short workbook', title: 'Cognitive reframing', text: 'Notice the thought. Name the story. Practice a truer way to see what is in front of you.', action: 'Open the workbook' },
-  { tag: 'guided framework', title: 'Breakthrough', text: 'A gentle map for moving from stuck patterns toward honest, faithful action.', action: 'Start the framework' },
-  { tag: 'reflection', title: 'Calling', text: 'A quiet place to ask what is yours to carry in this season — and what is not.', action: 'Reflect on calling' },
-  { tag: 'teaching', title: 'Notice', text: 'Pay attention to the pattern before you rush to fix it.', action: 'Listen in' },
-  { tag: 'practice', title: 'Name', text: 'Language can turn a fog into something you can meet with courage.', action: 'Try the practice' },
-  { tag: 'next step', title: 'Reframe', text: 'Make room for truth, tenderness, and the next faithful yes.', action: 'Find a next step' },
-];
-
-const reflectionQuestions = [
-  { prompt: 'What feels most present in you today?', options: ['A decision', 'A disappointment', 'A relationship', 'A quiet longing'] },
-  { prompt: 'If that feeling could speak without fixing itself, what might it say?', options: ['I need rest', 'I feel unseen', 'I am afraid', 'I want to begin'] },
-  { prompt: 'What would a faithful next step look like — small enough to take today?', options: ['Tell the truth', 'Ask for help', 'Make space', 'Release control'] },
-];
 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingService, setBookingService] = useState('Retreat');
   const [toast, setToast] = useState('');
-  const [reflectionStep, setReflectionStep] = useState(0);
-  const [reflectionChoice, setReflectionChoice] = useState('');
   const [mealOpen, setMealOpen] = useState(false);
   const [email, setEmail] = useState('');
 
@@ -58,24 +40,6 @@ function Home() {
   const scrollTo = (id: string) => {
     closeMenu();
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const chooseReflection = (choice: string) => {
-    setReflectionChoice(choice);
-    notify('Held here. Your reflection is yours to return to.');
-  };
-
-  const nextReflection = () => {
-    if (!reflectionChoice) {
-      notify('Choose the word that feels closest. There is no perfect answer.');
-      return;
-    }
-    if (reflectionStep < reflectionQuestions.length - 1) {
-      setReflectionStep((step) => step + 1);
-      setReflectionChoice('');
-    } else {
-      notify('You have named a faithful next step. Carry it gently.');
-    }
   };
 
   const handleNewsletter = (event: FormEvent<HTMLFormElement>) => {
@@ -101,7 +65,7 @@ function Home() {
         <nav className={`nav-links ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
           <button className="nav-link" onClick={() => scrollTo('retreats')} data-testid="button-nav-retreats">Retreats</button>
           <button className="nav-link" onClick={() => scrollTo('tools')} data-testid="button-nav-tools">Tools</button>
-          <button className="nav-link" onClick={() => scrollTo('reflection')} data-testid="button-nav-reflection">Reflection</button>
+          
           <button className="nav-link" onClick={() => scrollTo('daily')} data-testid="button-nav-daily">The Daily</button>
           <button className="button-primary" onClick={() => openBooking()} data-testid="button-nav-book">Book a space <ArrowUpRight size={14} /></button>
         </nav>
@@ -118,7 +82,7 @@ function Home() {
             <p className="hero-copy">A place for the woman carrying a lot, asking honest questions, and learning to live from what is true. Practical tools. Biblical truth. Room to breathe.</p>
             <div className="hero-actions">
               <button className="button-primary" onClick={() => scrollTo('retreats')} data-testid="button-hero-retreats">Find your retreat <ArrowRight size={15} /></button>
-              <button className="button-quiet" onClick={() => scrollTo('reflection')} data-testid="button-hero-reflection">Begin a reflection</button>
+              <button className="button-quiet" onClick={() => scrollTo('tools')} data-testid="button-hero-reflection">Begin a reflection</button>
             </div>
             <p className="hero-note">Where women retreat to be formed in Christ. Rooted. Becoming. Flourishing.</p>
           </div>
@@ -179,60 +143,16 @@ function Home() {
           </div>
         </section>
 
-        <section className="section tool-zone" id="tools">
+        <section id="tools" className="section tool-zone bg-paper">
           <div className="section-heading">
             <span className="eyebrow">Practical tools for the becoming</span>
             <h2>Not just inspiration.<br /><em>Something to do</em> with what you know.</h2>
             <p>Use the framework. Write the sentence. Ask the better question. These resources are built to meet you on an ordinary day and help you practice a truer one.</p>
           </div>
-          <div className="tool-grid">
-            {tools.map((tool, index) => (
-              <article className="tool-card" key={tool.title} data-testid={`card-tool-${index + 1}`}>
-                <span className="tool-tag">{tool.tag}</span>
-                <div>
-                  <h3>{tool.title}</h3>
-                  <p>{tool.text}</p>
-                </div>
-                <button onClick={() => {
-                  if (index === 0) window.open(reframingWorkbook, '_blank', 'noopener,noreferrer');
-                  else if (index === 1) window.open(breakthroughWorkbook, '_blank', 'noopener,noreferrer');
-                  else if (index === 2) window.open(callingGuide, '_blank', 'noopener,noreferrer');
-                  else notify(`${tool.title} is being prepared with care.`);
-                }} data-testid={`button-tool-${index + 1}`}>{tool.action} <MoveRight size={15} /></button>
-              </article>
-            ))}
-          </div>
+          <SocraticCompanion openBooking={openBooking} />
         </section>
 
-        <section className="section section-dark" id="reflection">
-          <div className="reflect-layout">
-            <div className="reflect-card" data-testid="card-guided-reflection">
-              <span className="reflect-step">Guided reflection · 0{reflectionStep + 1} / 03</span>
-              <h3 className="reflect-question">{reflectionQuestions[reflectionStep].prompt}</h3>
-              <div className="reflect-options">
-                {reflectionQuestions[reflectionStep].options.map((option) => (
-                  <button className={`reflect-option ${reflectionChoice === option ? 'active' : ''}`} key={option} onClick={() => chooseReflection(option)} data-testid={`button-reflection-${option.toLowerCase().replaceAll(' ', '-')}`}>
-                    {option}
-                  </button>
-                ))}
-              </div>
-              <div className="reflect-footer">
-                <div className="dots" aria-label={`Reflection step ${reflectionStep + 1} of 3`}>
-                  {reflectionQuestions.map((question, index) => <span className={`dot ${index === reflectionStep ? 'active' : ''}`} key={question.prompt} />)}
-                </div>
-                <button className="button-primary" onClick={nextReflection} data-testid="button-reflection-next">
-                  {reflectionStep === reflectionQuestions.length - 1 ? 'Finish gently' : 'Keep going'} <ArrowRight size={15} />
-                </button>
-              </div>
-            </div>
-            <div className="reflect-aside">
-              <span className="eyebrow">A gentle Socratic guide</span>
-              <h3>What if the question is part of the way?</h3>
-              <p>This is not a quiz, diagnosis, or performance. Just a few considered questions to help you notice, name, reframe, and take one next faithful step.</p>
-              <button className="button-quiet" style={{ color: 'var(--cream)', borderColor: 'rgba(243,231,220,.35)', marginTop: 20 }} onClick={() => { setReflectionStep(0); setReflectionChoice(''); notify('A fresh reflection is waiting.'); }} data-testid="button-reflection-reset">Begin again</button>
-            </div>
-          </div>
-        </section>
+        
 
         <section className="section" id="daily">
           <div className="meal-layout">
@@ -346,14 +266,14 @@ function BookingModal({ initialKind, onClose, onNotify }: { initialKind: string;
             {step === 1 && <div className="booking-form">
               <label>What are you making room for?
                 <select value={kind} onChange={(event) => setKind(event.target.value)} data-testid="select-booking-kind">
-                  <option value="Retreat">Retreat · $295</option>
+                  <option value="Retreat">Retreat · Pricing varies</option>
                   <option value="Conversation">Conversation · $95</option>
                   <option value="Meal Packaging">Meal Packaging · bespoke quote</option>
                 </select>
               </label>
               <div className="booking-price-row">
-                <span>{kind === 'Meal Packaging' ? 'A considered scope shaped around your message, audience, channels, and pace.' : 'Includes a confirmation, preparation guide, and a space held with care.'}</span>
-                <strong>{kind === 'Retreat' ? '$295' : kind === 'Conversation' ? '$95' : 'Bespoke quote'}</strong>
+                <span>{kind === 'Meal Packaging' ? 'A considered scope shaped around your message, audience, channels, and pace.' : kind === 'Retreat' ? 'Details shared after enquiry. Includes a confirmation and preparation guide.' : 'Includes a confirmation, preparation guide, and a space held with care.'}</span>
+                <strong>{kind === 'Retreat' ? 'Pricing varies' : kind === 'Conversation' ? '$95' : 'Bespoke quote'}</strong>
               </div>
               <p className="booking-note">{kind === 'Meal Packaging' ? 'Share a little about what you are carrying and what you hope to make clearer. We will reply with thoughtful next steps and a quote shaped to the project.' : 'The retreat is a held space for deeper formation. A conversation is a focused one-to-one starting point for the season you are in.'}</p>
             </div>}
