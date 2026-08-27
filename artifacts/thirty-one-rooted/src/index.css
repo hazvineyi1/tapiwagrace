@@ -92,6 +92,10 @@
     filter: sepia(0.2);
   }
 
+  .hero-line-art img {
+    clip-path: inset(0 46% 0 0);
+  }
+
   .artwork-collage {
     position: relative;
   }
@@ -104,6 +108,7 @@
     opacity: 0.14;
     filter: sepia(0.35);
     mix-blend-mode: multiply;
+    clip-path: inset(0 22% 0 0);
   }
 
   .story-line-art {
@@ -113,7 +118,7 @@
   }
 
   .brand-line-art {
-    opacity: 0.58;
+    opacity: 0.4;
     filter: sepia(0.25);
     mix-blend-mode: multiply;
   }
@@ -129,7 +134,7 @@
     top: 2%;
     left: -10%;
     width: 76%;
-    opacity: 0.12;
+    opacity: 0.1;
     pointer-events: none;
   }
 
