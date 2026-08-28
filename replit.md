@@ -13,7 +13,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - Required env: `DATABASE_URL` — Postgres connection string
 - Optional env: `ANTHROPIC_API_KEY` — enables the AI reflection companion; without it the site falls back to the scripted reflection
 - Optional env for enquiry emails: `SMTP_HOST`, `SMTP_PORT` (default 587), `SMTP_USER`, `SMTP_PASS`, `SMTP_SECURE`, `ENQUIRY_TO`, `ENQUIRY_FROM`. Unset, enquiries are still stored — they are just not emailed.
-- Optional env at build time: `SITE_ORIGIN` (e.g. `https://example.co.uk`) — makes the canonical, `og:url` and `og:image` tags absolute and emits `sitemap.xml`. Unset, the tags fall back to relative paths and no sitemap is written.
+- Build-time env: `SITE_ORIGIN` — defaults to `https://www.tapiwanashegrace.com` (the live domain, registered with GoDaddy). Drives the canonical, `og:url`, `og:image` and `sitemap.xml`. Override for a staging build; set it to an empty string for relative tags and no sitemap.
 - Optional env: `API_PROXY_TARGET` — where the web dev server proxies `/api` (default `http://localhost:8080`)
 
 ## Stack

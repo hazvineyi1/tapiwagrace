@@ -19,10 +19,14 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-// Absolute URLs for the social card, canonical and sitemap. Set SITE_ORIGIN
-// to the live origin (e.g. https://31androoted.co.uk) at build time; without
-// it the tags fall back to relative paths and no sitemap is emitted.
-const siteOrigin = (process.env.SITE_ORIGIN ?? '').replace(/\/+$/, '');
+// Absolute URLs for the social card, canonical and sitemap. Defaults to the
+// live domain; override with SITE_ORIGIN for a staging build, or set it to an
+// empty string to fall back to relative tags with no sitemap.
+const DEFAULT_SITE_ORIGIN = 'https://www.tapiwanashegrace.com';
+const siteOrigin = (process.env.SITE_ORIGIN ?? DEFAULT_SITE_ORIGIN).replace(
+  /\/+$/,
+  '',
+);
 
 const ROUTES = ['/', '/contact', '/privacy'];
 
