@@ -1,4 +1,9 @@
-import express, { type Express } from "express";
+import express, {
+  type Express,
+  type NextFunction,
+  type Request,
+  type Response,
+} from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
 import router from "./routes";
@@ -30,5 +35,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
+
+app.use((_req, res) => {
+  res.status(404).json({ error: "Not found" });
+});
+
+// Express 5 forwards rejected async handlers here. Keep internals off the
+// wire: the detail goes to the log, the client gets a bare 500.
+app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
+  req.log.error({ err }, "Unhandled error");
+  if (res.headersSent) {
+    return;
+  }
+  res.status(500).json({ error: "Internal server error" });
+});
 
 export default app;

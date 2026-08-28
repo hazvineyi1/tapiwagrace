@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: enquiries
+    description: Bookings, contact messages and newsletter sign-ups
 paths:
   /healthz:
     get:
@@ -24,6 +26,84 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /bookings:
+    post:
+      operationId: createBooking
+      tags: [enquiries]
+      summary: Request a retreat, conversation or meal package
+      description: >
+        Records an enquiry from the booking flow. Every kind of enquiry is
+        recorded as new and followed up by hand; nothing is auto-confirmed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingRequest"
+      responses:
+        "201":
+          description: Enquiry recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingCreated"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+  /newsletter:
+    post:
+      operationId: subscribeToNewsletter
+      tags: [enquiries]
+      summary: Join the mailing list
+      description: >
+        Adds an email address to the list. Subscribing an address that is
+        already on the list succeeds and reports alreadySubscribed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewsletterRequest"
+      responses:
+        "201":
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsletterResult"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+  /contact:
+    post:
+      operationId: sendContactMessage
+      tags: [enquiries]
+      summary: Send a message from the contact page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactRequest"
+      responses:
+        "201":
+          description: Message received
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactCreated"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +113,105 @@ components:
           type: string
       required:
         - status
-
+    BookingKind:
+      type: string
+      enum: [retreat, conversation, meal]
+    BookingRequest:
+      type: object
+      properties:
+        kind:
+          $ref: "#/components/schemas/BookingKind"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        email:
+          type: string
+          format: email
+          maxLength: 200
+        preferredDate:
+          description: Preferred date as YYYY-MM-DD. Omitted when the visitor has no date in mind.
+          type: string
+          pattern: '^\d{4}-\d{2}-\d{2}$'
+        preferredTime:
+          type: string
+          maxLength: 40
+        message:
+          type: string
+          maxLength: 2000
+      required:
+        - kind
+        - name
+        - email
+    BookingCreated:
+      type: object
+      properties:
+        id:
+          type: integer
+        kind:
+          $ref: "#/components/schemas/BookingKind"
+        status:
+          type: string
+      required:
+        - id
+        - kind
+        - status
+    NewsletterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 200
+      required:
+        - email
+    NewsletterResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        alreadySubscribed:
+          type: boolean
+      required:
+        - id
+        - alreadySubscribed
+    ContactRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        email:
+          type: string
+          format: email
+          maxLength: 200
+        subject:
+          type: string
+          maxLength: 160
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4000
+      required:
+        - name
+        - email
+        - message
+    ContactCreated:
+      type: object
+      properties:
+        id:
+          type: integer
+      required:
+        - id
+    ValidationProblem:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+      required:
+        - error

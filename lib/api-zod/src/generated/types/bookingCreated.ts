@@ -5,7 +5,10 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { BookingKind } from './bookingKind';
 
-export interface HealthStatus {
+export interface BookingCreated {
+  id: number;
+  kind: BookingKind;
   status: string;
 }

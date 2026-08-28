@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight, RotateCcw, Send } from 'lucide-react';
+import { Link } from 'wouter';
 
 const FRAMEWORKS = {
   reframing: {
@@ -112,7 +113,7 @@ export function SocraticCompanion({ openBooking }: { openBooking: (service: stri
             ))}
           </div>
           <div className="pt-8 border-t border-line text-[10px] tracking-[0.2em] uppercase text-fg/50">
-            Looking for full printable workbooks? <a href="https://wa.me/?text=I'd%20love%20to%20purchase%20the%20full%20guided%20workbooks." target="_blank" rel="noreferrer" className="text-rust hover:text-fg transition-colors border-b border-rust pb-0.5">Purchase via WhatsApp</a>.
+            Looking for full printable workbooks? <Link href="/contact" className="text-rust hover:text-fg transition-colors border-b border-rust pb-0.5" data-testid="link-workbooks-contact">Ask us about them</Link>.
           </div>
         </div>
       ) : (

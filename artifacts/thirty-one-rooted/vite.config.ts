@@ -72,6 +72,14 @@ export default defineConfig({
     fs: {
       strict: true,
     },
+    // In production the platform router maps /api to the API service. In dev
+    // the two run on separate ports, so proxy across.
+    proxy: {
+      '/api': {
+        target: process.env.API_PROXY_TARGET ?? 'http://localhost:8080',
+        changeOrigin: true,
+      },
+    },
   },
   preview: {
     port,

@@ -1,44 +1,69 @@
-# [Project name]
+# 31&Rooted
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A digital home for **31&Rooted** — a Christ-centred community for women founded by Tapiwanashe Grace Pereira — bringing its two arms, **31&Rooted Retreats** and **31 Sisters Daily**, into one site where visitors can read, reflect, and send a real enquiry.
 
 ## Run & Operate
 
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/thirty-one-rooted run dev` — run the website (needs `PORT` and `BASE_PATH`)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - Required env: `DATABASE_URL` — Postgres connection string
+- Optional env: `API_PROXY_TARGET` — where the web dev server proxies `/api` (default `http://localhost:8080`)
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
+- Web: React 19 + Vite 7 + Tailwind v4 + wouter, TanStack Query
 - API: Express 5
 - DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
+- Validation: Zod v4, shared between client and server via generated schemas
 - API codegen: Orval (from OpenAPI spec)
 - Build: esbuild (CJS bundle)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- **Website** — `artifacts/thirty-one-rooted/`. Pages in `src/pages/`, shared chrome in `src/components/` (`site-header`, `site-footer`, `site-chrome`, `booking-modal`).
+- **Theme** — `artifacts/thirty-one-rooted/src/index.css`. Palette and fonts are Tailwind v4 `@theme` tokens; the bespoke photo compositions are `@layer components` below them.
+- **Imagery** — `attached_assets/`, imported through the `@assets` Vite alias.
+- **API** — `artifacts/api-server/src/routes/`. One file per resource, registered in `routes/index.ts`.
+- **API contract (source of truth)** — `lib/api-spec/openapi.yaml`. Everything in `lib/api-zod` and `lib/api-client-react` is generated from it; never hand-edit those.
+- **DB schema (source of truth)** — `lib/db/src/schema/`, one file per table.
+- **Design mockups** — `artifacts/mockup-sandbox/`, a preview server for saved design explorations. Not part of the live site.
+- **Standing content/design decisions** — `.agents/memory/`.
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- **The OpenAPI spec drives both sides.** The server validates request bodies with the same generated Zod schemas the client is typed against, so a contract change cannot silently drift. Add an endpoint by editing `openapi.yaml`, running codegen, then writing the route.
+- **Enquiries are recorded, never auto-confirmed.** Bookings land in `bookings` with status `new`; the founder follows up by hand. The UI deliberately says "we will reply", not "your place is confirmed".
+- **No fabricated retreat dates.** The booking flow asks for a *preferred* date via a date input with a `min` of today, rather than offering a list of dates nobody has committed to. Availability is settled in the reply.
+- **Newsletter sign-up is idempotent.** Emails are lowercased and the insert is `onConflictDoNothing`, so re-subscribing reports `alreadySubscribed` instead of erroring.
+- **One shared chrome instance.** `SiteChromeProvider` owns the booking modal and the toast so the header, footer and any page all drive the same one.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- **Home** (`/`) — hero, the founder's story, the two arms of the ministry, three doorways (retreat, conversation, 31 Sisters Daily), the guided-reflection tool, and the meal-support programme.
+- **Guided Reflection** — a scripted, offline companion with three frameworks (Cognitive Reframing, Breakthrough, Calling). It is explicitly *not* clinical care or crisis support, and that disclaimer must stay.
+- **Booking** — a three-step flow for a retreat, a conversation, or meal packaging. Persists to `bookings`.
+- **Contact** (`/contact`) — a form that persists to `contact_messages`, plus shortcuts into the booking flow.
+- **Newsletter** — footer sign-up, persists to `newsletter_subscribers`.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- The site must be **clean, minimal, functional and appealing**. Extend the existing editorial theme rather than redesigning it.
+- WhatsApp is **not** a priority as a contact channel — the contact page and booking flow are.
+- Never invent a per-meal price for the meal programme, or a retreat price. See `.agents/memory/meal-program-positioning.md`.
+- Photography direction is settled; see `.agents/memory/founder-portrait-treatment.md` and `line-art-direction.md`. No rotation, stickers, badges or busy collage.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- `lib/db/src/index.ts` throws at import time without `DATABASE_URL`, so the API server will not boot without a database.
+- `vite.config.ts` requires both `PORT` and `BASE_PATH` to be set, even for `build`.
+- Generated files under `lib/api-zod/src/generated` and `lib/api-client-react/src/generated` are wiped and rewritten by codegen — edit `openapi.yaml` instead.
+- Orval emits Zod **v4** syntax (`zod.email()`, `zod.int()`). The catalog is pinned to zod v4 for this reason; downgrading breaks codegen output.
+- `attached_assets/` carries ~54 MB of PDFs that nothing imports. They are the ministry's real workbooks and retreat guide — do not delete them casually, but do not add more large binaries to git.
 
 ## Pointers
 
