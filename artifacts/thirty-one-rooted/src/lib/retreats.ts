@@ -5,18 +5,35 @@
  * Nothing here is fetched — it is content, and it should read like content.
  */
 
-/**
- * Where retreats have been hosted so far. This is history, not a promise —
- * the destination is chosen per retreat, so don't let the page imply that
- * every future one is in the same place.
- */
-export const PAST_LOCATIONS: string[] = ['Morocco'];
+export interface RetreatPlace {
+  place: string;
+  year: string;
+}
 
 /**
- * The destination of the next retreat, once it is public. Null until then,
- * and the page says it is confirmed along with the dates.
+ * Where retreats have been hosted so far — history, not a promise. The
+ * destination is chosen per retreat, so the page must not imply that every
+ * future one is in the same country.
  */
-export const NEXT_LOCATION: string | null = null;
+export const PAST_RETREATS: RetreatPlace[] = [{ place: 'Morocco', year: '2024' }];
+
+/** The next destination, once it is public. Null until then. */
+export const NEXT_RETREAT: RetreatPlace | null = { place: 'Tirana', year: '2027' };
+
+/** Short vertical clips, served from `public/films/`. */
+export interface Film {
+  /** Filenames only; the base URL is applied at render time. */
+  file: string;
+  webm: string;
+  poster: string;
+  caption: string;
+}
+
+export const FILMS: Film[] = [
+  { file: 'retreat-01.mp4', webm: 'retreat-01.webm', poster: 'retreat-01.jpg', caption: 'Breakfast, and the morning’s reading' },
+  { file: 'retreat-02.mp4', webm: 'retreat-02.webm', poster: 'retreat-02.jpg', caption: 'The lounge, mid-afternoon' },
+  { file: 'retreat-03.mp4', webm: 'retreat-03.webm', poster: 'retreat-03.jpg', caption: 'Supper at the long table' },
+];
 
 export const DEPOSIT_GBP = 250;
 

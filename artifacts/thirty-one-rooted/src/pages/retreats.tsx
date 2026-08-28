@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowUpRight, Check, Minus, Play } from 'lucide-react';
 import { SiTiktok } from 'react-icons/si';
 
+import { FilmCard } from '@/components/film-card';
 import { useSiteChrome } from '@/components/site-chrome';
 import { activeSocials } from '@/lib/contact';
 import {
@@ -11,10 +12,11 @@ import {
   DAY_RHYTHM,
   DEPOSIT_GBP,
   FAQ,
+  FILMS,
   INCLUDED,
   NOT_INCLUDED,
-  NEXT_LOCATION,
-  PAST_LOCATIONS,
+  NEXT_RETREAT,
+  PAST_RETREATS,
   RETREATS,
 } from '@/lib/retreats';
 
@@ -103,15 +105,17 @@ export default function Retreats() {
               of everything else out. Meals happen at one long mosaic table under a reed canopy, and the mint tea does
               not stop.
             </p>
-            {PAST_LOCATIONS.length > 0 && (
+            {PAST_RETREATS.length > 0 && (
               <p className="text-[16px] text-ink-muted leading-relaxed mb-5">
-                The photographs on this page are from our last retreat, in{' '}
-                <strong className="font-normal text-fg">{PAST_LOCATIONS.join(' and ')}</strong>.
+                The photographs and films on this page are from our last retreat, in{' '}
+                <strong className="font-normal text-fg">
+                  {PAST_RETREATS.map((r) => `${r.place}, ${r.year}`).join(' and ')}
+                </strong>.
               </p>
             )}
             <p className="text-[16px] text-ink-muted leading-relaxed">
-              {NEXT_LOCATION
-                ? `The next retreat is in ${NEXT_LOCATION}. You will have the address and full travel notes as soon as you book.`
+              {NEXT_RETREAT
+                ? `The next is ${NEXT_RETREAT.place}, ${NEXT_RETREAT.year}. You will have the address and full travel notes as soon as you book.`
                 : 'We choose the house for each retreat, so the destination is confirmed along with the dates — together with travel notes and the flights to look for.'}
             </p>
           </div>
@@ -317,7 +321,7 @@ export default function Retreats() {
       )}
 
       {/* Moments */}
-      {GALLERY.length > 0 && (
+      {(FILMS.length > 0 || GALLERY.length > 0) && (
         <section className="py-20 md:py-28 px-6 md:px-12 border-t border-line">
           <div className="max-w-6xl mx-auto">
             <div className="max-w-2xl mb-12">
@@ -325,12 +329,20 @@ export default function Retreats() {
               <h2 className="text-[2.2rem] md:text-[2.9rem] leading-[1.1] text-fg">
                 From the retreats we have <em className="italic text-rust">already had.</em>
               </h2>
-              {PAST_LOCATIONS.length > 0 && (
+              {PAST_RETREATS.length > 0 && (
                 <p className="mt-5 text-[10px] tracking-[0.2em] uppercase text-ink-subtle">
-                  {PAST_LOCATIONS.join(' · ')}
+                  {PAST_RETREATS.map((r) => `${r.place} · ${r.year}`).join('  /  ')}
                 </p>
               )}
             </div>
+
+            {FILMS.length > 0 && (
+              <div className="film-strip mb-14" data-testid="retreat-films">
+                {FILMS.map((film) => (
+                  <FilmCard key={film.file} film={film} />
+                ))}
+              </div>
+            )}
 
             {GALLERY.length > 0 && (
               <div className="retreat-moments" data-testid="retreat-gallery">
@@ -381,6 +393,11 @@ export default function Retreats() {
       {/* Closing */}
       <section className="py-20 md:py-28 px-6 md:px-12 border-t border-line text-center">
         <div className="max-w-2xl mx-auto">
+          {NEXT_RETREAT && (
+            <span className={`${EYEBROW} mb-6 block`}>
+              Next · {NEXT_RETREAT.place} {NEXT_RETREAT.year}
+            </span>
+          )}
           <h2 className="text-[2.2rem] md:text-[3rem] leading-[1.1] text-fg mb-6">
             Dates are shared with the list <em className="italic text-rust">first.</em>
           </h2>
