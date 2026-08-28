@@ -9,7 +9,7 @@ import { errorMessage } from '@/lib/site-nav';
 const DOORWAYS = [
   { label: 'A retreat', description: 'Ask about upcoming dates and what a retreat holds.', booking: 'Retreat' },
   { label: 'A conversation', description: 'A focused one-to-one for the season you are in.', booking: 'Conversation' },
-  { label: 'Meal support', description: 'Prepared meals packaged and delivered as a paid program.', booking: 'Meal Packaging' },
+  { label: 'Meal support', description: 'Prepared meals packaged and delivered as a paid programme.', booking: 'Meal Packaging' },
 ];
 
 const fieldLabel = 'text-[10px] tracking-[0.2em] uppercase text-ink-muted block mb-4';

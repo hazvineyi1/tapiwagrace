@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Check, ChevronLeft, X } from 'lucide-react';
 import { useCreateBooking } from '@workspace/api-client-react';
 
-import { BOOKING_KINDS, errorMessage, isBookingLabel, todayIso, type BookingLabel } from '@/lib/site-nav';
+import { BOOKING_KINDS, errorMessage, formatUkDate, isBookingLabel, todayIso, type BookingLabel } from '@/lib/site-nav';
 
 const TIME_SLOTS = ['9:00 AM', '10:30 AM', '1:00 PM', '2:30 PM', '4:00 PM', '6:00 PM'];
 
@@ -64,7 +64,7 @@ export function BookingModal({
         <div className="mb-10">
           <span className="text-[10px] tracking-[0.2em] uppercase text-rust block mb-4 font-medium">Make room for this</span>
           <h2 id="booking-title" className="font-serif text-3xl md:text-4xl text-fg">
-            {complete ? (isMeal ? 'Your meal enquiry is on its way.' : 'Your enquiry is with us.') : (isMeal ? 'Enquire about the meal program' : 'Book a space')}
+            {complete ? (isMeal ? 'Your meal enquiry is on its way.' : 'Your enquiry is with us.') : (isMeal ? 'Enquire about the meal programme' : 'Book a space')}
           </h2>
         </div>
 
@@ -82,8 +82,8 @@ export function BookingModal({
                   <span className="text-[10px] tracking-[0.2em] uppercase text-ink-muted block mb-4">What are you making room for?</span>
                   <select value={kind} onChange={(event) => isBookingLabel(event.target.value) && setKind(event.target.value)} className="w-full bg-transparent border-0 border-b border-line py-4 text-xl font-serif text-fg focus:ring-0 focus:border-moss transition-colors" data-testid="select-booking-kind">
                     <option value="Retreat">Retreat · Pricing varies</option>
-                    <option value="Conversation">Conversation · $95</option>
-                    <option value="Meal Packaging">Meal Packaging · paid program</option>
+                    <option value="Conversation">Conversation · £95</option>
+                    <option value="Meal Packaging">Meal Packaging · paid programme</option>
                   </select>
                 </label>
 
@@ -92,7 +92,7 @@ export function BookingModal({
                     {isMeal ? 'Nourishing meals prepared and coordinated for delivery. Cost depends on meal count and delivery needs.' : kind === 'Retreat' ? 'Details shared after enquiry. Includes a confirmation and preparation guide.' : 'Includes a confirmation, preparation guide, and a space held with care.'}
                   </span>
                   <strong className="font-serif text-3xl font-normal text-moss">
-                    {kind === 'Retreat' ? 'Pricing varies' : kind === 'Conversation' ? '$95' : 'Cost per meal'}
+                    {kind === 'Retreat' ? 'Pricing varies' : kind === 'Conversation' ? '£95' : 'Cost per meal'}
                   </strong>
                 </div>
 
@@ -148,8 +148,8 @@ export function BookingModal({
 
                 <div className="bg-[#EAE6DE]/50 p-6 text-[14px] text-ink-muted leading-relaxed border border-line">
                   <strong className="text-moss uppercase text-[10px] tracking-[0.2em] block mb-3 font-medium">{kind}</strong>
-                  {date ? `${date} · ${time}` : `Flexible on dates · ${time}`}<br /><br />
-                  {isMeal ? 'We will use this as a starting point for your meal program enquiry. We will confirm availability, delivery details, and the per-meal cost before anything is scheduled.' : 'We\'ll reply with a confirmation and the details you need next.'}
+                  {date ? `${formatUkDate(date)} · ${time}` : `Flexible on dates · ${time}`}<br /><br />
+                  {isMeal ? 'We will use this as a starting point for your meal programme enquiry. We will confirm availability, delivery details, and the per-meal cost before anything is scheduled.' : 'We\'ll reply with a confirmation and the details you need next.'}
                 </div>
               </div>
             )}

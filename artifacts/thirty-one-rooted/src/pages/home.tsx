@@ -224,7 +224,7 @@ export default function Home() {
             Not just inspiration.<br/><em className="italic text-rust">Something to do</em> with what you know.
           </h2>
           <p className="text-[16px] text-ink-muted leading-relaxed">
-            Use the framework. Write the sentence. Ask the better question. These resources are built to meet you on an ordinary day and help you practice a truer one.
+            Use the framework. Write the sentence. Ask the better question. These resources are built to meet you on an ordinary day and help you practise a truer one.
           </p>
         </div>
 
@@ -250,34 +250,34 @@ export default function Home() {
         </div>
 
         <div className="min-w-0 md:col-span-7 order-1 md:order-2 daily-writing">
-          <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">31 Sisters Daily · a paid meal support program</span>
+          <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">31 Sisters Daily · a paid meal support programme</span>
           <h2 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">
             A little nourishment for the <em className="italic text-rust">middle</em> of the day.
           </h2>
           <p className="text-[16px] text-ink-muted mb-12 leading-relaxed max-w-lg">
-            Meal Packaging is a practical meal delivery program from 31 Sisters Daily, created for people who need a little help getting a nourishing meal to the table. Like Meals on Wheels, each package is prepared with care and offered as a paid service.
+            Meal Packaging is a practical meal delivery programme from 31 Sisters Daily, created for people who need a little help getting a nourishing meal to the table. Like Meals on Wheels, each package is prepared with care and offered as a paid service.
           </p>
 
           <div className="mb-12">
             <div className="flex justify-between items-center py-4 border-b border-line text-[10px] tracking-[0.2em] uppercase font-medium">
-              <span>Paid meal program</span>
+              <span>Paid meal programme</span>
               <span className="text-rust">Cost per meal</span>
             </div>
 
             <button className="w-full flex justify-between items-center py-6 text-left hover:text-rust transition-colors group" onClick={() => setMealOpen((open) => !open)} aria-expanded={mealOpen} data-testid="button-meal-explain">
-              <span className="font-serif text-2xl md:text-3xl pr-4">How does the meal program work?</span>
+              <span className="font-serif text-2xl md:text-3xl pr-4">How does the meal programme work?</span>
               <span className="text-[10px] uppercase tracking-[0.2em] text-ink-subtle group-hover:text-rust transition-colors flex-shrink-0">{mealOpen ? 'Close' : 'Read'}</span>
             </button>
 
             <div className={`overflow-hidden transition-all duration-500 ease-in-out ${mealOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
               <p className="pb-8 text-[16px] text-ink-muted leading-relaxed max-w-xl">
-                We prepare nourishing meals, package them for safe delivery, and coordinate a delivery day that works for the recipient. The cost is based on the number of meals and delivery needs, so we confirm the per-meal price when you enquire. This is a paid program, not a free meal service.
+                We prepare nourishing meals, package them for safe delivery, and coordinate a delivery day that works for the recipient. The cost is based on the number of meals and delivery needs, so we confirm the per-meal price when you enquire. This is a paid programme, not a free meal service.
               </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-8">
-            <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => openBooking('Meal Packaging')} data-testid="button-meal-enquire">Enquire about the meal program</button>
+            <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => openBooking('Meal Packaging')} data-testid="button-meal-enquire">Enquire about the meal programmeme</button>
             <a className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-ink-muted border-b border-line pb-1 hover:border-rust hover:text-rust transition-colors" href="https://www.tiktok.com/@31sistersdaily" target="_blank" rel="noreferrer" data-testid="link-tiktok-daily">Follow 31 Sisters Daily <ArrowUpRight size={14} /></a>
           </div>
         </div>

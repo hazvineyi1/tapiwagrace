@@ -44,6 +44,17 @@ export function todayIso(): string {
   return new Date(now.getTime() - offsetMs).toISOString().slice(0, 10);
 }
 
+/** Renders an ISO date as a British long date, e.g. "21 November 2026". */
+export function formatUkDate(iso: string): string {
+  const parsed = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) return iso;
+  return parsed.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 /** Turns an API failure into something a visitor can act on. */
 export function errorMessage(error: unknown, fallback: string): string {
   if (error && typeof error === "object" && "data" in error) {
