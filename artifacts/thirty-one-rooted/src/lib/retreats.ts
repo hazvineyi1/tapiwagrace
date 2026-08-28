@@ -6,11 +6,17 @@
  */
 
 /**
- * Set this once the destination is public. While it is null the page says the
- * location is shared on enquiry, which is both honest and a common practice
- * for small retreats.
+ * Where retreats have been hosted so far. This is history, not a promise —
+ * the destination is chosen per retreat, so don't let the page imply that
+ * every future one is in the same place.
  */
-export const RETREAT_LOCATION: string | null = null;
+export const PAST_LOCATIONS: string[] = ['Morocco'];
+
+/**
+ * The destination of the next retreat, once it is public. Null until then,
+ * and the page says it is confirmed along with the dates.
+ */
+export const NEXT_LOCATION: string | null = null;
 
 export const DEPOSIT_GBP = 250;
 

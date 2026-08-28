@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, Check, Minus } from 'lucide-react';
+import { ArrowUpRight, Check, Minus, Play } from 'lucide-react';
 import { SiTiktok } from 'react-icons/si';
 
 import { useSiteChrome } from '@/components/site-chrome';
@@ -13,8 +13,9 @@ import {
   FAQ,
   INCLUDED,
   NOT_INCLUDED,
+  NEXT_LOCATION,
+  PAST_LOCATIONS,
   RETREATS,
-  RETREAT_LOCATION,
 } from '@/lib/retreats';
 
 import retreatPool from '@assets/retreat-pool.webp';
@@ -42,6 +43,10 @@ const GALLERY = Object.entries(
     return { file, src, alt: ALT_TEXT[file] ?? 'A moment from a 31 & Rooted retreat' };
   })
   .sort((a, b) => a.file.localeCompare(b.file));
+
+/** The card leans on a real photograph rather than a TikTok thumbnail, which
+ *  would leak the visitor's IP to a third party. */
+const featuredPoster = GALLERY[0]?.src ?? retreatTea;
 
 export default function Retreats() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
@@ -98,10 +103,16 @@ export default function Retreats() {
               of everything else out. Meals happen at one long mosaic table under a reed canopy, and the mint tea does
               not stop.
             </p>
+            {PAST_LOCATIONS.length > 0 && (
+              <p className="text-[16px] text-ink-muted leading-relaxed mb-5">
+                The photographs on this page are from our last retreat, in{' '}
+                <strong className="font-normal text-fg">{PAST_LOCATIONS.join(' and ')}</strong>.
+              </p>
+            )}
             <p className="text-[16px] text-ink-muted leading-relaxed">
-              {RETREAT_LOCATION
-                ? `We host in ${RETREAT_LOCATION}, and you will have the address and full travel notes as soon as you book.`
-                : 'The location is shared when you enquire, along with the travel notes and the best flights to look for.'}
+              {NEXT_LOCATION
+                ? `The next retreat is in ${NEXT_LOCATION}. You will have the address and full travel notes as soon as you book.`
+                : 'We choose the house for each retreat, so the destination is confirmed along with the dates — together with travel notes and the flights to look for.'}
             </p>
           </div>
           <div className="min-w-0 md:col-span-7">
@@ -247,41 +258,66 @@ export default function Retreats() {
       {/* Follow along */}
       {tiktoks.length > 0 && (
         <section className="py-20 md:py-28 px-6 md:px-12 border-t border-line">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-10 gap-x-8 lg:gap-x-16 items-center">
-            <div className="min-w-0 md:col-span-7">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 gap-x-8 lg:gap-x-16 items-center">
+
+            <div className="min-w-0 md:col-span-6">
               <span className={`${EYEBROW} mb-6 block`}>Between retreats</span>
               <h2 className="text-[2.2rem] md:text-[2.9rem] leading-[1.1] text-fg mb-6">
                 Follow the days as they <em className="italic text-rust">happen.</em>
               </h2>
-              <p className="text-[16px] text-ink-muted leading-relaxed max-w-lg">
+              <p className="text-[16px] text-ink-muted leading-relaxed max-w-lg mb-10">
                 The mornings, the table, the teaching and the going-home faces all end up on TikTok. It is the closest
                 thing to being there before you are.
               </p>
+
+              <div className="flex flex-col gap-4 max-w-md">
+                {tiktoks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.url!}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-between gap-6 border border-line p-6 hover:border-moss hover:bg-[#F1EDE4] transition-colors group"
+                    data-testid={`link-retreat-${social.label.toLowerCase().replace(/[^a-z]+/g, '-')}`}
+                  >
+                    <span className="flex items-center gap-4">
+                      <SiTiktok aria-hidden="true" size={18} className="text-fg" />
+                      <span className="text-[10px] tracking-[0.2em] uppercase text-fg">{social.label}</span>
+                    </span>
+                    <ArrowUpRight size={16} strokeWidth={1.5} className="text-ink-subtle group-hover:text-moss transition-colors" />
+                  </a>
+                ))}
+              </div>
             </div>
-            <div className="min-w-0 md:col-span-5 flex flex-col gap-4">
-              {tiktoks.map((social) => (
+
+            <div className="min-w-0 md:col-span-6 flex md:justify-end">
+              {FEATURED_TIKTOK && (
                 <a
-                  key={social.label}
-                  href={social.url!}
+                  href={FEATURED_TIKTOK.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-between gap-6 border border-line p-6 hover:border-moss hover:bg-[#F1EDE4] transition-colors group"
-                  data-testid={`link-retreat-${social.label.toLowerCase().replace(/[^a-z]+/g, '-')}`}
+                  className="tiktok-card group"
+                  data-testid="link-featured-tiktok"
                 >
-                  <span className="flex items-center gap-4">
-                    <SiTiktok aria-hidden="true" size={18} className="text-fg" />
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-fg">{social.label}</span>
+                  <img src={featuredPoster} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                  <span className="tiktok-card-scrim" aria-hidden="true" />
+                  <span className="tiktok-card-play" aria-hidden="true"><Play size={20} strokeWidth={1.5} /></span>
+                  <span className="tiktok-card-body">
+                    <span className="tiktok-card-kicker">
+                      <SiTiktok aria-hidden="true" size={13} /> Watch on TikTok
+                    </span>
+                    <span className="tiktok-card-caption">{FEATURED_TIKTOK.caption}</span>
                   </span>
-                  <ArrowUpRight size={16} strokeWidth={1.5} className="text-ink-subtle group-hover:text-moss transition-colors" />
                 </a>
-              ))}
+              )}
             </div>
+
           </div>
         </section>
       )}
 
       {/* Moments */}
-      {(GALLERY.length > 0 || FEATURED_TIKTOK) && (
+      {GALLERY.length > 0 && (
         <section className="py-20 md:py-28 px-6 md:px-12 border-t border-line">
           <div className="max-w-6xl mx-auto">
             <div className="max-w-2xl mb-12">
@@ -289,35 +325,21 @@ export default function Retreats() {
               <h2 className="text-[2.2rem] md:text-[2.9rem] leading-[1.1] text-fg">
                 From the retreats we have <em className="italic text-rust">already had.</em>
               </h2>
+              {PAST_LOCATIONS.length > 0 && (
+                <p className="mt-5 text-[10px] tracking-[0.2em] uppercase text-ink-subtle">
+                  {PAST_LOCATIONS.join(' · ')}
+                </p>
+              )}
             </div>
 
             {GALLERY.length > 0 && (
-              <div className="retreat-moments mb-12" data-testid="retreat-gallery">
+              <div className="retreat-moments" data-testid="retreat-gallery">
                 {GALLERY.map((photo) => (
                   <figure key={photo.file}>
                     <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
                   </figure>
                 ))}
               </div>
-            )}
-
-            {FEATURED_TIKTOK && (
-              <a
-                href={FEATURED_TIKTOK.url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-between gap-6 border border-line p-6 md:p-8 hover:border-moss hover:bg-[#F1EDE4] transition-colors group max-w-xl"
-                data-testid="link-featured-tiktok"
-              >
-                <span className="flex items-center gap-4">
-                  <SiTiktok aria-hidden="true" size={20} className="text-fg" />
-                  <span>
-                    <span className="block font-serif text-[1.25rem] text-fg leading-tight">Watch on TikTok</span>
-                    <span className="block text-[14px] text-ink-muted mt-1">{FEATURED_TIKTOK.caption}</span>
-                  </span>
-                </span>
-                <ArrowUpRight size={18} strokeWidth={1.5} className="text-ink-subtle group-hover:text-moss transition-colors shrink-0" />
-              </a>
             )}
           </div>
         </section>
