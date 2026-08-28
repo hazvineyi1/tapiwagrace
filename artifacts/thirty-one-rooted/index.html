@@ -23,6 +23,12 @@
     <meta name="twitter:image" content="%SITE_ORIGIN%/og-image.jpg" />
     <meta name="twitter:image:alt" content="31 &amp; Rooted — Come back to yourself. Come closer to Christ." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- The two faces that paint first: the display serif and the UI sans.
+         Both are same-origin, so crossorigin is still required for fonts. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/cormorant-garamond-300-normal-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/dm-sans-100-1000-normal-latin.woff2" />
   </head>
   <body>
     <div id="root"></div>
