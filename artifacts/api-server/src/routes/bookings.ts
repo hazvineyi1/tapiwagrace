@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import { CreateBookingBody, CreateBookingResponse } from "@workspace/api-zod";
 import { bookingsTable, db } from "@workspace/db";
+import { allowSubmission, isBot } from "../lib/guard";
 import { notifyEnquiry } from "../lib/mailer";
 import {
   normalizeEmail,
@@ -17,8 +18,15 @@ const KIND_LABEL: Record<string, string> = {
 const router: IRouter = Router();
 
 router.post("/bookings", async (req, res) => {
+  if (!(await allowSubmission({ route: "bookings", req, res, limit: 10, windowMs: 60 * 60 * 1000 }))) return;
+
   const body = parseBody(CreateBookingBody, req.body, res);
   if (!body) return;
+
+  if (isBot(body, "bookings")) {
+    res.status(201).json({ id: 0, kind: body.kind, status: "new" });
+    return;
+  }
 
   const [row] = await db
     .insert(bookingsTable)

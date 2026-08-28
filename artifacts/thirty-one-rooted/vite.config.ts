@@ -28,7 +28,7 @@ const siteOrigin = (process.env.SITE_ORIGIN ?? DEFAULT_SITE_ORIGIN).replace(
   '',
 );
 
-const ROUTES = ['/', '/retreats', '/contact', '/privacy'];
+const ROUTES = ['/', '/retreats', '/contact', '/privacy', '/terms'];
 
 function siteMetaPlugin() {
   return {

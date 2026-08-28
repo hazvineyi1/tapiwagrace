@@ -30,6 +30,8 @@ export const createBookingBodyPreferredTimeMax = 40;
 
 export const createBookingBodyMessageMax = 2000;
 
+export const createBookingBodyWebsiteMax = 200;
+
 
 
 export const CreateBookingBody = zod.object({
@@ -38,7 +40,8 @@ export const CreateBookingBody = zod.object({
   "email": zod.email().max(createBookingBodyEmailMax),
   "preferredDate": zod.string().regex(createBookingBodyPreferredDateRegExp).optional().describe('Preferred date as YYYY-MM-DD. Omitted when the visitor has no date in mind.'),
   "preferredTime": zod.string().max(createBookingBodyPreferredTimeMax).optional(),
-  "message": zod.string().max(createBookingBodyMessageMax).optional()
+  "message": zod.string().max(createBookingBodyMessageMax).optional(),
+  "website": zod.string().max(createBookingBodyWebsiteMax).optional().describe('Leave empty. This field is hidden from people and only automated submissions fill it in; anything that does is discarded.\n')
 })
 
 export const CreateBookingResponse = zod.object({
@@ -54,10 +57,13 @@ export const CreateBookingResponse = zod.object({
  */
 export const subscribeToNewsletterBodyEmailMax = 200;
 
+export const subscribeToNewsletterBodyWebsiteMax = 200;
+
 
 
 export const SubscribeToNewsletterBody = zod.object({
-  "email": zod.email().max(subscribeToNewsletterBodyEmailMax)
+  "email": zod.email().max(subscribeToNewsletterBodyEmailMax),
+  "website": zod.string().max(subscribeToNewsletterBodyWebsiteMax).optional().describe('Leave empty. This field is hidden from people and only automated submissions fill it in; anything that does is discarded.\n')
 })
 
 export const SubscribeToNewsletterResponse = zod.object({
@@ -111,13 +117,16 @@ export const sendContactMessageBodySubjectMax = 160;
 
 export const sendContactMessageBodyMessageMax = 4000;
 
+export const sendContactMessageBodyWebsiteMax = 200;
+
 
 
 export const SendContactMessageBody = zod.object({
   "name": zod.string().min(1).max(sendContactMessageBodyNameMax),
   "email": zod.email().max(sendContactMessageBodyEmailMax),
   "subject": zod.string().max(sendContactMessageBodySubjectMax).optional(),
-  "message": zod.string().min(1).max(sendContactMessageBodyMessageMax)
+  "message": zod.string().min(1).max(sendContactMessageBodyMessageMax),
+  "website": zod.string().max(sendContactMessageBodyWebsiteMax).optional().describe('Leave empty. This field is hidden from people and only automated submissions fill it in; anything that does is discarded.\n')
 })
 
 export const SendContactMessageResponse = zod.object({

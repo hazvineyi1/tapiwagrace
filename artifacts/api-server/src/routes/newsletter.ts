@@ -5,14 +5,22 @@ import {
   SubscribeToNewsletterResponse,
 } from "@workspace/api-zod";
 import { db, newsletterSubscribersTable } from "@workspace/db";
+import { allowSubmission, isBot } from "../lib/guard";
 import { notifyEnquiry } from "../lib/mailer";
 import { normalizeEmail, parseBody } from "../lib/validation";
 
 const router: IRouter = Router();
 
 router.post("/newsletter", async (req, res) => {
+  if (!(await allowSubmission({ route: "newsletter", req, res, limit: 10, windowMs: 60 * 60 * 1000 }))) return;
+
   const body = parseBody(SubscribeToNewsletterBody, req.body, res);
   if (!body) return;
+
+  if (isBot(body, "newsletter")) {
+    res.status(201).json({ id: 0, alreadySubscribed: true });
+    return;
+  }
 
   const email = normalizeEmail(body.email);
 

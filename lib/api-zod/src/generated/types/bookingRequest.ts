@@ -25,4 +25,9 @@ export interface BookingRequest {
   preferredTime?: string;
   /** @maxLength 2000 */
   message?: string;
+  /**
+     * Leave empty. This field is hidden from people and only automated submissions fill it in; anything that does is discarded.
+     * @maxLength 200
+     */
+  website?: string;
 }

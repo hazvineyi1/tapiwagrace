@@ -11,6 +11,7 @@ import Home from '@/pages/home';
 import NotFound from '@/pages/not-found';
 import Privacy from '@/pages/privacy';
 import Retreats from '@/pages/retreats';
+import Terms from '@/pages/terms';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ function Routes() {
         <Route path="/retreats" component={Retreats} />
         <Route path="/contact" component={Contact} />
         <Route path="/privacy" component={Privacy} />
+        <Route path="/terms" component={Terms} />
         <Route component={NotFound} />
       </Switch>
     </ErrorBoundary>

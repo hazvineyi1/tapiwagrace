@@ -4,12 +4,14 @@ import { Link } from 'wouter';
 import { useSubscribeToNewsletter } from '@workspace/api-client-react';
 
 import { useSiteChrome } from '@/components/site-chrome';
+import { HoneypotField } from '@/components/honeypot-field';
 import { SocialLinks } from '@/components/social-links';
 import { CONTACT } from '@/lib/contact';
 import { errorMessage } from '@/lib/site-nav';
 
 export function SiteFooter() {
   const [email, setEmail] = useState('');
+  const [website, setWebsite] = useState('');
   const { notify, openBooking } = useSiteChrome();
   const subscribe = useSubscribeToNewsletter();
 
@@ -21,7 +23,7 @@ export function SiteFooter() {
     }
 
     subscribe.mutate(
-      { data: { email } },
+      { data: { email, ...(website ? { website } : {}) } },
       {
         onSuccess: (result) => {
           setEmail('');
@@ -60,6 +62,7 @@ export function SiteFooter() {
                   data-testid="input-newsletter-email"
                 />
               </div>
+              <HoneypotField value={website} onChange={setWebsite} />
               <button type="submit" disabled={subscribe.isPending} className="w-12 h-12 flex items-center justify-center bg-bg text-fg hover:bg-sand transition-colors disabled:opacity-40" aria-label="Join the 31 and Rooted list" data-testid="button-newsletter-submit">
                 <MoveRight size={16} strokeWidth={1.5} />
               </button>
@@ -84,6 +87,7 @@ export function SiteFooter() {
           <div className="flex flex-wrap gap-6">
             <Link href="/contact" className="py-2 hover:text-sand transition-colors" data-testid="link-footer-contact">Contact</Link>
             <Link href="/privacy" className="py-2 hover:text-sand transition-colors" data-testid="link-footer-privacy">Privacy</Link>
+            <Link href="/terms" className="py-2 hover:text-sand transition-colors" data-testid="link-footer-terms">Booking terms</Link>
             <button onClick={() => openBooking()} className="py-2 hover:text-sand transition-colors text-left" data-testid="button-footer-book">Book a space</button>
           </div>
         </div>

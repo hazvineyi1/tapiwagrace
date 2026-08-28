@@ -9,9 +9,12 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
+- `pnpm --filter @workspace/db run generate` — write a migration after a schema change
+- `pnpm --filter @workspace/db run migrate` — apply migrations (this is what production runs)
+- `pnpm --filter @workspace/db run push` — reshape the DB to match the schema. **Local development only**: it can drop columns and tables
 - Required env: `DATABASE_URL` — Postgres connection string
 - Optional env: `ANTHROPIC_API_KEY` — enables the AI reflection companion; without it the site falls back to the scripted reflection
+- Recommended env: `RATE_LIMIT_SALT` — salts the hashed IPs used for rate limiting; `ALLOWED_ORIGINS` — comma-separated CORS allowlist, defaults to the live domain
 - Optional env for enquiry emails: `SMTP_HOST`, `SMTP_PORT` (default 587), `SMTP_USER`, `SMTP_PASS`, `SMTP_SECURE`, `ENQUIRY_TO`, `ENQUIRY_FROM`. Unset, enquiries are still stored — they are just not emailed.
 - Build-time env: `SITE_ORIGIN` — defaults to `https://www.tapiwanashegrace.com` (the live domain, registered with GoDaddy). Drives the canonical, `og:url`, `og:image` and `sitemap.xml`. Override for a staging build; set it to an empty string for relative tags and no sitemap.
 - Optional env: `API_PROXY_TARGET` — where the web dev server proxies `/api` (default `http://localhost:8080`)
@@ -54,7 +57,10 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - **Films are self-hosted and load only on demand.** `public/films/` holds an MP4 and a WebM per clip plus a poster. `FilmCard` shows the poster and mounts the `<video>` only when pressed, so nothing downloads until a visitor asks. MP4 first, WebM for builds without an H.264 decoder. Self-hosted for the same reason TikTok is not embedded: no third-party requests.
 - **Social links live in one place.** `src/lib/contact.ts` holds `SOCIALS`; entries with a `null` url are skipped rather than rendered dead. Add a URL there and it appears in the footer and on the contact page at once.
 - **Reflection conversations are not persisted.** People say vulnerable things there; the endpoint is stateless and writes nothing. The conversation lives only in the browser tab.
-- **The reflection endpoint is rate limited** (30 per 15 minutes per IP, in memory). It spends real money on behalf of anonymous visitors. If the site is ever scaled past one instance, move this to a shared store.
+- **Every public endpoint is rate limited, in the database.** The site runs on autoscale, so an in-process counter would be per-instance and lost on each scale-to-zero. Buckets key on a salted SHA-256 of the caller's IP — the address itself is never stored, and rows are pruned after 24 hours. Forms allow 10 per hour, the reflection companion 30 per 15 minutes.
+- **`app.set("trust proxy", 1)` is load-bearing.** Without it every request carries the platform router's IP and the rate limiter throttles all visitors as one. `1` trusts only the last hop so `X-Forwarded-For` cannot be spoofed past it.
+- **The forms carry a honeypot.** A filled `website` field means automation; the route answers as though it succeeded and stores nothing, because a 400 just tells the author to try again.
+- **Migrations, not push.** `scripts/post-merge.sh` runs `migrate`. Never wire `push` into automation — it reshapes the database to match the schema and can drop data.
 - **Photographs render true.** No `filter:` on a photograph — no saturate, contrast or sepia washes — and captions sit below images rather than on a dark scrim over them. If a caption must go over a photograph, measure it against the lightest pixel behind it.
 - **Display type is the serif.** `h1`/`h2` are Cormorant Garamond at weight 300 via a base rule; body and UI stay in DM Sans. Don't add `font-sans` to a heading.
 - **Secondary text is solid ink, never alpha.** `text-ink-muted` and `text-ink-subtle` are tokens chosen to clear WCAG AA on cream and on every tinted panel. See `.agents/memory/accessibility-and-palette.md`.

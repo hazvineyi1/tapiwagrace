@@ -3,6 +3,7 @@ import { Check } from 'lucide-react';
 import { useSendContactMessage } from '@workspace/api-client-react';
 
 import { useSiteChrome } from '@/components/site-chrome';
+import { HoneypotField } from '@/components/honeypot-field';
 import { SocialLinks } from '@/components/social-links';
 import { CONTACT } from '@/lib/contact';
 import { errorMessage } from '@/lib/site-nav';
@@ -21,6 +22,7 @@ export default function Contact() {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [website, setWebsite] = useState('');
   const [sent, setSent] = useState(false);
 
   const { notify, openBooking } = useSiteChrome();
@@ -45,6 +47,7 @@ export default function Contact() {
           email,
           ...(subject.trim() ? { subject } : {}),
           message,
+          ...(website ? { website } : {}),
         },
       },
       {
@@ -60,6 +63,7 @@ export default function Contact() {
     setEmail('');
     setSubject('');
     setMessage('');
+    setWebsite('');
     setSent(false);
   };
 
@@ -149,6 +153,8 @@ export default function Contact() {
                   <span className={fieldLabel}>Your message</span>
                   <textarea value={message} onChange={(event) => setMessage(event.target.value)} rows={6} placeholder="Tell us what you are carrying, or what you would like to know." className="w-full bg-transparent border-0 border-b border-line py-3 text-[16px] leading-relaxed text-fg focus:outline-none focus:border-moss transition-colors placeholder:text-ink-subtle resize-none" data-testid="input-contact-message" />
                 </label>
+
+                <HoneypotField value={website} onChange={setWebsite} />
 
                 <div className="pt-2">
                   <button type="submit" disabled={sendMessage.isPending} className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors disabled:opacity-40" data-testid="button-contact-submit">

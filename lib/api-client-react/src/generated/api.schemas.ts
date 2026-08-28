@@ -36,6 +36,11 @@ export interface BookingRequest {
   preferredTime?: string;
   /** @maxLength 2000 */
   message?: string;
+  /**
+     * Leave empty. This field is hidden from people and only automated submissions fill it in; anything that does is discarded.
+     * @maxLength 200
+     */
+  website?: string;
 }
 
 export interface BookingCreated {
@@ -47,6 +52,11 @@ export interface BookingCreated {
 export interface NewsletterRequest {
   /** @maxLength 200 */
   email: string;
+  /**
+     * Leave empty. This field is hidden from people and only automated submissions fill it in; anything that does is discarded.
+     * @maxLength 200
+     */
+  website?: string;
 }
 
 export interface NewsletterResult {
@@ -69,6 +79,11 @@ export interface ContactRequest {
      * @maxLength 4000
      */
   message: string;
+  /**
+     * Leave empty. This field is hidden from people and only automated submissions fill it in; anything that does is discarded.
+     * @maxLength 200
+     */
+  website?: string;
 }
 
 export interface ContactCreated {

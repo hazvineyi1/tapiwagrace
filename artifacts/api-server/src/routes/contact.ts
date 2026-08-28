@@ -4,6 +4,7 @@ import {
   SendContactMessageResponse,
 } from "@workspace/api-zod";
 import { contactMessagesTable, db } from "@workspace/db";
+import { allowSubmission, isBot } from "../lib/guard";
 import { notifyEnquiry } from "../lib/mailer";
 import {
   normalizeEmail,
@@ -14,8 +15,15 @@ import {
 const router: IRouter = Router();
 
 router.post("/contact", async (req, res) => {
+  if (!(await allowSubmission({ route: "contact", req, res, limit: 10, windowMs: 60 * 60 * 1000 }))) return;
+
   const body = parseBody(SendContactMessageBody, req.body, res);
   if (!body) return;
+
+  if (isBot(body, "contact")) {
+    res.status(201).json({ id: 0 });
+    return;
+  }
 
   const [row] = await db
     .insert(contactMessagesTable)

@@ -6,13 +6,10 @@ import {
   reflect,
   type Framework,
 } from "../lib/reflection-companion";
-import { createRateLimit } from "../lib/rate-limit";
+import { allowSubmission } from "../lib/guard";
 import { parseBody } from "../lib/validation";
 
 const router: IRouter = Router();
-
-// Anonymous visitors drive a paid model here, so cap each one.
-const limiter = createRateLimit({ limit: 30, windowMs: 15 * 60 * 1000 });
 
 router.post("/reflection", async (req, res) => {
   if (!isCompanionConfigured()) {
@@ -22,16 +19,8 @@ router.post("/reflection", async (req, res) => {
     return;
   }
 
-  const visitor = req.ip ?? "unknown";
-  const { allowed, retryAfterSeconds } = limiter.check(visitor);
-  if (!allowed) {
-    res.setHeader("Retry-After", String(retryAfterSeconds));
-    res.status(429).json({
-      error:
-        "That is a lot of reflecting in one sitting. Rest a moment and come back.",
-    });
-    return;
-  }
+  // Anonymous visitors drive a paid model here, so cap each one.
+  if (!(await allowSubmission({ route: "reflection", req, res, limit: 30, windowMs: 15 * 60 * 1000 }))) return;
 
   const body = parseBody(CreateReflectionBody, req.body, res);
   if (!body) return;

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Check, ChevronLeft, X } from 'lucide-react';
 import { useCreateBooking } from '@workspace/api-client-react';
 
+import { HoneypotField } from '@/components/honeypot-field';
+
 import { BOOKING_KINDS, errorMessage, formatUkDate, isBookingLabel, todayIso, type BookingLabel } from '@/lib/site-nav';
 
 const TIME_SLOTS = ['9:00 AM', '10:30 AM', '1:00 PM', '2:30 PM', '4:00 PM', '6:00 PM'];
@@ -22,6 +24,7 @@ export function BookingModal({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [website, setWebsite] = useState('');
   const [complete, setComplete] = useState(false);
 
   const createBooking = useCreateBooking();
@@ -46,6 +49,7 @@ export function BookingModal({
           ...(date ? { preferredDate: date } : {}),
           preferredTime: time,
           ...(message.trim() ? { message } : {}),
+          ...(website ? { website } : {}),
         },
       },
       {
@@ -146,12 +150,22 @@ export function BookingModal({
                   <textarea value={message} onChange={(event) => setMessage(event.target.value)} rows={3} placeholder={isMeal ? 'Six meals a week for my mother, delivered in Borrowdale.' : 'Optional.'} className="w-full bg-transparent border-0 border-b border-line py-3 text-[16px] text-fg focus:ring-0 focus:border-moss transition-colors placeholder:text-ink-subtle resize-none" data-testid="input-booking-message" />
                 </label>
 
+                <HoneypotField value={website} onChange={setWebsite} />
+
                 <div className="bg-[#EAE6DE]/50 p-6 text-[14px] text-ink-muted leading-relaxed border border-line">
                   <strong className="text-moss uppercase text-[10px] tracking-[0.2em] block mb-3 font-medium">{kind}</strong>
                   {date ? `${formatUkDate(date)} · ${time}` : `Flexible on dates · ${time}`}<br /><br />
                   {isMeal ? 'We will use this as a starting point for your meal programme enquiry. We will confirm availability, delivery details, and the per-meal cost before anything is scheduled.' : 'We\'ll reply with a confirmation and the details you need next.'}
                 </div>
               </div>
+            )}
+
+            {step === 3 && (
+              <p className="mt-10 text-[13px] leading-relaxed text-ink-subtle">
+                Sending this is an enquiry, not a confirmed booking — we reply first. When you do book, our{' '}
+                <a href="/terms" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-rust transition-colors">booking terms</a>{' '}
+                apply.
+              </p>
             )}
 
             <div className="flex items-center justify-between mt-12 pt-8 border-t border-line">

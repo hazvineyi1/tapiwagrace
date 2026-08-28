@@ -55,6 +55,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ValidationProblem"
+        "429":
+          description: Too many submissions from this visitor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
   /newsletter:
     post:
       operationId: subscribeToNewsletter
@@ -78,6 +84,12 @@ paths:
                 $ref: "#/components/schemas/NewsletterResult"
         "400":
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "429":
+          description: Too many submissions from this visitor
           content:
             application/json:
               schema:
@@ -147,6 +159,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ValidationProblem"
+        "429":
+          description: Too many submissions from this visitor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
 components:
   schemas:
     HealthStatus:
@@ -182,6 +200,12 @@ components:
         message:
           type: string
           maxLength: 2000
+        website:
+          description: >
+            Leave empty. This field is hidden from people and only automated
+            submissions fill it in; anything that does is discarded.
+          type: string
+          maxLength: 200
       required:
         - kind
         - name
@@ -205,6 +229,12 @@ components:
         email:
           type: string
           format: email
+          maxLength: 200
+        website:
+          description: >
+            Leave empty. This field is hidden from people and only automated
+            submissions fill it in; anything that does is discarded.
+          type: string
           maxLength: 200
       required:
         - email
@@ -236,6 +266,12 @@ components:
           type: string
           minLength: 1
           maxLength: 4000
+        website:
+          description: >
+            Leave empty. This field is hidden from people and only automated
+            submissions fill it in; anything that does is discarded.
+          type: string
+          maxLength: 200
       required:
         - name
         - email

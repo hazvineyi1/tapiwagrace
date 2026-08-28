@@ -27,6 +27,13 @@ const SECTIONS = [
     ],
   },
   {
+    heading: 'Keeping the forms usable',
+    body: [
+      'To stop automated submissions flooding the forms, we record that a submission happened alongside a one-way hash of the sender’s IP address. We never store the address itself, and the hash cannot be turned back into one. These records are deleted after 24 hours.',
+      'Our lawful basis is our legitimate interest in keeping the site working for the people it is for.',
+    ],
+  },
+  {
     heading: 'Cookies and tracking',
     body: [
       'This site sets no cookies. There is no analytics, no advertising, and no third-party tracking of any kind. That is why you are not being asked to accept anything.',
