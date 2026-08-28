@@ -27,6 +27,8 @@ import type {
   HealthStatus,
   NewsletterRequest,
   NewsletterResult,
+  ReflectionReply,
+  ReflectionRequest,
   ValidationProblem
 } from './api.schemas';
 
@@ -277,6 +279,78 @@ export const useSubscribeToNewsletter = <TError = ErrorType<ValidationProblem>,
         TContext
       > => {
       return useMutation(getSubscribeToNewsletterMutationOptions(options));
+    }
+
+export const getCreateReflectionUrl = () => {
+
+
+
+
+  return `/api/reflection`
+}
+
+/**
+ * Returns the companion's next message for a guided reflection. Send the conversation so far; send an empty list to open a new one. Nothing is stored. Returns 503 when the companion is not configured, so the client can fall back to the offline frameworks.
+ * @summary Continue a guided reflection
+ */
+export const createReflection = async (reflectionRequest: ReflectionRequest, options?: Parameters<typeof customFetch>[1]): Promise<ReflectionReply> => {
+
+  return customFetch<ReflectionReply>(getCreateReflectionUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(reflectionRequest)
+  }
+);}
+
+
+
+
+
+export const getCreateReflectionMutationOptions = <TError = ErrorType<ValidationProblem>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createReflection>>, TError,{data: BodyType<ReflectionRequest>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createReflection>>, TError,{data: BodyType<ReflectionRequest>}, TContext> => {
+
+const mutationKey = ['createReflection'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createReflection>>, {data: BodyType<ReflectionRequest>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createReflection(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateReflectionMutationResult = NonNullable<Awaited<ReturnType<typeof createReflection>>>
+    export type CreateReflectionMutationBody = BodyType<ReflectionRequest>
+    export type CreateReflectionMutationError = ErrorType<ValidationProblem>
+
+    /**
+ * @summary Continue a guided reflection
+ */
+export const useCreateReflection = <TError = ErrorType<ValidationProblem>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createReflection>>, TError,{data: BodyType<ReflectionRequest>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createReflection>>,
+        TError,
+        {data: BodyType<ReflectionRequest>},
+        TContext
+      > => {
+      return useMutation(getCreateReflectionMutationOptions(options));
     }
 
 export const getSendContactMessageUrl = () => {

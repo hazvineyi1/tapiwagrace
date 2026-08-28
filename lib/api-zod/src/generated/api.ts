@@ -67,6 +67,40 @@ export const SubscribeToNewsletterResponse = zod.object({
 
 
 /**
+ * Returns the companion's next message for a guided reflection. Send the conversation so far; send an empty list to open a new one. Nothing is stored. Returns 503 when the companion is not configured, so the client can fall back to the offline frameworks.
+ * @summary Continue a guided reflection
+ */
+export const createReflectionBodyTurnsItemTextMax = 2000;
+
+export const createReflectionBodyTurnsMax = 24;
+
+
+
+export const CreateReflectionBody = zod.object({
+  "framework": zod.enum(['reframing', 'breakthrough', 'calling', 'open']),
+  "turns": zod.array(zod.object({
+  "role": zod.enum(['guide', 'seeker']),
+  "text": zod.string().min(1).max(createReflectionBodyTurnsItemTextMax)
+})).max(createReflectionBodyTurnsMax).describe('The conversation so far, oldest first. Empty opens a new reflection.')
+})
+
+export const CreateReflectionResponse = zod.object({
+  "reply": zod.string(),
+  "scripture": zod.object({
+  "reference": zod.string(),
+  "text": zod.string()
+}).optional(),
+  "voice": zod.object({
+  "thinker": zod.string(),
+  "insight": zod.string()
+}).optional().describe('A named human-wisdom perspective, paraphrased rather than quoted.'),
+  "invitation": zod.string().optional(),
+  "closing": zod.boolean(),
+  "care": zod.boolean().describe('True when the visitor should be pointed toward real human support.')
+})
+
+
+/**
  * @summary Send a message from the contact page
  */
 export const sendContactMessageBodyNameMax = 120;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
-import { SocraticCompanion } from '@/components/SocraticCompanion';
+import { ReflectionCompanion } from '@/components/reflection-companion';
 import { useSiteChrome } from '@/components/site-chrome';
 import { consumePendingSection, scrollToSection } from '@/lib/site-nav';
 
@@ -76,7 +76,7 @@ export default function Home() {
       <section className="pt-48 pb-20 px-6 md:px-12 max-w-5xl mx-auto text-center min-h-[70vh] flex flex-col items-center justify-center relative">
         <div className="relative z-10 flex flex-col items-center">
           <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-8 block font-medium">A digital home for becoming</span>
-          <h1 className="text-5xl md:text-[6.5rem] leading-[0.95] text-moss mb-10 tracking-tight">
+          <h1 className="text-[3.4rem] md:text-[6rem] leading-[1.02] text-moss mb-10 tracking-[-0.015em]">
             Come back to <em className="italic text-rust pr-2">yourself.</em><br className="hidden md:block" />Come closer to Christ.
           </h1>
           <p className="text-lg md:text-xl text-fg/70 max-w-2xl mx-auto font-light leading-relaxed mb-12">
@@ -120,7 +120,7 @@ export default function Home() {
           </div>
           <div className="md:col-span-7 order-1 md:order-2">
             <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">About 31 and Rooted</span>
-            <h2 className="text-4xl md:text-[3.25rem] leading-[1.05] text-fg mb-8">
+            <h2 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">
               A digital home for <em className="italic text-rust">becoming.</em>
             </h2>
             <div className="about-copy max-w-xl text-[16px] leading-relaxed text-fg/70">
@@ -155,7 +155,7 @@ export default function Home() {
           </div>
           <div className="md:col-span-7 order-1 md:order-2">
             <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">You do not have to rush this</span>
-            <h2 className="text-4xl md:text-[3.25rem] leading-[1.05] text-fg mb-8">
+            <h2 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">
               Formation is not a finish line.<br className="hidden xl:block" />It is a way of <em className="italic text-rust">walking.</em>
             </h2>
             <p className="text-[16px] leading-relaxed text-fg/70 mb-10 max-w-xl">
@@ -176,7 +176,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
           <div className="md:col-span-5 md:sticky md:top-36 h-fit">
             <span className="text-[10px] tracking-[0.2em] uppercase text-sand mb-6 block font-medium">Choose your doorway</span>
-            <h2 className="text-5xl md:text-6xl leading-[1.05] mb-8 font-serif text-bg">Start where<br/>you <em className="italic text-sand">are.</em></h2>
+            <h2 className="text-[3rem] md:text-[3.9rem] leading-[1.08] mb-8 text-bg">Start where<br/>you <em className="italic text-sand">are.</em></h2>
             <p className="text-[16px] text-bg/70 mb-12 font-light leading-relaxed max-w-sm">
               Some seasons call for a room. Some call for a page. Some call for a conversation. There is no right order.
             </p>
@@ -220,7 +220,7 @@ export default function Home() {
       <section id="tools" className="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto border-b border-line">
         <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
           <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">Practical tools for the becoming</span>
-          <h2 className="text-4xl md:text-[3.25rem] leading-[1.05] text-fg mb-8">
+          <h2 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">
             Not just inspiration.<br/><em className="italic text-rust">Something to do</em> with what you know.
           </h2>
           <p className="text-[16px] text-fg/70 leading-relaxed">
@@ -228,7 +228,7 @@ export default function Home() {
           </p>
         </div>
 
-        <SocraticCompanion openBooking={openBooking} />
+        <ReflectionCompanion openBooking={openBooking} />
       </section>
 
       {/* The Daily Section */}
@@ -251,7 +251,7 @@ export default function Home() {
 
         <div className="md:col-span-7 order-1 md:order-2 daily-writing">
           <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">31 Sisters Daily · a paid meal support program</span>
-          <h2 className="text-4xl md:text-[3.25rem] leading-[1.05] text-fg mb-8">
+          <h2 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">
             A little nourishment for the <em className="italic text-rust">middle</em> of the day.
           </h2>
           <p className="text-[16px] text-fg/70 mb-12 leading-relaxed max-w-lg">

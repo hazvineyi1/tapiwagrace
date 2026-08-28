@@ -75,6 +75,65 @@ export interface ContactCreated {
   id: number;
 }
 
+export type ReflectionTurnRole = typeof ReflectionTurnRole[keyof typeof ReflectionTurnRole];
+
+
+export const ReflectionTurnRole = {
+  guide: 'guide',
+  seeker: 'seeker',
+} as const;
+
+export interface ReflectionTurn {
+  role: ReflectionTurnRole;
+  /**
+     * @minLength 1
+     * @maxLength 2000
+     */
+  text: string;
+}
+
+export type ReflectionRequestFramework = typeof ReflectionRequestFramework[keyof typeof ReflectionRequestFramework];
+
+
+export const ReflectionRequestFramework = {
+  reframing: 'reframing',
+  breakthrough: 'breakthrough',
+  calling: 'calling',
+  open: 'open',
+} as const;
+
+export interface ReflectionRequest {
+  framework: ReflectionRequestFramework;
+  /**
+     * The conversation so far, oldest first. Empty opens a new reflection.
+     * @maxItems 24
+     */
+  turns: ReflectionTurn[];
+}
+
+export interface ReflectionScripture {
+  reference: string;
+  text: string;
+}
+
+/**
+ * A named human-wisdom perspective, paraphrased rather than quoted.
+ */
+export interface ReflectionVoice {
+  thinker: string;
+  insight: string;
+}
+
+export interface ReflectionReply {
+  reply: string;
+  scripture?: ReflectionScripture;
+  voice?: ReflectionVoice;
+  invitation?: string;
+  closing: boolean;
+  /** True when the visitor should be pointed toward real human support. */
+  care: boolean;
+}
+
 export interface ValidationProblem {
   error: string;
   details?: string[];

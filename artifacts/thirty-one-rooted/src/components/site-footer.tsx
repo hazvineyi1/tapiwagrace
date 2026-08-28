@@ -4,6 +4,7 @@ import { Link } from 'wouter';
 import { useSubscribeToNewsletter } from '@workspace/api-client-react';
 
 import { useSiteChrome } from '@/components/site-chrome';
+import { CONTACT } from '@/lib/contact';
 import { errorMessage } from '@/lib/site-nav';
 
 export function SiteFooter() {
@@ -68,13 +69,14 @@ export function SiteFooter() {
         <div className="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-[9px] tracking-[0.2em] uppercase text-bg/50">
           <div className="flex flex-wrap gap-x-8 gap-y-4">
             <span>31 &amp; Rooted · 31 Sisters Daily</span>
-            <span>Rooted. Becoming. Flourishing.</span>
+            <a href={`mailto:${CONTACT.email}`} className="hover:text-sand transition-colors">{CONTACT.email}</a>
+            <a href={CONTACT.phoneHref} className="hover:text-sand transition-colors">{CONTACT.phone}</a>
           </div>
 
           <div className="flex flex-wrap gap-6">
             <Link href="/contact" className="hover:text-sand transition-colors" data-testid="link-footer-contact">Contact</Link>
-            <a href="https://www.tiktok.com/@31sistersdaily" target="_blank" rel="noreferrer" className="hover:text-sand transition-colors">TikTok Daily</a>
-            <a href="https://www.tiktok.com/@31androoted" target="_blank" rel="noreferrer" className="hover:text-sand transition-colors">TikTok Rooted</a>
+            <a href={CONTACT.tiktok.daily} target="_blank" rel="noreferrer" className="hover:text-sand transition-colors">TikTok Daily</a>
+            <a href={CONTACT.tiktok.rooted} target="_blank" rel="noreferrer" className="hover:text-sand transition-colors">TikTok Rooted</a>
             <button onClick={() => openBooking()} className="hover:text-sand transition-colors text-left" data-testid="button-footer-book">Book a space</button>
           </div>
         </div>

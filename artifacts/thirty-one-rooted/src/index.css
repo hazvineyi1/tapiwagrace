@@ -10,7 +10,7 @@
   --color-moss: #1A2F20;
   --color-rust: #924026;
   --color-sand: #CDBEAB;
-  --color-line: rgba(28, 26, 24, 0.12);
+  --color-line: rgba(28, 26, 24, 0.10);
   
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'DM Sans', sans-serif;
@@ -36,6 +36,17 @@
   html { scroll-behavior: smooth; }
   body {
     @apply bg-bg text-fg font-sans antialiased;
+  }
+
+  /* Display type is the serif; body and UI stay in the sans. */
+  h1, h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    letter-spacing: -0.006em;
+  }
+
+  h1 em, h2 em {
+    font-weight: 300;
   }
   ::selection {
     @apply bg-sand text-fg;
@@ -77,14 +88,42 @@
 @layer components {
   .artwork-collage {
     position: relative;
-    background: #EFE3D9;
   }
 
   .sisters-daily-banner {
     display: block;
-    width: min(100%, 720px);
+    width: min(100%, 660px);
     margin: 0 auto;
     height: auto;
+  }
+
+  .reflection-panel {
+    border: 1px solid var(--color-line);
+    background: var(--color-bg);
+    padding: clamp(1.75rem, 4.5vw, 3.5rem);
+  }
+
+  /* Scripture is set apart from the companion's own words, never blended in. */
+  .scripture-anchor {
+    margin: 0;
+    padding-left: clamp(1.25rem, 3vw, 2rem);
+    border-left: 1px solid var(--color-rust);
+  }
+
+  .voice-note {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .invitation-note {
+    padding: 1.4rem 1.6rem;
+    background: #EFEBE2;
+  }
+
+  .care-note {
+    padding: 1.6rem 1.8rem;
+    border: 1px solid rgba(146, 64, 38, 0.3);
+    background: rgba(146, 64, 38, 0.04);
   }
 
   .founder-photo-composition {

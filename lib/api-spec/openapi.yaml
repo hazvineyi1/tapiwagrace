@@ -12,6 +12,8 @@ tags:
     description: Health operations
   - name: enquiries
     description: Bookings, contact messages and newsletter sign-ups
+  - name: reflection
+    description: The guided reflection companion
 paths:
   /healthz:
     get:
@@ -76,6 +78,47 @@ paths:
                 $ref: "#/components/schemas/NewsletterResult"
         "400":
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+  /reflection:
+    post:
+      operationId: createReflection
+      tags: [reflection]
+      summary: Continue a guided reflection
+      description: >
+        Returns the companion's next message for a guided reflection. Send the
+        conversation so far; send an empty list to open a new one. Nothing is
+        stored. Returns 503 when the companion is not configured, so the client
+        can fall back to the offline frameworks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReflectionRequest"
+      responses:
+        "200":
+          description: The companion's next message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReflectionReply"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "429":
+          description: Too many reflections from this visitor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "503":
+          description: The companion is not configured
           content:
             application/json:
               schema:
@@ -204,6 +247,75 @@ components:
           type: integer
       required:
         - id
+    ReflectionTurn:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [guide, seeker]
+        text:
+          type: string
+          minLength: 1
+          maxLength: 2000
+      required:
+        - role
+        - text
+    ReflectionRequest:
+      type: object
+      properties:
+        framework:
+          type: string
+          enum: [reframing, breakthrough, calling, open]
+        turns:
+          description: The conversation so far, oldest first. Empty opens a new reflection.
+          type: array
+          maxItems: 24
+          items:
+            $ref: "#/components/schemas/ReflectionTurn"
+      required:
+        - framework
+        - turns
+    ReflectionScripture:
+      type: object
+      properties:
+        reference:
+          type: string
+        text:
+          type: string
+      required:
+        - reference
+        - text
+    ReflectionVoice:
+      description: A named human-wisdom perspective, paraphrased rather than quoted.
+      type: object
+      properties:
+        thinker:
+          type: string
+        insight:
+          type: string
+      required:
+        - thinker
+        - insight
+    ReflectionReply:
+      type: object
+      properties:
+        reply:
+          type: string
+        scripture:
+          $ref: "#/components/schemas/ReflectionScripture"
+        voice:
+          $ref: "#/components/schemas/ReflectionVoice"
+        invitation:
+          type: string
+        closing:
+          type: boolean
+        care:
+          description: True when the visitor should be pointed toward real human support.
+          type: boolean
+      required:
+        - reply
+        - closing
+        - care
     ValidationProblem:
       type: object
       properties:

@@ -11,6 +11,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - Required env: `DATABASE_URL` — Postgres connection string
+- Optional env: `ANTHROPIC_API_KEY` — enables the AI reflection companion; without it the site falls back to the scripted reflection
 - Optional env: `API_PROXY_TARGET` — where the web dev server proxies `/api` (default `http://localhost:8080`)
 
 ## Stack
@@ -18,6 +19,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - pnpm workspaces, Node.js 24, TypeScript 5.9
 - Web: React 19 + Vite 7 + Tailwind v4 + wouter, TanStack Query
 - API: Express 5
+- AI: Anthropic SDK (`claude-opus-5`) for the reflection companion
 - DB: PostgreSQL + Drizzle ORM
 - Validation: Zod v4, shared between client and server via generated schemas
 - API codegen: Orval (from OpenAPI spec)
@@ -41,11 +43,15 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - **No fabricated retreat dates.** The booking flow asks for a *preferred* date via a date input with a `min` of today, rather than offering a list of dates nobody has committed to. Availability is settled in the reply.
 - **Newsletter sign-up is idempotent.** Emails are lowercased and the insert is `onConflictDoNothing`, so re-subscribing reports `alreadySubscribed` instead of erroring.
 - **One shared chrome instance.** `SiteChromeProvider` owns the booking modal and the toast so the header, footer and any page all drive the same one.
+- **The companion degrades, it does not break.** With no `ANTHROPIC_API_KEY` the endpoint returns 503 and the UI silently runs the scripted reflection instead. Never let a missing key surface an error to a visitor.
+- **Reflection conversations are not persisted.** People say vulnerable things there; the endpoint is stateless and writes nothing. The conversation lives only in the browser tab.
+- **The reflection endpoint is rate limited** (30 per 15 minutes per IP, in memory). It spends real money on behalf of anonymous visitors. If the site is ever scaled past one instance, move this to a shared store.
+- **Display type is the serif.** `h1`/`h2` are Cormorant Garamond at weight 300 via a base rule; body and UI stay in DM Sans. Don't add `font-sans` to a heading.
 
 ## Product
 
 - **Home** (`/`) — hero, the founder's story, the two arms of the ministry, three doorways (retreat, conversation, 31 Sisters Daily), the guided-reflection tool, and the meal-support programme.
-- **Guided Reflection** — a scripted, offline companion with three frameworks (Cognitive Reframing, Breakthrough, Calling). It is explicitly *not* clinical care or crisis support, and that disclaimer must stay.
+- **Guided Reflection** — an AI companion (`POST /api/reflection`) that reflects with a visitor across four focuses (Cognitive Reframing, Breakthrough, Calling, or no set agenda). It can surface a scripture anchor, a paraphrased perspective from a named thinker, and one small practice. It is explicitly *not* clinical care or crisis support, and that disclaimer must stay. See `.agents/memory/reflection-companion.md`.
 - **Booking** — a three-step flow for a retreat, a conversation, or meal packaging. Persists to `bookings`.
 - **Contact** (`/contact`) — a form that persists to `contact_messages`, plus shortcuts into the booking flow.
 - **Newsletter** — footer sign-up, persists to `newsletter_subscribers`.
@@ -63,6 +69,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - `vite.config.ts` requires both `PORT` and `BASE_PATH` to be set, even for `build`.
 - Generated files under `lib/api-zod/src/generated` and `lib/api-client-react/src/generated` are wiped and rewritten by codegen — edit `openapi.yaml` instead.
 - Orval emits Zod **v4** syntax (`zod.email()`, `zod.int()`). The catalog is pinned to zod v4 for this reason; downgrading breaks codegen output.
+- The companion's Anthropic call sends a synthetic first `user` message before the stored turns — the API requires the first message to be `user`, but the conversation opens with the guide speaking.
 - `attached_assets/` carries ~54 MB of PDFs that nothing imports. They are the ministry's real workbooks and retreat guide — do not delete them casually, but do not add more large binaries to git.
 
 ## Pointers
