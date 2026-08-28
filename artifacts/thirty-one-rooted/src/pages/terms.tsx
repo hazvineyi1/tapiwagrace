@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { CONTACT } from '@/lib/contact';
+import { FINANCIAL_PROTECTION, protectionStatement } from '@/lib/payments';
 import { DEPOSIT_GBP } from '@/lib/retreats';
 
 const SECTIONS: { heading: string; body: string[] }[] = [
@@ -52,6 +53,17 @@ const SECTIONS: { heading: string; body: string[] }[] = [
       'Small changes happen: a session moves, an excursion is swapped, a room is reallocated. We will tell you. If we have to make a significant change to the dates or the destination before you travel, you may cancel and take a full refund instead.',
     ],
   },
+  ...(FINANCIAL_PROTECTION
+    ? [
+        {
+          heading: 'Financial protection',
+          body: [
+            protectionStatement() as string,
+            `Our protection is provided through ${FINANCIAL_PROTECTION.provider}, membership number ${FINANCIAL_PROTECTION.membershipNumber}. This covers the money you pay us for the retreat itself. It does not cover flights or anything else you book directly with someone else, which is a further reason to hold travel insurance.`,
+          ],
+        },
+      ]
+    : []),
   {
     heading: 'Travel insurance',
     body: [

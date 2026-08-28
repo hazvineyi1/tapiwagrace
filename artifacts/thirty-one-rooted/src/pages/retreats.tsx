@@ -6,7 +6,12 @@ import { Link } from 'wouter';
 import { FilmCard } from '@/components/film-card';
 import { useSiteChrome } from '@/components/site-chrome';
 import { activeSocials } from '@/lib/contact';
-import { BANK_TRANSFER, STRIPE_DEPOSIT_LINK } from '@/lib/payments';
+import {
+  BANK_TRANSFER,
+  DEPOSIT_PAYMENT_LINK,
+  FINANCIAL_PROTECTION,
+  protectionStatement,
+} from '@/lib/payments';
 import {
   ACTIVITIES,
   ALT_TEXT,
@@ -300,9 +305,9 @@ export default function Retreats() {
                   Once your place is confirmed, the deposit holds it. It is non-refundable, because the house is held
                   from that moment.
                 </p>
-                {STRIPE_DEPOSIT_LINK ? (
+                {DEPOSIT_PAYMENT_LINK ? (
                   <a
-                    href={STRIPE_DEPOSIT_LINK}
+                    href={DEPOSIT_PAYMENT_LINK}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-3 bg-moss text-bg px-7 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors"
@@ -325,6 +330,24 @@ export default function Retreats() {
                 </p>
               </li>
             </ol>
+
+            {FINANCIAL_PROTECTION && (
+              <div className="mt-10 p-7 border border-moss/25 bg-moss/[0.04]" data-testid="financial-protection">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-moss block mb-3">Your money is protected</span>
+                <p className="text-[15px] leading-relaxed text-ink-muted mb-4">{protectionStatement()}</p>
+                <p className="text-[13px] leading-relaxed text-ink-subtle">
+                  {FINANCIAL_PROTECTION.provider} · membership {FINANCIAL_PROTECTION.membershipNumber}
+                  {FINANCIAL_PROTECTION.verifyUrl && (
+                    <>
+                      {' · '}
+                      <a href={FINANCIAL_PROTECTION.verifyUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-rust transition-colors">
+                        verify this
+                      </a>
+                    </>
+                  )}
+                </p>
+              </div>
+            )}
 
             {BANK_TRANSFER && (
               <div className="mt-10 p-7 bg-[#EFEBE2]" data-testid="bank-transfer-details">
