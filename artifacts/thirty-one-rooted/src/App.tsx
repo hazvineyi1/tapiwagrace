@@ -10,6 +10,7 @@ import Contact from '@/pages/contact';
 import Home from '@/pages/home';
 import NotFound from '@/pages/not-found';
 import Privacy from '@/pages/privacy';
+import Retreats from '@/pages/retreats';
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ function Routes() {
     <ErrorBoundary resetKey={location}>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/retreats" component={Retreats} />
         <Route path="/contact" component={Contact} />
         <Route path="/privacy" component={Privacy} />
         <Route component={NotFound} />

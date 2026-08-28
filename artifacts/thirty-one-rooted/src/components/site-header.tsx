@@ -6,7 +6,6 @@ import { useSiteChrome } from '@/components/site-chrome';
 import { scrollToSection, setPendingSection } from '@/lib/site-nav';
 
 const SECTION_LINKS = [
-  { id: 'retreats', label: 'Retreats' },
   { id: 'about', label: 'About' },
   { id: 'tools', label: 'Tools' },
   { id: 'daily', label: '31 Sisters Daily' },
@@ -63,6 +62,8 @@ export function SiteHeader() {
 
       <nav className={`fixed inset-0 bg-bg flex flex-col justify-center items-center gap-10 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:static lg:bg-transparent lg:flex-row lg:justify-end lg:gap-8 lg:transform-none ${menuOpen ? 'translate-y-0' : '-translate-y-full lg:translate-y-0'}`} aria-label="Main navigation">
         <button className="lg:hidden absolute top-8 right-6 text-ink-subtle hover:text-rust transition-colors" onClick={closeMenu} aria-label="Close menu"><X size={24} strokeWidth={1.5} /></button>
+
+        <Link href="/retreats" className={navLink} onClick={closeMenu} data-testid="link-nav-retreats">Retreats</Link>
 
         {SECTION_LINKS.map((link) => (
           <button key={link.id} className={navLink} onClick={() => goToSection(link.id)} data-testid={`button-nav-${link.id}`}>

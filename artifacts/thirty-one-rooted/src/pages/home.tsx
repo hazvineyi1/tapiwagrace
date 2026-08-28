@@ -3,6 +3,8 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 import { ReflectionCompanion } from '@/components/reflection-companion';
 import { useSiteChrome } from '@/components/site-chrome';
+import { Link, useLocation } from 'wouter';
+
 import { consumePendingSection, scrollToSection } from '@/lib/site-nav';
 
 import sistersDailyBanner from '@assets/sisters-daily-terracotta.webp';
@@ -22,7 +24,7 @@ const experiences = [
     title: 'The Retreat',
     text: 'A held, unhurried space for women to rest, listen, and let God tend to what has been carrying them.',
     action: 'Explore the next retreat',
-    booking: 'Retreat' as const,
+    href: '/retreats' as const,
   },
   {
     title: 'The Conversations',
@@ -40,6 +42,7 @@ const experiences = [
 
 export default function Home() {
   const [mealOpen, setMealOpen] = useState(false);
+  const [, setLocation] = useLocation();
   const [aboutVisible, setAboutVisible] = useState(false);
   const { openBooking } = useSiteChrome();
 
@@ -180,9 +183,9 @@ export default function Home() {
             <p className="text-[16px] text-bg/70 mb-12 leading-relaxed max-w-sm">
               Some seasons call for a room. Some call for a page. Some call for a conversation. There is no right order.
             </p>
-            <button className="py-2 text-[10px] tracking-[0.2em] uppercase border-b border-bg/30 hover:border-sand hover:text-sand transition-colors text-bg" onClick={() => openBooking()} data-testid="button-experience-book">
-              Ask about retreat dates
-            </button>
+            <Link href="/retreats" className="inline-block py-2 text-[10px] tracking-[0.2em] uppercase border-b border-bg/30 hover:border-sand hover:text-sand transition-colors text-bg" data-testid="link-experience-retreats">
+              See the retreats
+            </Link>
             <div className="retreat-photo-grid" aria-label="Retreat setting photography">
               <figure className="retreat-photo retreat-photo-pool">
                 <img src={retreatPool} alt="The retreat house beside the pool" loading="lazy" decoding="async" />
@@ -201,7 +204,11 @@ export default function Home() {
               <button
                 key={experience.title}
                 className="text-left group flex flex-col py-12 md:py-14 border-t border-bg/20 last:border-b transition-colors px-0 md:px-6 md:-mx-6 hover:bg-bg/5"
-                onClick={() => experience.booking ? openBooking(experience.booking) : scrollToSection(experience.section)}
+                onClick={() => {
+                  if (experience.href) setLocation(experience.href);
+                  else if (experience.booking) openBooking(experience.booking);
+                  else if (experience.section) scrollToSection(experience.section);
+                }}
                 data-testid={`button-experience-${index + 1}`}
               >
                 <span className="text-sand text-[10px] tracking-[0.2em] uppercase mb-4 block">0{index + 1}</span>

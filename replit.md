@@ -47,6 +47,10 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - **One shared chrome instance.** `SiteChromeProvider` owns the booking modal and the toast so the header, footer and any page all drive the same one.
 - **The companion degrades, it does not break.** With no `ANTHROPIC_API_KEY` the endpoint returns 503 and the UI silently runs the scripted reflection instead. Never let a missing key surface an error to a visitor.
 - **Every enquiry emails the founder.** Bookings, contact messages and new newsletter sign-ups fire `notifyEnquiry`, with `Reply-To` set to the enquirer. It is fire-and-forget and never rejects — the database row is the record of truth, the email is a convenience. A repeat newsletter sign-up sends nothing.
+- **Retreat content is data, not markup.** `src/lib/retreats.ts` holds the retreats, prices, day rhythm, activities and FAQ. Change a price there and it changes everywhere, formatted as sterling by `Intl.NumberFormat`.
+- **The retreat gallery is a drop-in folder.** Anything in `attached_assets/retreat-gallery/` is picked up by `import.meta.glob` and rendered in filename order — no import to add. Alt text is keyed by filename in `ALT_TEXT`.
+- **TikTok is linked, never embedded.** An embed would load third-party tracking scripts and contradict the "no cookies, no tracking" claim in the privacy notice.
+- **The retreat location is not asserted.** `RETREAT_LOCATION` is null until confirmed, and the page says the location is shared on enquiry rather than naming somewhere we are guessing.
 - **Social links live in one place.** `src/lib/contact.ts` holds `SOCIALS`; entries with a `null` url are skipped rather than rendered dead. Add a URL there and it appears in the footer and on the contact page at once.
 - **Reflection conversations are not persisted.** People say vulnerable things there; the endpoint is stateless and writes nothing. The conversation lives only in the browser tab.
 - **The reflection endpoint is rate limited** (30 per 15 minutes per IP, in memory). It spends real money on behalf of anonymous visitors. If the site is ever scaled past one instance, move this to a shared store.
@@ -55,6 +59,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 
 ## Product
 
+- **Retreats** (`/retreats`) — the setting, a day's rhythm, activities, three retreats with GBP pricing, what is and is not included, TikTok, a photo gallery and an FAQ. All the words and prices live in `src/lib/retreats.ts`.
 - **Home** (`/`) — hero, the founder's story, the two arms of the ministry, three doorways (retreat, conversation, 31 Sisters Daily), the guided-reflection tool, and the meal-support programme.
 - **Guided Reflection** — an AI companion (`POST /api/reflection`) that reflects with a visitor across four focuses (Cognitive Reframing, Breakthrough, Calling, or no set agenda). It can surface a scripture anchor, a paraphrased perspective from a named thinker, and one small practice. It is explicitly *not* clinical care or crisis support, and that disclaimer must stay. See `.agents/memory/reflection-companion.md`.
 - **Booking** — a three-step flow for a retreat, a conversation, or meal packaging. Persists to `bookings`.
