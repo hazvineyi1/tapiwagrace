@@ -40,6 +40,11 @@ function App() {
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
           <SiteChromeProvider>
             <div className="min-h-screen bg-bg text-fg flex flex-col relative font-sans">
+              {/* First thing in the tab order on every page. Off-screen until
+                  focused, so a keyboard or screen-reader visitor can jump the
+                  eight nav items instead of walking them on each navigation.
+                  WCAG 2.4.1. */}
+              <a href="#main-content" className="skip-link">Skip to content</a>
               <SiteHeader />
               <Routes />
               <SiteFooter />

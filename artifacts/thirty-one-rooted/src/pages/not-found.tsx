@@ -7,7 +7,7 @@ export default function NotFound() {
   }, []);
 
   return (
-    <main className="flex-1 pt-48 pb-32 px-6 md:px-12 flex items-center justify-center">
+    <main id="main-content" tabIndex={-1} className="flex-1 pt-48 pb-32 px-6 md:px-12 flex items-center justify-center">
       <div className="max-w-lg text-center">
         <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-8 block font-medium">Page not found</span>
         <h1 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">

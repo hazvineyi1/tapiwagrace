@@ -68,7 +68,7 @@ export default function Contact() {
   };
 
   return (
-    <main className="flex-1 pt-40 md:pt-48 pb-24 md:pb-32 px-6 md:px-12">
+    <main id="main-content" tabIndex={-1} className="flex-1 pt-40 md:pt-48 pb-24 md:pb-32 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
 
         <div className="max-w-2xl mb-16 md:mb-24">

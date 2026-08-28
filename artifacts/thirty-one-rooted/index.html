@@ -2,7 +2,25 @@
 <html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <!-- The static host gives us no way to set response headers, so the policy
+         rides in the document. Everything the site needs is same-origin: the
+         bundle, the stylesheet, the self-hosted fonts, the films, and the API
+         under /api. data: is only for the few inlined images Vite emits.
+         frame-ancestors and Strict-Transport-Security are ignored in a meta
+         tag and still need to be set on the host. -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data:;
+      font-src 'self';
+      media-src 'self';
+      connect-src 'self';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self'
+    " />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>31&amp;Rooted | A Space for Becoming</title>
     <meta name="description" content="A quiet, faith-rooted space for women navigating real life, retreats, reflections, and deeper conversations." />
     <meta name="robots" content="index, follow" />

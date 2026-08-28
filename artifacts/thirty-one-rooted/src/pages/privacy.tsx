@@ -67,7 +67,7 @@ export default function Privacy() {
   }, []);
 
   return (
-    <main className="flex-1 pt-40 md:pt-48 pb-24 md:pb-32 px-6 md:px-12">
+    <main id="main-content" tabIndex={-1} className="flex-1 pt-40 md:pt-48 pb-24 md:pb-32 px-6 md:px-12">
       <div className="max-w-3xl mx-auto">
         <span className="text-[10px] tracking-[0.2em] uppercase text-rust mb-6 block font-medium">Privacy</span>
         <h1 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">

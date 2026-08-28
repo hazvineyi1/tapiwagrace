@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
-import { rm } from "node:fs/promises";
+import { cp, rm } from "node:fs/promises";
 
 // Plugins (e.g. 'esbuild-plugin-pino') may use `require` to resolve dependencies
 globalThis.require = createRequire(import.meta.url);
@@ -118,6 +118,18 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     `,
     },
   });
+
+  await copyMigrations(distDir);
+}
+
+/**
+ * The bundle is one file, so the migration SQL cannot be resolved through the
+ * db package at runtime. Copy it next to the bundle; src/lib/migrate.ts reads
+ * it from there at startup.
+ */
+async function copyMigrations(distDir) {
+  const source = path.resolve(artifactDir, "../../lib/db/drizzle");
+  await cp(source, path.join(distDir, "drizzle"), { recursive: true });
 }
 
 buildAll().catch((err) => {

@@ -115,6 +115,35 @@
     border: 0;
   }
 
+  /* Parked off-screen rather than hidden, so it stays focusable, and it lands
+     over the header once focused. Fixed rather than absolute: someone can tab
+     from anywhere on a long page, and an absolute link would appear at the top
+     of the document, out of view. Moss on cream is 12.6:1, and the box clears
+     the 24px minimum target size. */
+  .skip-link {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transform: translateY(-120%);
+    padding: 14px 22px;
+    background: var(--color-moss);
+    color: var(--color-bg);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+
+  /* main takes focus from the skip link but is not itself interactive, so it
+     should not draw a focus ring when it does. */
+  main:focus {
+    outline: none;
+  }
+
   input:-webkit-autofill,
   input:-webkit-autofill:hover, 
   input:-webkit-autofill:focus, 
@@ -269,9 +298,13 @@
 
   /* Vertical clips, poster first. The video element is only mounted once the
      visitor presses play, so nothing downloads until it is wanted. */
+  /* The clips are portrait, so a card that stretches to half a wide container
+     becomes a thousand pixels tall. Cap the track and let the strip sit left
+     rather than filling the row. */
   .film-strip {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 340px));
+    justify-content: start;
     gap: 22px;
   }
 

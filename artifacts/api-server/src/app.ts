@@ -16,6 +16,30 @@ const app: Express = express();
 // `1` trusts only the last hop, so X-Forwarded-For cannot be spoofed past it.
 app.set("trust proxy", 1);
 
+// No need to announce the framework to every scanner that asks.
+app.disable("x-powered-by");
+
+// This API answers with JSON and nothing else, so it can be locked down hard.
+// The static site is served by a different service and carries its own policy
+// in the document head.
+app.use((_req, res, next) => {
+  // Never let a browser guess a JSON response is HTML and run it.
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  // Nothing here should ever be framed.
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'");
+  // Do not leak the page someone was reading to another origin.
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  // No reason for a browser to hand this API a camera, a microphone or a location.
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(), interest-cohort=()");
+  // Enquiries and reflections are not for anyone's cache.
+  res.setHeader("Cache-Control", "no-store");
+  if (process.env["NODE_ENV"] === "production") {
+    res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  }
+  next();
+});
+
 app.use(
   pinoHttp({
     logger,

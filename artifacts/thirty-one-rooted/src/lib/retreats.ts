@@ -31,7 +31,6 @@ export interface Film {
 
 export const FILMS: Film[] = [
   { file: 'retreat-01.mp4', webm: 'retreat-01.webm', poster: 'retreat-01.jpg', caption: 'Breakfast, and the morning’s reading' },
-  { file: 'retreat-02.mp4', webm: 'retreat-02.webm', poster: 'retreat-02.jpg', caption: 'The lounge, mid-afternoon' },
   { file: 'retreat-03.mp4', webm: 'retreat-03.webm', poster: 'retreat-03.jpg', caption: 'Supper at the long table' },
 ];
 

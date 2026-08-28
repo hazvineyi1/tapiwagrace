@@ -68,7 +68,7 @@ export default function Retreats() {
   }, []);
 
   return (
-    <main className="flex-1">
+    <main id="main-content" tabIndex={-1} className="flex-1">
 
       {/* Hero */}
       <section className="pt-40 md:pt-48 pb-16 md:pb-24 px-6 md:px-12">

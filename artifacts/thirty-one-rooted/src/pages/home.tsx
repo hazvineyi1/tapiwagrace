@@ -73,7 +73,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main id="top" className="flex-1">
+    <main id="main-content" tabIndex={-1} className="flex-1">
 
       {/* Hero Section */}
       <section className="pt-48 pb-20 px-6 md:px-12 max-w-5xl mx-auto text-center min-h-[70vh] flex flex-col items-center justify-center relative">
