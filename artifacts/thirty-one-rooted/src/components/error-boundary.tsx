@@ -45,7 +45,7 @@ function DefaultFallback({ error, resetError }: ErrorFallbackProps) {
         <h1 className="text-3xl md:text-4xl leading-[1.1] text-fg mb-6">
           This part of the page did not load.
         </h1>
-        <p className="text-[16px] text-fg/70 leading-relaxed">
+        <p className="text-[16px] text-ink-muted leading-relaxed">
           The rest of the site is still here. Try again, or come back in a moment.
         </p>
         {/* Dev only: messages can carry API responses and other internals. */}

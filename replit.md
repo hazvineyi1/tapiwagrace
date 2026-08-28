@@ -47,6 +47,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - **Reflection conversations are not persisted.** People say vulnerable things there; the endpoint is stateless and writes nothing. The conversation lives only in the browser tab.
 - **The reflection endpoint is rate limited** (30 per 15 minutes per IP, in memory). It spends real money on behalf of anonymous visitors. If the site is ever scaled past one instance, move this to a shared store.
 - **Display type is the serif.** `h1`/`h2` are Cormorant Garamond at weight 300 via a base rule; body and UI stay in DM Sans. Don't add `font-sans` to a heading.
+- **Secondary text is solid ink, never alpha.** `text-ink-muted` and `text-ink-subtle` are tokens chosen to clear WCAG AA on cream and on every tinted panel. See `.agents/memory/accessibility-and-palette.md`.
 
 ## Product
 
@@ -70,6 +71,8 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - Generated files under `lib/api-zod/src/generated` and `lib/api-client-react/src/generated` are wiped and rewritten by codegen — edit `openapi.yaml` instead.
 - Orval emits Zod **v4** syntax (`zod.email()`, `zod.int()`). The catalog is pinned to zod v4 for this reason; downgrading breaks codegen output.
 - The companion's Anthropic call sends a synthetic first `user` message before the stored turns — the API requires the first message to be `user`, but the conversation opens with the guide speaking.
+- On `md:grid-cols-12`, keep the column gap at `gap-x-8 lg:gap-x-16`. A larger gutter (11 of them) exceeds the container and silently collapses every track to `0px`, which pushed the page sideways at 768-1024px.
+- The header switches to the drawer at `lg`, not `md` — five links plus the wordmark and button do not fit at 768px.
 - `attached_assets/` carries ~54 MB of PDFs that nothing imports. They are the ministry's real workbooks and retreat guide — do not delete them casually, but do not add more large binaries to git.
 
 ## Pointers

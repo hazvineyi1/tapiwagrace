@@ -13,7 +13,7 @@ export default function NotFound() {
         <h1 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">
           This path has not been <em className="italic text-rust">made yet.</em>
         </h1>
-        <p className="text-[16px] text-fg/70 leading-relaxed mb-12">
+        <p className="text-[16px] text-ink-muted leading-relaxed mb-12">
           The page you were looking for is not here. Come back to the beginning, or write to us and we will point you the right way.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-8">

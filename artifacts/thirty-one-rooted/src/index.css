@@ -11,6 +11,12 @@
   --color-rust: #924026;
   --color-sand: #CDBEAB;
   --color-line: rgba(28, 26, 24, 0.10);
+
+  /* Secondary text as solid ink rather than alpha, so contrast is predictable
+     on cream and on the tinted panels alike. Both clear WCAG AA 4.5:1.
+     ink-muted 7.19:1 on cream, ink-subtle 5.36:1. */
+  --color-ink-muted: #57514A;
+  --color-ink-subtle: #6B645B;
   
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'DM Sans', sans-serif;
@@ -24,7 +30,7 @@
   --color-primary: var(--color-moss);
   --color-primary-foreground: var(--color-bg);
   --color-muted: #EBE7DF;
-  --color-muted-foreground: #736E67;
+  --color-muted-foreground: #6B645B;
   
   --radius-sm: 0;
   --radius-md: 0;
@@ -51,6 +57,12 @@
   ::selection {
     @apply bg-sand text-fg;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px var(--color-bg);
+  }
   input, select, textarea, button {
     @apply font-sans;
   }
@@ -68,6 +80,16 @@
   @keyframes revealUp {
     0% { opacity: 0; transform: translateY(15px); }
     100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -206,7 +228,12 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(247, 245, 240, 0) 52%, rgba(26, 47, 32, 0.36) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(20, 34, 24, 0) 44%,
+      rgba(20, 34, 24, 0.42) 72%,
+      rgba(20, 34, 24, 0.92) 100%
+    );
     pointer-events: none;
   }
 
@@ -220,15 +247,15 @@
     flex-direction: column;
     gap: 3px;
     color: #F7F5F0;
-    font-size: 9px;
-    letter-spacing: 0.18em;
+    font-size: 10px;
+    letter-spacing: 0.16em;
     line-height: 1.5;
     text-transform: uppercase;
   }
 
   .founder-photo figcaption span:last-child {
-    color: #CDBEAB;
-    font-size: 8px;
+    color: #E7DCCB;
+    font-size: 10px;
   }
 
   .story-line-art {
@@ -280,15 +307,15 @@
 
   .daily-writing {
     --daily-ink: #3C2D27;
-    --daily-muted: rgba(60, 45, 39, 0.7);
+    --daily-muted: #5E5048;
     --daily-accent: #B7472E;
     --daily-border: #D5C5AF;
     color: var(--daily-ink);
   }
 
   .daily-writing .text-fg,
-  .daily-writing [class~="text-fg/70"],
-  .daily-writing [class~="text-fg/50"] {
+  .daily-writing .text-ink-muted,
+  .daily-writing .text-ink-subtle {
     color: var(--daily-muted);
   }
 
@@ -399,18 +426,26 @@
     position: absolute;
     z-index: 1;
     left: 16px;
+    /* Stop short of the second photo, which overlaps this one bottom-right
+       and would otherwise cover the caption at narrow widths. */
+    right: 36%;
     bottom: 15px;
     color: #F7F5F0;
-    font-size: 8px;
-    letter-spacing: 0.2em;
+    font-size: 10px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
   }
 
   .meal-photo-primary::after {
     content: '';
     position: absolute;
-    inset: 50% 0 0;
-    background: linear-gradient(transparent, rgba(28, 26, 24, 0.38));
+    inset: 45% 0 0;
+    background: linear-gradient(
+      180deg,
+      rgba(24, 21, 19, 0) 0%,
+      rgba(24, 21, 19, 0.36) 58%,
+      rgba(24, 21, 19, 0.84) 100%
+    );
   }
 
   .meal-photo-secondary {
@@ -424,8 +459,8 @@
   .meal-photo-mark {
     position: absolute;
     z-index: 2;
-    top: 7%;
-    right: 2%;
+    top: 1%;
+    right: 0;
     display: flex;
     flex-direction: column;
     color: #B7472E;
@@ -436,13 +471,13 @@
 
   .meal-photo-mark span {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 64px;
+    font-size: 46px;
   }
 
   .meal-photo-mark i {
-    margin-top: 6px;
+    margin-top: 5px;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 21px;
+    font-size: 15px;
   }
 
   @media (max-width: 767px) {

@@ -162,7 +162,7 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
       <div className="reflection-panel">
         <div className="max-w-2xl">
           <h3 className="font-serif text-3xl md:text-4xl mb-5 text-fg">Guided Reflection</h3>
-          <p className="text-[16px] text-fg/70 leading-relaxed">
+          <p className="text-[16px] text-ink-muted leading-relaxed">
             A quiet space to notice, name, and hold what you are carrying — grounded in scripture, and open to what is
             simply true about being human. It is a companion for reflection, not clinical care or crisis support.
           </p>
@@ -177,13 +177,13 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
             >
               <div>
                 <h4 className="font-serif text-[1.6rem] leading-tight text-fg group-hover:text-moss transition-colors mb-2">{option.title}</h4>
-                <p className="text-[14px] text-fg/55 leading-relaxed max-w-[22rem]">{option.blurb}</p>
+                <p className="text-[14px] text-ink-muted leading-relaxed max-w-[22rem]">{option.blurb}</p>
               </div>
               <span className="self-end text-line group-hover:text-moss transition-colors"><ArrowUpRight size={18} strokeWidth={1.5} /></span>
             </button>
           ))}
         </div>
-        <p className="mt-10 pt-8 border-t border-line text-[10px] tracking-[0.2em] uppercase text-fg/45">
+        <p className="mt-10 pt-8 border-t border-line text-[10px] tracking-[0.2em] uppercase text-ink-subtle">
           Looking for the full printable workbooks?{' '}
           <Link href="/contact" className="text-rust hover:text-fg transition-colors border-b border-rust pb-0.5" data-testid="link-workbooks-contact">Ask us about them</Link>.
         </p>
@@ -195,7 +195,7 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
     <div className="reflection-panel flex flex-col">
       <div className="flex justify-between items-baseline pb-6 mb-8 border-b border-line">
         <h3 className="font-serif text-2xl md:text-3xl text-fg">{framework.title}</h3>
-        <button onClick={reset} className="text-[10px] tracking-[0.2em] uppercase text-fg/45 hover:text-rust flex items-center gap-2 transition-colors" data-testid="btn-reset-chat">
+        <button onClick={reset} className="py-2 text-[10px] tracking-[0.2em] uppercase text-ink-subtle hover:text-rust flex items-center gap-2 transition-colors" data-testid="btn-reset-chat">
           <RotateCcw size={13} strokeWidth={1.5} /> Start over
         </button>
       </div>
@@ -219,15 +219,15 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
 
               {message.voice && (
                 <div className="voice-note" data-testid="reflection-voice">
-                  <span className="text-[9px] tracking-[0.2em] uppercase text-fg/40 block mb-2">In the spirit of {message.voice.thinker}</span>
-                  <p className="text-[15px] leading-relaxed text-fg/70">{message.voice.insight}</p>
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-ink-subtle block mb-2">In the spirit of {message.voice.thinker}</span>
+                  <p className="text-[15px] leading-relaxed text-ink-muted">{message.voice.insight}</p>
                 </div>
               )}
 
               {message.invitation && (
                 <div className="invitation-note" data-testid="reflection-invitation">
-                  <span className="text-[9px] tracking-[0.2em] uppercase text-moss block mb-2">A small practice</span>
-                  <p className="text-[15px] leading-relaxed text-fg/75">{message.invitation}</p>
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-moss block mb-2">A small practice</span>
+                  <p className="text-[15px] leading-relaxed text-ink-muted">{message.invitation}</p>
                 </div>
               )}
             </div>
@@ -235,15 +235,15 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
         )}
 
         {pending && (
-          <p className="text-[10px] tracking-[0.2em] uppercase text-fg/40" data-testid="reflection-pending">Listening…</p>
+          <p className="text-[10px] tracking-[0.2em] uppercase text-ink-subtle" data-testid="reflection-pending">Listening…</p>
         )}
         <div ref={endRef} />
       </div>
 
       {needsCare && (
         <div className="care-note mb-8" role="note" data-testid="reflection-care">
-          <span className="text-[9px] tracking-[0.2em] uppercase text-rust block mb-3">Please reach someone real</span>
-          <p className="text-[15px] leading-relaxed text-fg/80 mb-4">
+          <span className="text-[10px] tracking-[0.2em] uppercase text-rust block mb-3">Please reach someone real</span>
+          <p className="text-[15px] leading-relaxed text-ink-muted mb-4">
             What you are carrying deserves more than a page can give. Please talk to someone you trust, your doctor, or your
             local emergency services. If it would help to hear from us directly, we are here.
           </p>
@@ -263,7 +263,7 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
             onChange={(event) => setInput(event.target.value)}
             placeholder="Take your time…"
             disabled={pending}
-            className="flex-1 bg-transparent border-0 border-b border-line py-3 text-[16px] focus:outline-none focus:border-moss transition-colors placeholder:text-fg/30 disabled:opacity-50"
+            className="flex-1 bg-transparent border-0 border-b border-line py-3 text-[16px] focus:outline-none focus:border-moss transition-colors placeholder:text-ink-subtle disabled:opacity-50"
             data-testid="input-chat"
           />
           <button type="submit" disabled={!input.trim() || pending} className="w-12 h-12 flex items-center justify-center bg-fg text-bg hover:bg-moss disabled:opacity-30 transition-colors" aria-label="Send reflection" data-testid="btn-send-chat">
@@ -275,7 +275,7 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
           <button className="bg-moss text-bg px-8 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors" onClick={() => openBooking('Conversation')} data-testid="btn-book-from-chat">
             Book a deeper conversation
           </button>
-          <button onClick={reset} className="text-[10px] tracking-[0.2em] uppercase text-fg/50 hover:text-rust transition-colors border-b border-line pb-1">
+          <button onClick={reset} className="text-[10px] tracking-[0.2em] uppercase text-ink-subtle hover:text-rust transition-colors border-b border-line pb-1">
             Begin another reflection
           </button>
         </div>

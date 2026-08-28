@@ -48,14 +48,14 @@ export function SiteFooter() {
           <div className="flex flex-col justify-end">
             <form className="flex items-end gap-4 w-full" onSubmit={handleNewsletter}>
               <div className="flex-1">
-                <label htmlFor="email" className="block text-[9px] uppercase tracking-[0.2em] text-bg/50 mb-4">A note for the woman becoming</label>
+                <label htmlFor="email" className="block text-[10px] uppercase tracking-[0.2em] text-bg/50 mb-4">A note for the woman becoming</label>
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="your@email.com"
-                  className="w-full bg-transparent border-0 border-b border-bg/20 py-3 text-base text-bg focus:outline-none focus:border-sand transition-colors placeholder:text-bg/30 rounded-none"
+                  className="w-full bg-transparent border-0 border-b border-bg/20 py-3 text-base text-bg focus:outline-none focus:border-sand transition-colors placeholder:text-bg/60 rounded-none"
                   data-testid="input-newsletter-email"
                 />
               </div>
@@ -66,7 +66,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-[9px] tracking-[0.2em] uppercase text-bg/50">
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-[10px] tracking-[0.2em] uppercase text-bg/50">
           <div className="flex flex-wrap gap-x-8 gap-y-4">
             <span>31 &amp; Rooted · 31 Sisters Daily</span>
             <a href={`mailto:${CONTACT.email}`} className="hover:text-sand transition-colors">{CONTACT.email}</a>
@@ -74,10 +74,10 @@ export function SiteFooter() {
           </div>
 
           <div className="flex flex-wrap gap-6">
-            <Link href="/contact" className="hover:text-sand transition-colors" data-testid="link-footer-contact">Contact</Link>
+            <Link href="/contact" className="py-2 hover:text-sand transition-colors" data-testid="link-footer-contact">Contact</Link>
             <a href={CONTACT.tiktok.daily} target="_blank" rel="noreferrer" className="hover:text-sand transition-colors">TikTok Daily</a>
             <a href={CONTACT.tiktok.rooted} target="_blank" rel="noreferrer" className="hover:text-sand transition-colors">TikTok Rooted</a>
-            <button onClick={() => openBooking()} className="hover:text-sand transition-colors text-left" data-testid="button-footer-book">Book a space</button>
+            <button onClick={() => openBooking()} className="py-2 hover:text-sand transition-colors text-left" data-testid="button-footer-book">Book a space</button>
           </div>
         </div>
       </div>

@@ -12,8 +12,8 @@ const DOORWAYS = [
   { label: 'Meal support', description: 'Prepared meals packaged and delivered as a paid program.', booking: 'Meal Packaging' },
 ];
 
-const fieldLabel = 'text-[10px] tracking-[0.2em] uppercase text-fg/60 block mb-4';
-const fieldInput = 'w-full bg-transparent border-0 border-b border-line py-3 text-lg font-serif text-fg focus:outline-none focus:border-moss transition-colors placeholder:text-fg/30 placeholder:font-sans placeholder:text-[15px]';
+const fieldLabel = 'text-[10px] tracking-[0.2em] uppercase text-ink-muted block mb-4';
+const fieldInput = 'w-full bg-transparent border-0 border-b border-line py-3 text-lg font-serif text-fg focus:outline-none focus:border-moss transition-colors placeholder:text-ink-subtle placeholder:font-sans placeholder:text-[15px]';
 
 export default function Contact() {
   const [name, setName] = useState('');
@@ -71,15 +71,15 @@ export default function Contact() {
           <h1 className="text-[2.6rem] md:text-[3.6rem] leading-[1.1] text-fg mb-8">
             Say what you need.<br /><em className="italic text-rust">We will meet you there.</em>
           </h1>
-          <p className="text-[16px] text-fg/70 leading-relaxed">
+          <p className="text-[16px] text-ink-muted leading-relaxed">
             Whether it is a retreat, a conversation, meal support, or a question you have not quite worded yet — write to us here and we will reply by email.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-y-24 gap-x-8 lg:gap-x-16">
 
-          <aside className="md:col-span-5 order-2 md:order-1">
-            <span className="text-[10px] tracking-[0.2em] uppercase text-fg/50 mb-8 block font-medium">Or start with a specific request</span>
+          <aside className="min-w-0 md:col-span-5 order-2 md:order-1">
+            <span className="text-[10px] tracking-[0.2em] uppercase text-ink-subtle mb-8 block font-medium">Or start with a specific request</span>
             <div className="border-t border-line">
               {DOORWAYS.map((doorway) => (
                 <button
@@ -89,13 +89,13 @@ export default function Contact() {
                   data-testid={`button-contact-${doorway.booking.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <span className="font-serif text-2xl text-fg group-hover:text-rust transition-colors block mb-2">{doorway.label}</span>
-                  <span className="text-[14px] text-fg/60 leading-relaxed block pr-8">{doorway.description}</span>
+                  <span className="text-[14px] text-ink-muted leading-relaxed block pr-8">{doorway.description}</span>
                 </button>
               ))}
             </div>
 
             <div className="mt-12">
-              <span className="text-[10px] tracking-[0.2em] uppercase text-fg/50 mb-6 block font-medium">Reach us directly</span>
+              <span className="text-[10px] tracking-[0.2em] uppercase text-ink-subtle mb-6 block font-medium">Reach us directly</span>
               <div className="flex flex-col gap-5">
                 <a href={`mailto:${CONTACT.email}`} className="font-serif text-xl text-fg hover:text-rust transition-colors w-fit" data-testid="link-contact-email">
                   {CONTACT.email}
@@ -107,29 +107,29 @@ export default function Contact() {
             </div>
 
             <div className="mt-12">
-              <span className="text-[10px] tracking-[0.2em] uppercase text-fg/50 mb-6 block font-medium">Find us elsewhere</span>
+              <span className="text-[10px] tracking-[0.2em] uppercase text-ink-subtle mb-6 block font-medium">Find us elsewhere</span>
               <div className="flex flex-col gap-4">
-                <a href={CONTACT.tiktok.rooted} target="_blank" rel="noreferrer" className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-fg/70 hover:text-rust transition-colors w-fit border-b border-line pb-1">
+                <a href={CONTACT.tiktok.rooted} target="_blank" rel="noreferrer" className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-ink-muted hover:text-rust transition-colors w-fit border-b border-line pb-1">
                   TikTok · 31 &amp; Rooted <ArrowUpRight size={14} />
                 </a>
-                <a href={CONTACT.tiktok.daily} target="_blank" rel="noreferrer" className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-fg/70 hover:text-rust transition-colors w-fit border-b border-line pb-1">
+                <a href={CONTACT.tiktok.daily} target="_blank" rel="noreferrer" className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-ink-muted hover:text-rust transition-colors w-fit border-b border-line pb-1">
                   TikTok · 31 Sisters Daily <ArrowUpRight size={14} />
                 </a>
               </div>
             </div>
           </aside>
 
-          <div className="md:col-span-7 order-1 md:order-2">
+          <div className="min-w-0 md:col-span-7 order-1 md:order-2">
             {sent ? (
               <div className="border border-line p-8 md:p-14 animate-in fade-in zoom-in-95 duration-500" data-testid="status-contact-sent">
                 <div className="w-16 h-16 rounded-full bg-moss text-bg flex items-center justify-center mb-8">
                   <Check size={24} strokeWidth={1.5} />
                 </div>
                 <h2 className="font-serif text-3xl text-fg mb-6">Thank you. Your message is with us.</h2>
-                <p className="text-[15px] text-fg/70 leading-relaxed max-w-md mb-10">
+                <p className="text-[15px] text-ink-muted leading-relaxed max-w-md mb-10">
                   We will reply at {email.trim()}. Messages are read and answered by hand, so give us a little time.
                 </p>
-                <button onClick={startAgain} className="text-[10px] tracking-[0.2em] uppercase border-b border-line pb-1 hover:border-moss hover:text-moss transition-colors text-fg/70" data-testid="button-contact-again">
+                <button onClick={startAgain} className="text-[10px] tracking-[0.2em] uppercase border-b border-line pb-1 hover:border-moss hover:text-moss transition-colors text-ink-muted" data-testid="button-contact-again">
                   Send another message
                 </button>
               </div>
@@ -147,13 +147,13 @@ export default function Contact() {
                 </div>
 
                 <label className="block">
-                  <span className={fieldLabel}>Subject <span className="normal-case tracking-normal text-fg/40">(optional)</span></span>
+                  <span className={fieldLabel}>Subject <span className="normal-case tracking-normal text-ink-subtle">(optional)</span></span>
                   <input value={subject} onChange={(event) => setSubject(event.target.value)} placeholder="About the next retreat" className={fieldInput} data-testid="input-contact-subject" />
                 </label>
 
                 <label className="block">
                   <span className={fieldLabel}>Your message</span>
-                  <textarea value={message} onChange={(event) => setMessage(event.target.value)} rows={6} placeholder="Tell us what you are carrying, or what you would like to know." className="w-full bg-transparent border-0 border-b border-line py-3 text-[16px] leading-relaxed text-fg focus:outline-none focus:border-moss transition-colors placeholder:text-fg/30 resize-none" data-testid="input-contact-message" />
+                  <textarea value={message} onChange={(event) => setMessage(event.target.value)} rows={6} placeholder="Tell us what you are carrying, or what you would like to know." className="w-full bg-transparent border-0 border-b border-line py-3 text-[16px] leading-relaxed text-fg focus:outline-none focus:border-moss transition-colors placeholder:text-ink-subtle resize-none" data-testid="input-contact-message" />
                 </label>
 
                 <div className="pt-2">
