@@ -4,6 +4,7 @@ import {
   SendContactMessageResponse,
 } from "@workspace/api-zod";
 import { contactMessagesTable, db } from "@workspace/db";
+import { notifyEnquiry } from "../lib/mailer";
 import {
   normalizeEmail,
   nullableText,
@@ -25,6 +26,16 @@ router.post("/contact", async (req, res) => {
       message: body.message.trim(),
     })
     .returning({ id: contactMessagesTable.id });
+
+  void notifyEnquiry({
+    kind: "Contact message",
+    fields: [
+      ["Name", body.name.trim()],
+      ["Email", normalizeEmail(body.email)],
+      ["Subject", body.subject?.trim() || "—"],
+      ["Message", body.message.trim()],
+    ],
+  });
 
   res.status(201).json(SendContactMessageResponse.parse(row));
 });

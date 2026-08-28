@@ -1,8 +1,9 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { ArrowUpRight, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { useSendContactMessage } from '@workspace/api-client-react';
 
 import { useSiteChrome } from '@/components/site-chrome';
+import { SocialLinks } from '@/components/social-links';
 import { CONTACT } from '@/lib/contact';
 import { errorMessage } from '@/lib/site-nav';
 
@@ -97,10 +98,10 @@ export default function Contact() {
             <div className="mt-12">
               <span className="text-[10px] tracking-[0.2em] uppercase text-ink-subtle mb-6 block font-medium">Reach us directly</span>
               <div className="flex flex-col gap-5">
-                <a href={`mailto:${CONTACT.email}`} className="font-serif text-xl text-fg hover:text-rust transition-colors w-fit" data-testid="link-contact-email">
+                <a href={`mailto:${CONTACT.email}`} className="inline-block py-1 font-serif text-xl text-fg hover:text-rust transition-colors w-fit" data-testid="link-contact-email">
                   {CONTACT.email}
                 </a>
-                <a href={CONTACT.phoneHref} className="font-serif text-xl text-fg hover:text-rust transition-colors w-fit" data-testid="link-contact-phone">
+                <a href={CONTACT.phoneHref} className="inline-block py-1 font-serif text-xl text-fg hover:text-rust transition-colors w-fit" data-testid="link-contact-phone">
                   {CONTACT.phone}
                 </a>
               </div>
@@ -108,14 +109,7 @@ export default function Contact() {
 
             <div className="mt-12">
               <span className="text-[10px] tracking-[0.2em] uppercase text-ink-subtle mb-6 block font-medium">Find us elsewhere</span>
-              <div className="flex flex-col gap-4">
-                <a href={CONTACT.tiktok.rooted} target="_blank" rel="noreferrer" className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-ink-muted hover:text-rust transition-colors w-fit border-b border-line pb-1">
-                  TikTok · 31 &amp; Rooted <ArrowUpRight size={14} />
-                </a>
-                <a href={CONTACT.tiktok.daily} target="_blank" rel="noreferrer" className="text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-ink-muted hover:text-rust transition-colors w-fit border-b border-line pb-1">
-                  TikTok · 31 Sisters Daily <ArrowUpRight size={14} />
-                </a>
-              </div>
+              <SocialLinks variant="list" />
             </div>
           </aside>
 

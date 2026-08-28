@@ -9,6 +9,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import Contact from '@/pages/contact';
 import Home from '@/pages/home';
 import NotFound from '@/pages/not-found';
+import Privacy from '@/pages/privacy';
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ function Routes() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/contact" component={Contact} />
+        <Route path="/privacy" component={Privacy} />
         <Route component={NotFound} />
       </Switch>
     </ErrorBoundary>

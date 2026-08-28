@@ -12,6 +12,8 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - Required env: `DATABASE_URL` — Postgres connection string
 - Optional env: `ANTHROPIC_API_KEY` — enables the AI reflection companion; without it the site falls back to the scripted reflection
+- Optional env for enquiry emails: `SMTP_HOST`, `SMTP_PORT` (default 587), `SMTP_USER`, `SMTP_PASS`, `SMTP_SECURE`, `ENQUIRY_TO`, `ENQUIRY_FROM`. Unset, enquiries are still stored — they are just not emailed.
+- Optional env at build time: `SITE_ORIGIN` (e.g. `https://example.co.uk`) — makes the canonical, `og:url` and `og:image` tags absolute and emits `sitemap.xml`. Unset, the tags fall back to relative paths and no sitemap is written.
 - Optional env: `API_PROXY_TARGET` — where the web dev server proxies `/api` (default `http://localhost:8080`)
 
 ## Stack
@@ -44,6 +46,8 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - **Newsletter sign-up is idempotent.** Emails are lowercased and the insert is `onConflictDoNothing`, so re-subscribing reports `alreadySubscribed` instead of erroring.
 - **One shared chrome instance.** `SiteChromeProvider` owns the booking modal and the toast so the header, footer and any page all drive the same one.
 - **The companion degrades, it does not break.** With no `ANTHROPIC_API_KEY` the endpoint returns 503 and the UI silently runs the scripted reflection instead. Never let a missing key surface an error to a visitor.
+- **Every enquiry emails the founder.** Bookings, contact messages and new newsletter sign-ups fire `notifyEnquiry`, with `Reply-To` set to the enquirer. It is fire-and-forget and never rejects — the database row is the record of truth, the email is a convenience. A repeat newsletter sign-up sends nothing.
+- **Social links live in one place.** `src/lib/contact.ts` holds `SOCIALS`; entries with a `null` url are skipped rather than rendered dead. Add a URL there and it appears in the footer and on the contact page at once.
 - **Reflection conversations are not persisted.** People say vulnerable things there; the endpoint is stateless and writes nothing. The conversation lives only in the browser tab.
 - **The reflection endpoint is rate limited** (30 per 15 minutes per IP, in memory). It spends real money on behalf of anonymous visitors. If the site is ever scaled past one instance, move this to a shared store.
 - **Display type is the serif.** `h1`/`h2` are Cormorant Garamond at weight 300 via a base rule; body and UI stay in DM Sans. Don't add `font-sans` to a heading.
@@ -54,7 +58,8 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - **Home** (`/`) — hero, the founder's story, the two arms of the ministry, three doorways (retreat, conversation, 31 Sisters Daily), the guided-reflection tool, and the meal-support programme.
 - **Guided Reflection** — an AI companion (`POST /api/reflection`) that reflects with a visitor across four focuses (Cognitive Reframing, Breakthrough, Calling, or no set agenda). It can surface a scripture anchor, a paraphrased perspective from a named thinker, and one small practice. It is explicitly *not* clinical care or crisis support, and that disclaimer must stay. See `.agents/memory/reflection-companion.md`.
 - **Booking** — a three-step flow for a retreat, a conversation, or meal packaging. Persists to `bookings`.
-- **Contact** (`/contact`) — a form that persists to `contact_messages`, plus shortcuts into the booking flow.
+- **Contact** (`/contact`) — a form that persists to `contact_messages`, plus shortcuts into the booking flow, the real email and phone, and the social links.
+- **Privacy** (`/privacy`) — the UK GDPR notice. It describes what the code actually does; if the data flows change, change this page too.
 - **Newsletter** — footer sign-up, persists to `newsletter_subscribers`.
 
 ## User preferences
@@ -73,6 +78,8 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - The companion's Anthropic call sends a synthetic first `user` message before the stored turns — the API requires the first message to be `user`, but the conversation opens with the guide speaking.
 - On `md:grid-cols-12`, keep the column gap at `gap-x-8 lg:gap-x-16`. A larger gutter (11 of them) exceeds the container and silently collapses every track to `0px`, which pushed the page sideways at 768-1024px.
 - The header switches to the drawer at `lg`, not `md` — five links plus the wordmark and button do not fit at 768px.
+- `robots.txt` and `sitemap.xml` are emitted by the `site-meta` Vite plugin, not kept in `public/`. Don't add static copies back or they will conflict.
+- British English throughout: "programme", "practise" as the verb, sterling. The reflection companion's system prompt says so too.
 - `attached_assets/` carries ~54 MB of PDFs that nothing imports. They are the ministry's real workbooks and retreat guide — do not delete them casually, but do not add more large binaries to git.
 
 ## Pointers

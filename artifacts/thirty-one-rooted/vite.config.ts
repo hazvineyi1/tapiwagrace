@@ -19,6 +19,41 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
+// Absolute URLs for the social card, canonical and sitemap. Set SITE_ORIGIN
+// to the live origin (e.g. https://31androoted.co.uk) at build time; without
+// it the tags fall back to relative paths and no sitemap is emitted.
+const siteOrigin = (process.env.SITE_ORIGIN ?? '').replace(/\/+$/, '');
+
+const ROUTES = ['/', '/contact', '/privacy'];
+
+function siteMetaPlugin() {
+  return {
+    name: 'site-meta',
+    transformIndexHtml(html: string) {
+      return html.split('%SITE_ORIGIN%').join(siteOrigin);
+    },
+    generateBundle(this: { emitFile: (f: { type: 'asset'; fileName: string; source: string }) => void }) {
+      const robots = [
+        'User-agent: *',
+        'Allow: /',
+        ...(siteOrigin ? ['', `Sitemap: ${siteOrigin}/sitemap.xml`] : []),
+        '',
+      ].join('\n');
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robots });
+
+      if (!siteOrigin) return;
+      const urls = ROUTES.map(
+        (route) => `  <url><loc>${siteOrigin}${route}</loc></url>`,
+      ).join('\n');
+      this.emitFile({
+        type: 'asset',
+        fileName: 'sitemap.xml',
+        source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+      });
+    },
+  };
+}
+
 const basePath = process.env.BASE_PATH;
 
 if (!basePath) {
@@ -33,6 +68,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),
+    siteMetaPlugin(),
     ...(process.env.NODE_ENV !== 'production' &&
     process.env.REPL_ID !== undefined
       ? [

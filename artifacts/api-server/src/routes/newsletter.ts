@@ -5,6 +5,7 @@ import {
   SubscribeToNewsletterResponse,
 } from "@workspace/api-zod";
 import { db, newsletterSubscribersTable } from "@workspace/db";
+import { notifyEnquiry } from "../lib/mailer";
 import { normalizeEmail, parseBody } from "../lib/validation";
 
 const router: IRouter = Router();
@@ -24,6 +25,11 @@ router.post("/newsletter", async (req, res) => {
     .returning({ id: newsletterSubscribersTable.id });
 
   if (inserted.length > 0) {
+    // Only for a genuinely new subscriber; repeats stay quiet.
+    void notifyEnquiry({
+      kind: "Newsletter sign-up",
+      fields: [["Email", email]],
+    });
     res.status(201).json(
       SubscribeToNewsletterResponse.parse({
         id: inserted[0].id,

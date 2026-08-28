@@ -166,6 +166,11 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
             A quiet space to notice, name, and hold what you are carrying — grounded in scripture, and open to what is
             simply true about being human. It is a companion for reflection, not clinical care or crisis support.
           </p>
+          <p className="mt-4 text-[14px] text-ink-subtle leading-relaxed">
+            Your reflection is not saved. It stays in this tab and is gone when you close it. What you write is sent to
+            our AI provider only to generate the reply &mdash;{' '}
+            <Link href="/privacy" className="underline underline-offset-2 hover:text-rust transition-colors">more in our privacy notice</Link>.
+          </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-line mt-12">
           {FRAMEWORKS.map((option) => (

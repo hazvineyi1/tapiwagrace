@@ -4,6 +4,7 @@ import { Link } from 'wouter';
 import { useSubscribeToNewsletter } from '@workspace/api-client-react';
 
 import { useSiteChrome } from '@/components/site-chrome';
+import { SocialLinks } from '@/components/social-links';
 import { CONTACT } from '@/lib/contact';
 import { errorMessage } from '@/lib/site-nav';
 
@@ -63,20 +64,26 @@ export function SiteFooter() {
                 <MoveRight size={16} strokeWidth={1.5} />
               </button>
             </form>
+            <p className="mt-5 text-[11px] leading-relaxed text-bg/60 max-w-md">
+              We will only use your address to send you occasional notes from 31 &amp; Rooted, and never pass it on.
+              Unsubscribe whenever you like. See our{' '}
+              <Link href="/privacy" className="underline underline-offset-2 hover:text-sand transition-colors">privacy notice</Link>.
+            </p>
           </div>
         </div>
 
         <div className="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-[10px] tracking-[0.2em] uppercase text-bg/50">
           <div className="flex flex-wrap gap-x-8 gap-y-4">
             <span>31 &amp; Rooted · 31 Sisters Daily</span>
-            <a href={`mailto:${CONTACT.email}`} className="hover:text-sand transition-colors">{CONTACT.email}</a>
-            <a href={CONTACT.phoneHref} className="hover:text-sand transition-colors">{CONTACT.phone}</a>
+            <a href={`mailto:${CONTACT.email}`} className="py-2 hover:text-sand transition-colors">{CONTACT.email}</a>
+            <a href={CONTACT.phoneHref} className="py-2 hover:text-sand transition-colors">{CONTACT.phone}</a>
           </div>
+
+          <SocialLinks variant="row" className="order-3 md:order-none text-bg/70" />
 
           <div className="flex flex-wrap gap-6">
             <Link href="/contact" className="py-2 hover:text-sand transition-colors" data-testid="link-footer-contact">Contact</Link>
-            <a href={CONTACT.tiktok.daily} target="_blank" rel="noreferrer" className="hover:text-sand transition-colors">TikTok Daily</a>
-            <a href={CONTACT.tiktok.rooted} target="_blank" rel="noreferrer" className="hover:text-sand transition-colors">TikTok Rooted</a>
+            <Link href="/privacy" className="py-2 hover:text-sand transition-colors" data-testid="link-footer-privacy">Privacy</Link>
             <button onClick={() => openBooking()} className="py-2 hover:text-sand transition-colors text-left" data-testid="button-footer-book">Book a space</button>
           </div>
         </div>
