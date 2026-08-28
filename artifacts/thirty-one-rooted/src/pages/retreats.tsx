@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Check, Minus, Play } from 'lucide-react';
 import { SiTiktok } from 'react-icons/si';
+import { Link } from 'wouter';
 
 import { FilmCard } from '@/components/film-card';
 import { useSiteChrome } from '@/components/site-chrome';
 import { activeSocials } from '@/lib/contact';
+import { BANK_TRANSFER, STRIPE_DEPOSIT_LINK } from '@/lib/payments';
 import {
   ACTIVITIES,
   ALT_TEXT,
@@ -256,6 +258,87 @@ export default function Retreats() {
               </ul>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* How to pay */}
+      <section id="how-to-pay" className="py-20 md:py-28 px-6 md:px-12 border-t border-line scroll-mt-28">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 gap-x-8 lg:gap-x-16">
+
+          <div className="min-w-0 md:col-span-5">
+            <span className={`${EYEBROW} mb-6 block`}>How to pay</span>
+            <h2 className="text-[2.2rem] md:text-[2.9rem] leading-[1.1] text-fg mb-6">
+              Nothing is taken until we have <em className="italic text-rust">confirmed a place.</em>
+            </h2>
+            <p className="text-[16px] text-ink-muted leading-relaxed mb-6 max-w-lg">
+              Enquiring costs nothing and commits you to nothing. We reply first with dates, the total, and whether
+              there is room — and only then is there anything to pay.
+            </p>
+            <p className="text-[15px] text-ink-subtle leading-relaxed max-w-lg">
+              Card payments are handled by our payment provider on their own secure page. We never see or store your
+              card details. The full position on deposits, balances and cancellation is in our{' '}
+              <Link href="/terms" className="underline underline-offset-2 hover:text-rust transition-colors">booking terms</Link>.
+            </p>
+          </div>
+
+          <div className="min-w-0 md:col-span-7">
+            <ol className="border-t border-line">
+              <li className="py-7 border-b border-line">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-ink-subtle block mb-2">Step one</span>
+                <h3 className="font-serif text-[1.4rem] text-fg mb-2">You enquire</h3>
+                <p className="text-[15px] leading-relaxed text-ink-muted">Nothing is charged, and no card details are asked for.</p>
+              </li>
+              <li className="py-7 border-b border-line">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-ink-subtle block mb-2">Step two</span>
+                <h3 className="font-serif text-[1.4rem] text-fg mb-2">We write back</h3>
+                <p className="text-[15px] leading-relaxed text-ink-muted">With the dates, the total, and confirmation that there is a place for you.</p>
+              </li>
+              <li className="py-7 border-b border-line">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-ink-subtle block mb-2">Step three</span>
+                <h3 className="font-serif text-[1.4rem] text-fg mb-2">{gbp(DEPOSIT_GBP)} secures it</h3>
+                <p className="text-[15px] leading-relaxed text-ink-muted mb-5">
+                  Once your place is confirmed, the deposit holds it. It is non-refundable, because the house is held
+                  from that moment.
+                </p>
+                {STRIPE_DEPOSIT_LINK ? (
+                  <a
+                    href={STRIPE_DEPOSIT_LINK}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-3 bg-moss text-bg px-7 py-4 text-[10px] tracking-[0.2em] uppercase hover:bg-fg transition-colors"
+                    data-testid="link-pay-deposit"
+                  >
+                    Pay the {gbp(DEPOSIT_GBP)} deposit <ArrowUpRight size={14} strokeWidth={1.5} />
+                  </a>
+                ) : (
+                  <p className="text-[15px] leading-relaxed text-ink-subtle" data-testid="deposit-link-pending">
+                    We send you a secure payment link once your place is confirmed.
+                  </p>
+                )}
+              </li>
+              <li className="py-7 border-b border-line">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-ink-subtle block mb-2">Step four</span>
+                <h3 className="font-serif text-[1.4rem] text-fg mb-2">The balance, eight weeks before</h3>
+                <p className="text-[15px] leading-relaxed text-ink-muted">
+                  Bank transfer is welcome and keeps more of what you pay in the retreat rather than in card fees. If
+                  paying in instalments would make this possible for you, ask — we would rather find a way.
+                </p>
+              </li>
+            </ol>
+
+            {BANK_TRANSFER && (
+              <div className="mt-10 p-7 bg-[#EFEBE2]" data-testid="bank-transfer-details">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-moss block mb-4">Bank transfer</span>
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-[15px]">
+                  <div><dt className="text-ink-subtle text-[13px]">Account name</dt><dd className="text-fg">{BANK_TRANSFER.accountName}</dd></div>
+                  <div><dt className="text-ink-subtle text-[13px]">Sort code</dt><dd className="text-fg">{BANK_TRANSFER.sortCode}</dd></div>
+                  <div><dt className="text-ink-subtle text-[13px]">Account number</dt><dd className="text-fg">{BANK_TRANSFER.accountNumber}</dd></div>
+                  <div><dt className="text-ink-subtle text-[13px]">Reference</dt><dd className="text-fg">{BANK_TRANSFER.reference}</dd></div>
+                </dl>
+              </div>
+            )}
+          </div>
+
         </div>
       </section>
 
