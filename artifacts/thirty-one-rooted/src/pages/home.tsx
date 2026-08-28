@@ -8,7 +8,7 @@ import { Link, useLocation } from 'wouter';
 import { consumePendingSection, scrollToSection } from '@/lib/site-nav';
 
 import sistersDailyBanner from '@assets/sisters-daily-terracotta.webp';
-import mealArt from '@assets/meal-line-art-tonal.png';
+import mealArt from '@assets/meal-line-art-tonal.webp';
 import founderPhotoSeated from '@assets/founder-portrait-seated.webp';
 import founderPhotoConversational from '@assets/founder-portrait-conversational.webp';
 import founderPhotoSmiling from '@assets/founder-portrait-smiling.webp';
@@ -106,10 +106,6 @@ export default function Home() {
             <div className={`founder-photo-composition ${aboutVisible ? 'is-visible' : ''}`}>
               <figure className="founder-photo founder-photo-primary">
                 <img src={founderPhotoSeated} alt="Tapiwanashe Grace Pereira, founder of 31 and Rooted" loading="lazy" decoding="async" />
-                <figcaption>
-                  <span>Tapiwanashe Grace Pereira</span>
-                  <span>Founder, 31 and Rooted</span>
-                </figcaption>
               </figure>
               <div className="founder-photo-support-row">
                 <figure className="founder-photo founder-photo-secondary">
@@ -119,6 +115,10 @@ export default function Home() {
                   <img src={founderPhotoSmiling} alt="Tapiwanashe Grace in a white top" loading="lazy" decoding="async" />
                 </figure>
               </div>
+            </div>
+            <div className="founder-photo-caption">
+              <span>Tapiwanashe Grace Pereira</span>
+              <span>Founder, 31 &amp; Rooted</span>
             </div>
           </div>
           <div className="min-w-0 md:col-span-7 order-1 md:order-2">
@@ -244,7 +244,6 @@ export default function Home() {
           <div className="meal-photo-composition" aria-label="Meal Packaging photography">
             <figure className="meal-photo meal-photo-primary">
               <img src={mealPhotoOne} alt="A nourishing prepared meal served with vegetables and potatoes" loading="lazy" decoding="async" />
-              <figcaption>Prepared with care</figcaption>
             </figure>
             <figure className="meal-photo meal-photo-secondary">
               <img src={mealPhotoTwo} alt="A nourishing fish meal served at a shared table" loading="lazy" decoding="async" />

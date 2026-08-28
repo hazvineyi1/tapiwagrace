@@ -8,3 +8,5 @@ Use the founder’s formal portrait as the main image and a more candid portrait
 **Why:** The prior founder image treatment was identified as weird and unprofessional. Photography should build trust and warmth without looking like a pasted-on collage.
 
 **How to apply:** Do not rotate images or add stickers, badges, line-art overlays, heavy frames, or busy decorative layers. Keep the visual hierarchy clear: one primary portrait, one supporting image, and restrained surrounding color.
+
+**Photography is shown clear.** No desaturating, contrast-reducing or sepia CSS filters on photographs, and no dark gradient washed over a portrait so an overlaid caption can pass contrast — put the caption below the photograph instead. The founder portraits also carry no perpetual scale animation: it resampled the image every frame and read as drift rather than polish.

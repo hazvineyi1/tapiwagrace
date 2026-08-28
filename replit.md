@@ -55,6 +55,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - **Social links live in one place.** `src/lib/contact.ts` holds `SOCIALS`; entries with a `null` url are skipped rather than rendered dead. Add a URL there and it appears in the footer and on the contact page at once.
 - **Reflection conversations are not persisted.** People say vulnerable things there; the endpoint is stateless and writes nothing. The conversation lives only in the browser tab.
 - **The reflection endpoint is rate limited** (30 per 15 minutes per IP, in memory). It spends real money on behalf of anonymous visitors. If the site is ever scaled past one instance, move this to a shared store.
+- **Photographs render true.** No `filter:` on a photograph — no saturate, contrast or sepia washes — and captions sit below images rather than on a dark scrim over them. If a caption must go over a photograph, measure it against the lightest pixel behind it.
 - **Display type is the serif.** `h1`/`h2` are Cormorant Garamond at weight 300 via a base rule; body and UI stay in DM Sans. Don't add `font-sans` to a heading.
 - **Secondary text is solid ink, never alpha.** `text-ink-muted` and `text-ink-subtle` are tokens chosen to clear WCAG AA on cream and on every tinted panel. See `.agents/memory/accessibility-and-palette.md`.
 
