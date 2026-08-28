@@ -5,7 +5,9 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 ## Run & Operate
 
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm --filter @workspace/thirty-one-rooted run dev` — run the website (needs `PORT` and `BASE_PATH`)
+- `pnpm --filter @workspace/thirty-one-rooted run dev` — run the website (dev server; proxies `/api` to the API)
+- `pnpm run build:deploy` — build exactly what ships: the site, then the API bundle
+- `pnpm run start` — run the production server: one process serving the built site and the API
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
@@ -21,7 +23,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
+- pnpm workspaces, Node.js 22+, TypeScript 5.9
 - Web: React 19 + Vite 7 + Tailwind v4 + wouter, TanStack Query
 - API: Express 5
 - AI: Anthropic SDK (`claude-opus-5`) for the reflection companion
@@ -62,12 +64,29 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 - **Social links live in one place.** `src/lib/contact.ts` holds `SOCIALS`; entries with a `null` url are skipped rather than rendered dead. Add a URL there and it appears in the footer and on the contact page at once.
 - **Reflection conversations are not persisted.** People say vulnerable things there; the endpoint is stateless and writes nothing. The conversation lives only in the browser tab.
 - **Every public endpoint is rate limited, in the database.** The site runs on autoscale, so an in-process counter would be per-instance and lost on each scale-to-zero. Buckets key on a salted SHA-256 of the caller's IP — the address itself is never stored, and rows are pruned after 24 hours. Forms allow 10 per hour, the reflection companion 30 per 15 minutes.
+- **One process serves both the site and the API.** `mountSite` in `artifacts/api-server/src/lib/static-site.ts` serves `artifacts/thirty-one-rooted/dist/public` after the `/api` routes. Same origin means no CORS in production, one deployment, one certificate, and response headers we control. An unknown `/api/*` path is always a JSON 404; anything else falls back to `index.html` for client-side routing.
+- **Security headers are set in code, in one place.** The site's Content-Security-Policy lives in `static-site.ts`, not in a `<meta>` tag, because `frame-ancestors` and `Strict-Transport-Security` are ignored in meta. The `/api` responses get their own, much tighter set. Don't add a second policy to the document head — two policies intersect, and they will drift.
 - **`app.set("trust proxy", 1)` is load-bearing.** Without it every request carries the platform router's IP and the rate limiter throttles all visitors as one. `1` trusts only the last hop so `X-Forwarded-For` cannot be spoofed past it.
 - **The forms carry a honeypot.** A filled `website` field means automation; the route answers as though it succeeded and stores nothing, because a 400 just tells the author to try again.
-- **Migrations, not push.** `scripts/post-merge.sh` runs `migrate`. Never wire `push` into automation — it reshapes the database to match the schema and can drop data.
+- **Migrations, not push.** The API runs `migrate` at startup, before it listens, inside a Postgres advisory lock so concurrent instances cannot race. A failed migration means the process exits and the health check fails, so a broken deploy never goes live. `scripts/post-merge.sh` runs the same thing locally after a merge. Never wire `push` into automation — it reshapes the database to match the schema and can drop data.
 - **Photographs render true.** No `filter:` on a photograph — no saturate, contrast or sepia washes — and captions sit below images rather than on a dark scrim over them. If a caption must go over a photograph, measure it against the lightest pixel behind it.
 - **Display type is the serif.** `h1`/`h2` are Cormorant Garamond at weight 300 via a base rule; body and UI stay in DM Sans. Don't add `font-sans` to a heading.
 - **Secondary text is solid ink, never alpha.** `text-ink-muted` and `text-ink-subtle` are tokens chosen to clear WCAG AA on cream and on every tinted panel. See `.agents/memory/accessibility-and-palette.md`.
+
+## Deployment
+
+Railway, from this repo. `railway.json` holds the whole configuration:
+
+- Build: `pnpm run build:deploy`
+- Start: `pnpm run start`
+- Health check: `/api/healthz`
+
+Add Railway's PostgreSQL plugin and `DATABASE_URL` is injected for you; nothing else is required to boot. Everything in **Run & Operate** above that is optional stays optional — the site comes up without an Anthropic key or SMTP, it just falls back to the scripted reflection and stops emailing enquiries.
+
+The domain is registered with GoDaddy. Add it to the Railway service, then create the DNS records Railway shows you, and 301 the apex to `www`.
+
+A healthy boot logs three lines, in this order: `Serving the built site`, `Database schema is up to date`, `Server listening`. If the first is missing the web build did not run; if the second is missing the database is unreachable and the process will have exited.
+
 
 ## Product
 
@@ -89,7 +108,7 @@ A digital home for **31&Rooted** — a Christ-centred community for women founde
 ## Gotchas
 
 - `lib/db/src/index.ts` throws at import time without `DATABASE_URL`, so the API server will not boot without a database.
-- `vite.config.ts` requires both `PORT` and `BASE_PATH` to be set, even for `build`.
+- The API serves the built site, so `pnpm run start` needs the web build to exist. `build:deploy` does both in the right order; the server logs a warning and runs API-only if the build is missing.
 - Generated files under `lib/api-zod/src/generated` and `lib/api-client-react/src/generated` are wiped and rewritten by codegen — edit `openapi.yaml` instead.
 - Orval emits Zod **v4** syntax (`zod.email()`, `zod.int()`). The catalog is pinned to zod v4 for this reason; downgrading breaks codegen output.
 - The companion's Anthropic call sends a synthetic first `user` message before the stored turns — the API requires the first message to be `user`, but the conversation opens with the guide speaking.

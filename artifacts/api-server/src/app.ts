@@ -8,6 +8,7 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import { mountSite } from "./lib/static-site";
 
 const app: Express = express();
 
@@ -20,9 +21,9 @@ app.set("trust proxy", 1);
 app.disable("x-powered-by");
 
 // This API answers with JSON and nothing else, so it can be locked down hard.
-// The static site is served by a different service and carries its own policy
-// in the document head.
-app.use((_req, res, next) => {
+// Scoped to /api: the site is served by this same process now, and these
+// values would break it.
+app.use("/api", (_req, res, next) => {
   // Never let a browser guess a JSON response is HTML and run it.
   res.setHeader("X-Content-Type-Options", "nosniff");
   // Nothing here should ever be framed.
@@ -89,6 +90,15 @@ app.use(express.json({ limit: "64kb" }));
 app.use(express.urlencoded({ extended: true, limit: "64kb" }));
 
 app.use("/api", router);
+
+// An unknown API path is a JSON 404, never the HTML shell.
+app.use("/api", (_req, res) => {
+  res.status(404).json({ error: "Not found" });
+});
+
+// The built site, same origin as the API above. Mounted last so it never
+// shadows a route. Falls through when the site has not been built.
+mountSite(app);
 
 app.use((_req, res) => {
   res.status(404).json({ error: "Not found" });
