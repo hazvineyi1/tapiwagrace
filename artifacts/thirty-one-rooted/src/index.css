@@ -416,6 +416,214 @@
     padding: clamp(1.75rem, 4.5vw, 3.5rem);
   }
 
+  /* The four ways in, as a contents page. One column at every width: the
+     titles are long and a two-up grid squashes them on a phone. */
+  .reflection-ways {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .reflection-ways li {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .reflection-way {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: clamp(1rem, 3vw, 2rem);
+    width: 100%;
+    max-width: 52rem;
+    padding: clamp(1.4rem, 3vw, 1.9rem) 0;
+    text-align: left;
+    background: none;
+    transition: padding-inline 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reflection-way:hover {
+    padding-inline: clamp(0.5rem, 1.5vw, 1rem);
+  }
+
+  .reflection-way-index {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--color-ink-subtle);
+  }
+
+  .reflection-way-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .reflection-way-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(1.4rem, 3vw, 1.75rem);
+    line-height: 1.2;
+    color: var(--color-fg);
+    transition: color 0.3s ease;
+  }
+
+  .reflection-way:hover .reflection-way-title {
+    color: var(--color-moss);
+  }
+
+  .reflection-way-blurb {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-ink-muted);
+  }
+
+  .reflection-way-mark {
+    font-size: 18px;
+    color: var(--color-sand);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  }
+
+  .reflection-way:hover .reflection-way-mark {
+    color: var(--color-moss);
+    transform: translateX(4px);
+  }
+
+  /* The exchange flows down the page rather than sitting in a fixed pane, so
+     there is never reserved emptiness under a single opening question. */
+  .reflection-exchange {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.25rem, 5vw, 3.25rem);
+  }
+
+  .reflection-turn {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 3vw, 1.75rem);
+    max-width: 46rem;
+    /* Clears the fixed header when a new prompt is scrolled into view. */
+    scroll-margin-top: 8rem;
+  }
+
+  /* The companion asks in the display face: it is the voice of the page, not a
+     message in a thread. */
+  .reflection-prompt {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(1.4rem, 3.4vw, 1.85rem);
+    line-height: 1.35;
+    letter-spacing: -0.006em;
+    color: var(--color-fg);
+  }
+
+  /* What the visitor wrote, set as a quoted passage rather than a chat bubble.
+     A dark right-aligned bubble is a messaging idiom and reads as somebody
+     else's app dropped into the middle of this one. */
+  .reflection-said {
+    max-width: 44rem;
+    padding-left: clamp(1.25rem, 3vw, 2rem);
+    border-left: 2px solid var(--color-sand);
+  }
+
+  .reflection-said-label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-ink-subtle);
+  }
+
+  .reflection-said p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-ink-muted);
+    white-space: pre-wrap;
+  }
+
+  .reflection-composer {
+    margin-top: clamp(2.25rem, 5vw, 3rem);
+    padding-top: clamp(1.75rem, 4vw, 2.25rem);
+    border-top: 1px solid var(--color-line);
+    max-width: 46rem;
+  }
+
+  .reflection-composer-label {
+    display: block;
+    margin-bottom: 0.9rem;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-ink-subtle);
+  }
+
+  /* A one-line input tells people to answer in a few words. These questions
+     deserve a paragraph, so the box starts at three lines and grows. */
+  .reflection-composer-field {
+    display: block;
+    width: 100%;
+    resize: none;
+    overflow-y: auto;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--color-line);
+    background: #FCFBF8;
+    font: inherit;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-fg);
+    transition: border-color 0.3s ease;
+  }
+
+  .reflection-composer-field::placeholder {
+    color: var(--color-ink-subtle);
+  }
+
+  .reflection-composer-field:focus {
+    outline: none;
+    border-color: var(--color-moss);
+  }
+
+  .reflection-composer-field:disabled {
+    opacity: 0.55;
+  }
+
+  .reflection-composer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.1rem;
+  }
+
+  .reflection-composer-hint {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-ink-subtle);
+  }
+
+  .reflection-composer-send {
+    padding: 1rem 2.25rem;
+    background: var(--color-fg);
+    color: var(--color-bg);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+  }
+
+  .reflection-composer-send:hover:not(:disabled) {
+    background: var(--color-moss);
+  }
+
+  .reflection-composer-send:disabled {
+    background: transparent;
+    color: var(--color-ink-subtle);
+    box-shadow: inset 0 0 0 1px var(--color-line);
+  }
+
   /* Scripture is set apart from the companion's own words, never blended in. */
   .scripture-anchor {
     margin: 0;
