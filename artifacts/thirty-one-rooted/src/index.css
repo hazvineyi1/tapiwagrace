@@ -423,7 +423,7 @@
     overflow: hidden;
     border: 1px solid var(--color-line);
     background: var(--color-bg);
-    padding: clamp(1.75rem, 4.5vw, 3.5rem);
+    padding: clamp(1.5rem, 3.5vw, 2.75rem);
   }
 
   /* Barely there on purpose: moss at 9% over cream is a suggestion rather than
@@ -508,13 +508,20 @@
      titles are long and a two-up grid squashes them on a phone. */
   .reflection-ways {
     list-style: none;
-    margin: 2.5rem 0 0;
+    margin: 2rem 0 0;
     padding: 0;
     border-top: 1px solid var(--color-line);
   }
 
   .reflection-ways li {
     border-bottom: 1px solid var(--color-line);
+  }
+
+  /* The footnote below carries its own top rule, and two hairlines a few
+     millimetres apart read as a mistake. Let the footnote's rule close the
+     list. */
+  .reflection-ways li:last-child {
+    border-bottom: 0;
   }
 
   .reflection-way {
@@ -524,7 +531,7 @@
     gap: clamp(1rem, 3vw, 2rem);
     width: 100%;
     max-width: 52rem;
-    padding: clamp(1.4rem, 3vw, 1.9rem) 0;
+    padding: clamp(0.9rem, 1.6vw, 1.15rem) 0;
     text-align: left;
     background: none;
     transition: padding-inline 0.35s cubic-bezier(0.16, 1, 0.3, 1);

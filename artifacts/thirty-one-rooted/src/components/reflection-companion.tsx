@@ -197,7 +197,7 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
       <div className="reflection-panel">
         <ReflectionSketch />
         <div className="max-w-2xl">
-          <h3 className="font-serif text-3xl md:text-4xl mb-5 text-fg">Guided Reflection</h3>
+          <h3 className="font-serif text-3xl md:text-4xl mb-4 text-fg">Guided Reflection</h3>
           <p className="text-[16px] text-ink-muted leading-relaxed">
             A quiet space to notice, name, and hold what you are carrying, grounded in scripture and open to what is
             simply true about being human. A short exchange: write as much or as little as you like.
@@ -228,7 +228,7 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
           ))}
         </ul>
 
-        <div className="mt-12 pt-8 border-t border-line flex flex-col gap-5 max-w-2xl">
+        <div className="mt-8 pt-6 border-t border-line flex flex-col gap-4 max-w-2xl">
           <p className="text-[14px] text-ink-subtle leading-relaxed">
             Nothing you write is saved. It stays in this tab and is gone when you close it. What you write is sent to our
             AI provider only to generate the reply. There is{' '}
