@@ -93,7 +93,7 @@ export default function Retreats() {
           </div>
           <div className="min-w-0 md:col-span-5">
             <figure className="retreat-hero-figure">
-              <img src={retreatPool} alt="The retreat house and pool in the morning sun" loading="eager" decoding="async" />
+              <img src={retreatPool} width={1500} height={2000} alt="The retreat house and pool in the morning sun" loading="eager" decoding="async" />
             </figure>
           </div>
         </div>
@@ -129,10 +129,10 @@ export default function Retreats() {
           <div className="min-w-0 md:col-span-7">
             <div className="retreat-gallery">
               <figure className="retreat-gallery-wide">
-                <img src={retreatTea} alt="The long mosaic table set for tea under a reed canopy" loading="lazy" decoding="async" />
+                <img src={retreatTea} width={1500} height={2000} alt="The long mosaic table set for tea under a reed canopy" loading="lazy" decoding="async" />
               </figure>
               <figure>
-                <img src={retreatLounge} alt="The indoor sitting room, laid out with towels and rose petals" loading="lazy" decoding="async" />
+                <img src={retreatLounge} width={1500} height={2000} alt="The indoor sitting room, laid out with towels and rose petals" loading="lazy" decoding="async" />
               </figure>
             </div>
           </div>

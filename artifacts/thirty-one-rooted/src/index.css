@@ -144,6 +144,14 @@
     outline: none;
   }
 
+  /* The header is fixed and 96px tall, so anything scrolled to by id would
+     otherwise land underneath it. Every scroll target keeps that much clear,
+     plus a little air. */
+  section[id],
+  [id]:target {
+    scroll-margin-top: 7.5rem;
+  }
+
   input:-webkit-autofill,
   input:-webkit-autofill:hover, 
   input:-webkit-autofill:focus, 

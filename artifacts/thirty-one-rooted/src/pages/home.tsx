@@ -95,7 +95,7 @@ export default function Home() {
       {/* Big Artwork */}
       <section className="px-6 md:px-12 pb-32 max-w-7xl mx-auto">
         <div className="artwork-collage w-full">
-          <img src={sistersDailyBanner} alt="31 Sisters Daily" className="sisters-daily-banner" />
+          <img src={sistersDailyBanner} width={1200} height={1200} alt="31 Sisters Daily" className="sisters-daily-banner" />
         </div>
       </section>
 
@@ -188,13 +188,13 @@ export default function Home() {
             </Link>
             <div className="retreat-photo-grid" aria-label="Retreat setting photography">
               <figure className="retreat-photo retreat-photo-pool">
-                <img src={retreatPool} alt="The retreat house beside the pool" loading="lazy" decoding="async" />
+                <img src={retreatPool} width={1500} height={2000} alt="The retreat house beside the pool" loading="lazy" decoding="async" />
               </figure>
               <figure className="retreat-photo retreat-photo-tea">
-                <img src={retreatTea} alt="An outdoor table set for tea at the retreat" loading="lazy" decoding="async" />
+                <img src={retreatTea} width={1500} height={2000} alt="An outdoor table set for tea at the retreat" loading="lazy" decoding="async" />
               </figure>
               <figure className="retreat-photo retreat-photo-lounge">
-                <img src={retreatLounge} alt="A welcoming sitting area at the retreat" loading="lazy" decoding="async" />
+                <img src={retreatLounge} width={1500} height={2000} alt="A welcoming sitting area at the retreat" loading="lazy" decoding="async" />
               </figure>
             </div>
           </div>
@@ -243,10 +243,10 @@ export default function Home() {
         <div className="min-w-0 md:col-span-5 order-2 md:order-1 flex justify-center">
           <div className="meal-photo-composition" aria-label="Meal Packaging photography">
             <figure className="meal-photo meal-photo-primary">
-              <img src={mealPhotoOne} alt="A nourishing prepared meal served with vegetables and potatoes" loading="lazy" decoding="async" />
+              <img src={mealPhotoOne} width={900} height={1125} alt="A nourishing prepared meal served with vegetables and potatoes" loading="lazy" decoding="async" />
             </figure>
             <figure className="meal-photo meal-photo-secondary">
-              <img src={mealPhotoTwo} alt="A nourishing fish meal served at a shared table" loading="lazy" decoding="async" />
+              <img src={mealPhotoTwo} width={900} height={1125} alt="A nourishing fish meal served at a shared table" loading="lazy" decoding="async" />
             </figure>
             <div className="meal-photo-mark" aria-hidden="true">
               <span>31</span>
