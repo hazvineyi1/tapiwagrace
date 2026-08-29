@@ -3,6 +3,7 @@ import { RotateCcw } from 'lucide-react';
 import { Link } from 'wouter';
 import { createReflection, type ReflectionReply, type ReflectionTurn } from '@workspace/api-client-react';
 
+import { ReflectionSketch } from '@/components/reflection-sketch';
 import { CONTACT } from '@/lib/contact';
 
 type FrameworkId = 'reframing' | 'breakthrough' | 'calling' | 'open';
@@ -194,6 +195,7 @@ export function ReflectionCompanion({ openBooking }: { openBooking: (service: st
   if (!framework) {
     return (
       <div className="reflection-panel">
+        <ReflectionSketch />
         <div className="max-w-2xl">
           <h3 className="font-serif text-3xl md:text-4xl mb-5 text-fg">Guided Reflection</h3>
           <p className="text-[16px] text-ink-muted leading-relaxed">
