@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 import { CreateReflectionBody } from "@workspace/api-zod";
 
 import {
+  isAuthFailure,
   isCompanionConfigured,
   reflect,
   type Framework,
@@ -25,10 +26,25 @@ router.post("/reflection", async (req, res) => {
   const body = parseBody(CreateReflectionBody, req.body, res);
   if (!body) return;
 
-  const reflection = await reflect({
-    framework: body.framework as Framework,
-    turns: body.turns,
-  });
+  let reflection;
+  try {
+    reflection = await reflect({
+      framework: body.framework as Framework,
+      turns: body.turns,
+    });
+  } catch (cause) {
+    // A rejected key is a configuration fault, not a passing glitch. Answer
+    // 503 like an unset key so the page runs the scripted reflection instead
+    // of showing a visitor an error we caused.
+    if (isAuthFailure(cause)) {
+      req.log.error({ err: cause }, "ANTHROPIC_API_KEY rejected by the API");
+      res.status(503).json({
+        error: "The reflection companion is not available right now.",
+      });
+      return;
+    }
+    throw cause;
+  }
 
   // The contract leaves these out rather than sending nulls.
   res.json({
