@@ -77,7 +77,7 @@ export default function Contact() {
             Say what you need.<br /><em className="italic text-rust">We will meet you there.</em>
           </h1>
           <p className="text-[16px] text-ink-muted leading-relaxed">
-            Whether it is a retreat, a conversation, meal support, or a question you have not quite worded yet — write to us here and we will reply by email.
+            Whether it is a retreat, a conversation, meal support, or a question you have not quite worded yet, write to us here and we will reply by email.
           </p>
         </div>
 

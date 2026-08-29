@@ -108,7 +108,7 @@ export default function Retreats() {
               Somewhere quiet enough to <em className="italic text-rust">hear yourself.</em>
             </h2>
             <p className="text-[16px] text-ink-muted leading-relaxed mb-5">
-              We take over a whole house — thick earth walls, shaded terraces, a pool, and a garden that keeps the noise
+              We take over a whole house: thick earth walls, shaded terraces, a pool, and a garden that keeps the noise
               of everything else out. Meals happen at one long mosaic table under a reed canopy, and the mint tea does
               not stop.
             </p>
@@ -123,7 +123,7 @@ export default function Retreats() {
             <p className="text-[16px] text-ink-muted leading-relaxed">
               {NEXT_RETREAT
                 ? `The next is ${NEXT_RETREAT.place}, ${NEXT_RETREAT.year}. You will have the address and full travel notes as soon as you book.`
-                : 'We choose the house for each retreat, so the destination is confirmed along with the dates — together with travel notes and the flights to look for.'}
+                : 'We choose the house for each retreat, so the destination is confirmed along with the dates, together with travel notes and the flights to look for.'}
             </p>
           </div>
           <div className="min-w-0 md:col-span-7">
@@ -277,7 +277,7 @@ export default function Retreats() {
             </h2>
             <p className="text-[16px] text-ink-muted leading-relaxed mb-6 max-w-lg">
               Enquiring costs nothing and commits you to nothing. We reply first with dates, the total, and whether
-              there is room — and only then is there anything to pay.
+              there is room. Only then is there anything to pay.
             </p>
             <p className="text-[15px] text-ink-subtle leading-relaxed max-w-lg">
               Card payments are handled by our payment provider on their own secure page. We never see or store your
@@ -326,7 +326,7 @@ export default function Retreats() {
                 <h3 className="font-serif text-[1.4rem] text-fg mb-2">The balance, eight weeks before</h3>
                 <p className="text-[15px] leading-relaxed text-ink-muted">
                   Bank transfer is welcome and keeps more of what you pay in the retreat rather than in card fees. If
-                  paying in instalments would make this possible for you, ask — we would rather find a way.
+                  paying in instalments would make this possible for you, ask. We would rather find a way.
                 </p>
               </li>
             </ol>

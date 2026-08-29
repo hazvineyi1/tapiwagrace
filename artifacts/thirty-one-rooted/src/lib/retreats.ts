@@ -90,11 +90,11 @@ export const RETREATS: Retreat[] = [
     singleGbp: 1950,
     summary:
       'The fuller work. A smaller group, more space between sessions, and time for something to genuinely shift rather than just soften.',
-    forWhom: 'For a season of real transition — a decision, a loss, a calling you have been circling for a while.',
+    forWhom: 'For a season of real transition: a decision, a loss, a calling you have been circling for a while.',
     highlights: [
       'The full formation series across the week',
       'A one-to-one conversation with Tapiwanashe Grace',
-      'A day away from the house — market, garden and hammam',
+      'A day away from the house: market, garden and hammam',
       'All meals, transfers, and the printed workbooks',
     ],
   },
@@ -149,7 +149,7 @@ export const INCLUDED = [
 ];
 
 export const NOT_INCLUDED = [
-  'Flights — you book your own, and we advise on the best arrival window',
+  'Flights, which you book yourself, with our advice on the best arrival window',
   'Travel insurance, which we ask every guest to hold',
   'Optional treatments such as hammam and massage',
   'Anything you buy for yourself while you are there',
@@ -186,7 +186,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: 'How does payment work?',
-    a: `A £${DEPOSIT_GBP} deposit secures your place, with the balance due eight weeks before departure. If instalments would make it possible, ask — we would rather find a way than lose you.`,
+    a: `A £${DEPOSIT_GBP} deposit secures your place, with the balance due eight weeks before departure. If instalments would make it possible, ask. We would rather find a way than lose you.`,
   },
   {
     q: 'What about visas and entry requirements?',

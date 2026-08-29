@@ -92,7 +92,7 @@ export async function notifyEnquiry(enquiry: Enquiry): Promise<void> {
       from: process.env["ENQUIRY_FROM"] ?? TO(),
       // Replying in the mail client should reach the person who wrote in.
       replyTo: enquiry.fields.find(([k]) => k.toLowerCase() === "email")?.[1],
-      subject: `31 & Rooted — new ${enquiry.kind.toLowerCase()}`,
+      subject: `31 & Rooted: new ${enquiry.kind.toLowerCase()}`,
       text: textBody(enquiry),
       html: htmlBody(enquiry),
     });

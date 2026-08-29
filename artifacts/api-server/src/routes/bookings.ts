@@ -51,8 +51,8 @@ router.post("/bookings", async (req, res) => {
       ["Name", body.name.trim()],
       ["Email", normalizeEmail(body.email)],
       ["Preferred date", body.preferredDate ?? "Flexible"],
-      ["Preferred time", body.preferredTime ?? "—"],
-      ["Message", body.message?.trim() || "—"],
+      ["Preferred time", body.preferredTime ?? "Not given"],
+      ["Message", body.message?.trim() || "Not given"],
     ],
   });
 

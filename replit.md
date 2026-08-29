@@ -101,6 +101,7 @@ A healthy boot logs three lines, in this order: `Serving the built site`, `Datab
 ## User preferences
 
 - The site must be **clean, minimal, functional and appealing**. Extend the existing editorial theme rather than redesigning it.
+- **No em dashes in anything a visitor reads.** Use a comma, a colon, or a full stop, whichever the sentence actually wants. This covers page copy, the content in `src/lib/`, meta and alt text, and the enquiry emails. The reflection companion's system prompt carries the same rule, and is itself written without them, because the model mirrors the punctuation it is given.
 - WhatsApp is **not** a priority as a contact channel — the contact page and booking flow are.
 - Never invent a per-meal price for the meal programme, or a retreat price. See `.agents/memory/meal-program-positioning.md`.
 - Photography direction is settled; see `.agents/memory/founder-portrait-treatment.md` and `line-art-direction.md`. No rotation, stickers, badges or busy collage.

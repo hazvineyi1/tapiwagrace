@@ -111,7 +111,7 @@ export function BookingModal({
                 <label className="block">
                   <span className="text-[10px] tracking-[0.2em] uppercase text-ink-muted block mb-4">{isMeal ? 'Preferred delivery date' : 'Preferred date'}</span>
                   <input type="date" value={date} min={todayIso()} onChange={(event) => setDate(event.target.value)} className="w-full bg-transparent border-0 border-b border-line py-4 text-xl font-serif text-fg focus:ring-0 focus:border-moss transition-colors" data-testid="input-booking-date" />
-                  <span className="mt-3 block text-[13px] text-ink-subtle leading-relaxed">Dates are confirmed by reply — leave this blank if you are flexible.</span>
+                  <span className="mt-3 block text-[13px] text-ink-subtle leading-relaxed">Dates are confirmed by reply. Leave this blank if you are flexible.</span>
                 </label>
 
                 <div className="block mt-8">
@@ -162,7 +162,7 @@ export function BookingModal({
 
             {step === 3 && (
               <p className="mt-10 text-[13px] leading-relaxed text-ink-subtle">
-                Sending this is an enquiry, not a confirmed booking — we reply first. When you do book, our{' '}
+                Sending this is an enquiry, not a confirmed booking. We reply first. When you do book, our{' '}
                 <a href="/terms" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-rust transition-colors">booking terms</a>{' '}
                 apply.
               </p>

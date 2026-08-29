@@ -40,7 +40,7 @@ router.post("/contact", async (req, res) => {
     fields: [
       ["Name", body.name.trim()],
       ["Email", normalizeEmail(body.email)],
-      ["Subject", body.subject?.trim() || "—"],
+      ["Subject", body.subject?.trim() || "Not given"],
       ["Message", body.message.trim()],
     ],
   });

@@ -49,7 +49,7 @@ const SECTIONS: { heading: string; body: string[] }[] = [
     heading: 'If we have to cancel or change something',
     body: [
       'If we cancel a retreat for any reason other than your own conduct, you choose: a full refund of everything you have paid us, including the deposit, or a place on the next retreat.',
-      'We cannot refund what you have spent elsewhere — flights above all — which is why we ask every guest to hold travel insurance before booking anything.',
+      'We cannot refund what you have spent elsewhere, flights above all, which is why we ask every guest to hold travel insurance before booking anything.',
       'Small changes happen: a session moves, an excursion is swapped, a room is reallocated. We will tell you. If we have to make a significant change to the dates or the destination before you travel, you may cancel and take a full refund instead.',
     ],
   },
